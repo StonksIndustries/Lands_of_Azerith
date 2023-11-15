@@ -1,2 +1,3 @@
-# Lands_of_Azerith
-Lands_of_Azerith main repo
+# Lands of Azerith
+
+Lands of Azerith game repo
