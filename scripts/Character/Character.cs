@@ -1,11 +1,9 @@
-using Godot;
-
-namespace LandsofAzerith.scripts;
+namespace LandsofAzerith.scripts.Character;
 
 public class Character
 {
     public long HealthPoints { get; private set; }
-    private Character? Aggro = null;
+    private Character? _aggro = null;
 
     public Character()
     {
