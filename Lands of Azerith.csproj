@@ -7,4 +7,7 @@
     <RootNamespace>LandsofAzerith</RootNamespace>
     <Nullable>enable</Nullable>
   </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="scripts\character\player\" />
+  </ItemGroup>
 </Project>
