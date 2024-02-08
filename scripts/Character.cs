@@ -1,6 +1,6 @@
 using Godot;
 
-namespace LandsofAzerith.scripts;
+namespace LandsOfAzerith.scripts;
 
 public abstract class Character : CharacterBody2D
 {

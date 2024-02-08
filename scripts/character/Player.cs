@@ -1,6 +1,6 @@
 using Godot;
 
-namespace LandsofAzerith.scripts.character;
+namespace LandsOfAzerith.scripts.character;
 
 public class Player : Character
 {
