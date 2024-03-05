@@ -1,6 +1,6 @@
 namespace LandsOfAzerith.scripts.item;
 
-public interface IDurabilty
+public interface IDurable
 {
     public ulong Durability { get; protected set; }
     public ulong MaxDurability { get; }

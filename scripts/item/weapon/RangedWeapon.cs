@@ -1,7 +1,5 @@
 namespace LandsOfAzerith.scripts.item.weapon;
 
-public abstract class RangedWeapon : Item, IWeapon
+public abstract class RangedWeapon : Weapon
 {
-    public abstract ulong Damage { get; }
-    public abstract ulong Range { get; }
 }
