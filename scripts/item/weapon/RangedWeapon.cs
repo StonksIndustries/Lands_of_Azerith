@@ -1,4 +1,4 @@
-namespace LandsofAzerith.scripts.item.weapon;
+namespace LandsOfAzerith.scripts.item.weapon;
 
 public abstract class RangedWeapon : Item, IWeapon
 {

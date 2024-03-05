@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace LandsofAzerith.scripts.character.mob.human;
+namespace LandsOfAzerith.scripts.character.mob.human;
 
 public class Mercenary : Mob
 {

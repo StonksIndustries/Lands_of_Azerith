@@ -1,4 +1,4 @@
-namespace LandsofAzerith.scripts.character;
+namespace LandsOfAzerith.scripts.character;
 
 public abstract class Character
 {

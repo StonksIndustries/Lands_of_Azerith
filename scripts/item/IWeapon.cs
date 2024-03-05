@@ -1,4 +1,4 @@
-namespace LandsofAzerith.scripts.item;
+namespace LandsOfAzerith.scripts.item;
 
 public interface IWeapon
 {

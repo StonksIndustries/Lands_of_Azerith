@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace LandsofAzerith.scripts.character.mob;
+namespace LandsOfAzerith.scripts.character.mob;
 
 public abstract class Mob : Character
 {

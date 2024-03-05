@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace LandsofAzerith.scripts.item;
+namespace LandsOfAzerith.scripts.item;
 
 public abstract class Item
 {

@@ -1,4 +1,4 @@
-namespace LandsofAzerith.scripts;
+namespace LandsOfAzerith.scripts;
 
 public enum Zones
 {

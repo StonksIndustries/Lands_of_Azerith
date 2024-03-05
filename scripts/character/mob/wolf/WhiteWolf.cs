@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace LandsofAzerith.scripts.character.mob.wolf;
+namespace LandsOfAzerith.scripts.character.mob.wolf;
 
 public class WhiteWolf : Mob
 {
