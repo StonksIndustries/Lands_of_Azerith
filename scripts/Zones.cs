@@ -23,4 +23,5 @@ public enum Zones
     TheWorldsPillar = 0xf2c30c,
     ShellShores = 0xfbeb74,
     AncientCity,
+    
 }
