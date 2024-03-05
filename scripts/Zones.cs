@@ -22,4 +22,5 @@ public enum Zones
     BottomlessPit = 0x6a3d90,
     TheWorldsPillar = 0xf2c30c,
     ShellShores = 0xfbeb74,
+    AncientCity,
 }

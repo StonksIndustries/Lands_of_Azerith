@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace LandsofAzerith.scripts.character.mob.wolf;
 
-public class Wolf : Mob, IWolf
+public class Wolf : Mob
 {
     public override ulong HealthPoints => 200;
     public override List<Mob> Preys => new List<Mob>();
