@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cdalp2rrcny3"
-path="res://.godot/imported/Rad_Soil_Tiles.png-04ab128f5f4946dc931aef1949a374d3.ctex"
+path="res://.godot/imported/Rad_Soil_Tiles.png-d3550d2b83aeb273c115ebd1b17c2fe1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Texture/Rad_Soil_Tiles.png"
-dest_files=["res://.godot/imported/Rad_Soil_Tiles.png-04ab128f5f4946dc931aef1949a374d3.ctex"]
+source_file="res://assets/Rad_Soil_Tiles.png"
+dest_files=["res://.godot/imported/Rad_Soil_Tiles.png-d3550d2b83aeb273c115ebd1b17c2fe1.ctex"]
 
 [params]
 

@@ -1,7 +1,10 @@
-[gd_scene load_steps=40 format=3 uid="uid://ctd5penm5cdau"]
+[gd_scene load_steps=41 format=3 uid="uid://ctd5penm5cdau"]
 
-[ext_resource type="Script" path="res://Script/player.cs" id="1_1xoa4"]
+[ext_resource type="Script" path="res://scripts/player.cs" id="1_1xoa4"]
 [ext_resource type="Texture2D" uid="uid://dcda1bigyuyel" path="res://characters/player.png" id="2_pv04o"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7oo58"]
+size = Vector2(13, 21)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_oo02e"]
 atlas = ExtResource("2_pv04o")
@@ -292,9 +295,10 @@ animations = [{
 script = ExtResource("1_1xoa4")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, 6.5)
+shape = SubResource("RectangleShape2D_7oo58")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(1, 0)
+texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_vus52")
 animation = &"front_walk"
-frame_progress = 0.420076
