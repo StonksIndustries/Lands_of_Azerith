@@ -6,6 +6,11 @@ namespace LandsOfAzerith.scripts;
 public partial class GameManager : Node
 {
     public static List<PlayerInfo> Players = new List<PlayerInfo>();
+    
+    public static bool ContainId(long id)
+    {
+        return Players.Exists(i => i.Id == id);
+    }
     public override void _Ready()
     {
     }

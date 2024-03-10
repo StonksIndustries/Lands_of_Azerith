@@ -32,7 +32,7 @@ texture = ExtResource("2_px8pq")
 sources/0 = SubResource("TileSetAtlasSource_mx6ek")
 sources/1 = SubResource("TileSetAtlasSource_op51n")
 
-[node name="World" type="Node2D"]
+[node name="World" type="Node2D" groups=["World"]]
 script = ExtResource("1_g5hgp")
 
 [node name="TileMap" type="TileMap" parent="."]

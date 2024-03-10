@@ -10,6 +10,16 @@ public partial class SceneManager : Node2D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		InstantiatePlayers();
+	}
+
+	// Called every frame. 'delta' is the elapsed time since the previous frame.
+	public override void _Process(double delta)
+	{
+	}
+
+	private void InstantiatePlayers()
+	{
 		foreach (var item in GameManager.Players)
 		{
 			Player currentPlayer = _playerScene.Instantiate<Player>();
@@ -18,10 +28,5 @@ public partial class SceneManager : Node2D
 			Node2D spawnPoint = GetNode<Node2D>("SpawnPoint");
 			currentPlayer.GlobalPosition = spawnPoint.GlobalPosition;
 		}
-	}
-
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
 	}
 }

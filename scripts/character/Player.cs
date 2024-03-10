@@ -20,7 +20,7 @@ public partial class Player : Character
 	{
 		Direction = Directions.None;
 		ScreenSize = GetViewportRect().Size;
-		GetNode<MultiplayerSynchronizer>("MultiplayerSynchronizer").SetMultiplayerAuthority(int.Parse(Name));
+		GetNode<MultiplayerSynchronizer>("MultiplayerSynchronizer").SetMultiplayerAuthority(Toolbox.ToInt(Name));
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

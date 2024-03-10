@@ -305,7 +305,7 @@ properties/3/path = NodePath("AnimatedSprite2D:animation")
 properties/3/spawn = true
 properties/3/replication_mode = 1
 
-[node name="Player" type="Area2D"]
+[node name="Player" type="Area2D" groups=["Player"]]
 script = ExtResource("1_5ds04")
 metadata/_edit_group_ = true
 

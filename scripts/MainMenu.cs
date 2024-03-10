@@ -1,6 +1,8 @@
 using Godot;
 using System;
 using LandsOfAzerith.scripts;
+using System.Linq;
+using LandsOfAzerith.scripts.character;
 
 public partial class MainMenu : Control
 {
@@ -9,7 +11,7 @@ public partial class MainMenu : Control
 
 	[Export]
 	private string _address = "127.0.0.1";
-	
+
 	private ENetMultiplayerPeer _peer = new ENetMultiplayerPeer();
 	
 	// Called when the node enters the scene tree for the first time.
@@ -32,7 +34,7 @@ public partial class MainMenu : Control
 	/// <param name="id">ID of the player that connected</param>
 	public void PeerConnected(long id)
 	{
-		GD.Print("Player " + id + " connected!");	
+		GD.Print("Player " + id + " connected");
 	}
 
 	/// <summary>
@@ -42,6 +44,15 @@ public partial class MainMenu : Control
 	private void PeerDisconnected(long id)
 	{
 		GD.Print("Player " + id + " disconnected!");
+		GameManager.Players.Remove(GameManager.Players.Where(i => i.Id == id).First<PlayerInfo>());
+		var players = GetTree().GetNodesInGroup("Player");
+		foreach (var item in players)
+		{
+			if (item.Name == id.ToString())
+			{
+				item.QueueFree();
+			}
+		}
 	}
 
 	/// <summary>
@@ -93,13 +104,18 @@ public partial class MainMenu : Control
 	[Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
 	private void StartGame()
 	{
-		foreach (var item in GameManager.Players)
+		if (GetTree().HasGroup("World"))
 		{
-			GD.Print(item.Name + " is playing!");
+			return;
 		}
 		var scene = ResourceLoader.Load<PackedScene>("res://scenes/world.tscn").Instantiate<Node2D>();
-        GetTree().Root.AddChild(scene);
-        this.Hide();
+		GetTree().Root.AddChild(scene);
+		this.Hide();
+		var manager = GameManager.Players;
+		foreach (var item in GameManager.Players)
+		{
+			GD.Print(item.Id + " is playing!");
+		}
 	}
 
 	[Rpc(MultiplayerApi.RpcMode.AnyPeer)]
@@ -110,7 +126,7 @@ public partial class MainMenu : Control
 			Name = name,
 			Id = id
 		};
-		if (!GameManager.Players.Contains(playerInfo))
+		if (!GameManager.ContainId(playerInfo.Id))
 		{
 			GameManager.Players.Add(playerInfo);
 		}
