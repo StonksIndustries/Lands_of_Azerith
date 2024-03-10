@@ -4,15 +4,13 @@
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -58.0
-offset_top = -182.0
-offset_right = -58.0
-offset_bottom = -182.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_30b2k")
+metadata/_edit_lock_ = true
 
 [node name="Join" type="Button" parent="."]
 layout_mode = 0
@@ -23,13 +21,15 @@ offset_bottom = 316.0
 text = "Join"
 
 [node name="Start" type="Button" parent="."]
-offset_left = 533.0
-offset_top = 245.0
-offset_right = 667.0
-offset_bottom = 320.0
+layout_mode = 0
+offset_left = 547.0
+offset_top = 243.0
+offset_right = 681.0
+offset_bottom = 318.0
 text = "Start"
 
 [node name="Host" type="Button" parent="."]
+layout_mode = 0
 offset_left = 353.0
 offset_top = 244.0
 offset_right = 487.0

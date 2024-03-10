@@ -119,7 +119,7 @@ public partial class MainMenu : Control
 		{
 			foreach (var item in GameManager.Players)
 			{
-				Rpc("SendPlayerData", name, id);
+				Rpc("SendPlayerData", item.Name, item.Id);
 			}
 		}
 	}

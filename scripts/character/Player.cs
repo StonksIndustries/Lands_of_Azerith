@@ -20,12 +20,14 @@ public partial class Player : Character
 	{
 		Direction = Directions.None;
 		ScreenSize = GetViewportRect().Size;
+		GetNode<MultiplayerSynchronizer>("MultiplayerSynchronizer").SetMultiplayerAuthority(int.Parse(Name));
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		Move(delta);
+		if (GetNode<MultiplayerSynchronizer>("MultiplayerSynchronizer").GetMultiplayerAuthority() == Multiplayer.GetUniqueId())
+			Move(delta);
 	}
 
 	private void _on_body_entered(Node2D body)
