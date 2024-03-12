@@ -8,12 +8,12 @@ public partial class Player : Character
 	public delegate void HitEventHandler();
 	
 	[Export]
-	public int Speed { get; set; } = 100; // How fast the player will move (pixels/sec).
+	public override ulong Speed { get; set; } = 100; // How fast the player will move (pixels/sec).
 	public override ulong HealthPoints { get; protected set; }
 	public override ulong MaxHealthPoints => 100;
-	protected override Character? Aggro { get; set; }
+	protected override Player? Aggro { get; set; }
 	private Directions Direction { get; set; }
-	public Vector2 ScreenSize; // Size of the game window.
+	public static Vector2 ScreenSize; // Size of the game window.
 	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -54,28 +54,28 @@ public partial class Player : Character
 		{
 			animation.FlipH = false;
 			animation.Play("walk_up");
-			velocity.Y -= Speed;
+			velocity.Y -= 1;
 			Direction = Directions.Up;
 		}
 		if (Input.IsActionPressed("move_down"))
 		{
 			animation.FlipH = false;
 			animation.Play("walk_down");
-			velocity.Y += Speed;
+			velocity.Y += 1;
 			Direction = Directions.Down;
 		}
 		if (Input.IsActionPressed("move_left"))
 		{
 			animation.FlipH = true;
 			animation.Play("walk_side");
-			velocity.X -= Speed;
+			velocity.X -= 1;
 			Direction = Directions.Left;
 		}
 		if (Input.IsActionPressed("move_right"))
 		{
 			animation.FlipH = false;
 			animation.Play("walk_side");
-			velocity.X += Speed;
+			velocity.X += 1;
 			Direction = Directions.Right;
 		}
 		if (velocity == Vector2.Zero)
@@ -93,6 +93,7 @@ public partial class Player : Character
 					break;
 			}
 		}
+		velocity = velocity.Normalized() * Speed;
 		if (Input.IsActionPressed("sprint"))
 		{
 			animation.SpeedScale = 2;

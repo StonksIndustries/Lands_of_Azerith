@@ -6,7 +6,8 @@ public abstract partial class Character : Area2D
 {
     public abstract ulong HealthPoints { get; protected set; }
     public abstract ulong MaxHealthPoints { get; }
-    protected abstract Character? Aggro { get; set; }
+    public abstract ulong Speed { get; set; }
+    protected abstract Player? Aggro { get; set; }
     
     public void TakeDamage(ulong damage)
     {
@@ -30,10 +31,5 @@ public abstract partial class Character : Area2D
         {
             HealthPoints += heal;
         }
-    }
-    
-    public void SetAggro(Character? character)
-    {
-        Aggro = character;
     }
 }

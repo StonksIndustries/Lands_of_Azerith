@@ -307,14 +307,14 @@ properties/3/replication_mode = 1
 
 [node name="Player" type="Area2D" groups=["Player"]]
 script = ExtResource("1_5ds04")
-metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -19)
 sprite_frames = SubResource("SpriteFrames_6pmdw")
 animation = &"idle_down"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0.5, 8.5)
+position = Vector2(0.5, -10.5)
 shape = SubResource("RectangleShape2D_jajb6")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]

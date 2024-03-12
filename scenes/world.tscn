@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://bxv28151d4vbm"]
+[gd_scene load_steps=8 format=3 uid="uid://bxv28151d4vbm"]
 
 [ext_resource type="Texture2D" uid="uid://cn43bbob8kiw3" path="res://assets/Grass_tiles.png" id="1_7ksb1"]
 [ext_resource type="Script" path="res://scripts/SceneManager.cs" id="1_g5hgp"]
 [ext_resource type="Texture2D" uid="uid://tltvndnchxae" path="res://assets/Path_tiles.png" id="2_px8pq"]
+[ext_resource type="PackedScene" uid="uid://bb56pfvbsm56r" path="res://scenes/aggressive_mob.tscn" id="4_phm20"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_mx6ek"]
 texture = ExtResource("1_7ksb1")
@@ -42,3 +43,6 @@ layer_0/tile_data = PackedInt32Array(0, 65536, 1, 65536, 65536, 2, 131072, 65536
 
 [node name="SpawnPoint" type="Node2D" parent="."]
 position = Vector2(500, 300)
+
+[node name="AggressiveMob" parent="." instance=ExtResource("4_phm20")]
+position = Vector2(118, 141)
