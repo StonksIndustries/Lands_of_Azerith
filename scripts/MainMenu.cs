@@ -4,6 +4,8 @@ using LandsOfAzerith.scripts;
 using System.Linq;
 using LandsOfAzerith.scripts.character;
 
+namespace LandsOfAzerith.scripts;
+
 public partial class MainMenu : Control
 {
 	[Export]
@@ -44,7 +46,7 @@ public partial class MainMenu : Control
 	private void PeerDisconnected(long id)
 	{
 		GD.Print("Player " + id + " disconnected!");
-		GameManager.Players.Remove(GameManager.Players.Where(i => i.Id == id).First<PlayerInfo>());
+		GameManager.Players.Remove(GameManager.Players.Where(i => i.Id == id).First());
 		var players = GetTree().GetNodesInGroup("Player");
 		foreach (var item in players)
 		{
@@ -74,6 +76,7 @@ public partial class MainMenu : Control
 	
 	public void _on_host_button_down()
 	{
+		_port = GetNode<LineEdit>("Port").Text.ToInt();
 		var error = _peer.CreateServer(_port, 8);
 		if (error != Error.Ok)
 		{
@@ -85,14 +88,18 @@ public partial class MainMenu : Control
 		Multiplayer.MultiplayerPeer = _peer;
 		GD.Print("Waiting for players...");
 		SendPlayerData(GetNode<LineEdit>("Name").Text, 1);
+		DisableButtons();
 	}
 
 	public void _on_join_button_down()
 	{
-		_peer.CreateClient(_address, _port);
+		_address = GetNode<LineEdit>("Address").Text;
+		_port = GetNode<LineEdit>("Port").Text.ToInt();
+		_peer.CreateClient(GetNode<LineEdit>("Address").Text, GetNode<LineEdit>("Port").Text.ToInt());
 		_peer.Host.Compress(ENetConnection.CompressionMode.Fastlz);
 		Multiplayer.MultiplayerPeer = _peer;
 		GD.Print("Joining Game!");
+		DisableButtons();
 	}
 
 	public void _on_start_button_down()
@@ -111,7 +118,6 @@ public partial class MainMenu : Control
 		var scene = ResourceLoader.Load<PackedScene>("res://scenes/world.tscn").Instantiate<Node2D>();
 		GetTree().Root.AddChild(scene);
 		this.Hide();
-		var manager = GameManager.Players;
 		foreach (var item in GameManager.Players)
 		{
 			GD.Print(item.Id + " is playing!");
@@ -138,5 +144,11 @@ public partial class MainMenu : Control
 				Rpc("SendPlayerData", item.Name, item.Id);
 			}
 		}
+	}
+	
+	private void DisableButtons()
+	{
+		GetNode<Button>("Host").Disabled = true;
+		GetNode<Button>("Join").Disabled = true;
 	}
 }

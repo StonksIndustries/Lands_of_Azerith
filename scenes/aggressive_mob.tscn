@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bb56pfvbsm56r"]
+[gd_scene load_steps=12 format=3 uid="uid://bb56pfvbsm56r"]
 
 [ext_resource type="Texture2D" uid="uid://dkj8l2sji7c0m" path="res://characters/slime.png" id="1_56fb0"]
 [ext_resource type="Script" path="res://scripts/character/mob/AggressiveMob.cs" id="1_fax1t"]
@@ -47,6 +47,20 @@ radius = 65.0077
 [sub_resource type="CircleShape2D" id="CircleShape2D_dkcqc"]
 radius = 125.0
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_rvuy8"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("AnimatedSprite2D:animation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("AnimatedSprite2D:frame")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath(".:_poi")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+
 [node name="AggressiveMob" type="Area2D"]
 script = ExtResource("1_fax1t")
 metadata/_edit_group_ = true
@@ -71,6 +85,9 @@ position = Vector2(0, -8)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DeAggroZone"]
 shape = SubResource("CircleShape2D_dkcqc")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_rvuy8")
 
 [connection signal="area_entered" from="AggroZone" to="." method="_on_aggro_zone_entered"]
 [connection signal="area_exited" from="DeAggroZone" to="." method="_on_de_aggro_zone_exited"]

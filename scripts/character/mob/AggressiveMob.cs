@@ -10,12 +10,15 @@ public partial class AggressiveMob : Mob
     protected override Player? Aggro { get; set; }
     public override ulong Speed { get; set; } = 80;
     
+    [Export]
     private Vector2 _poi = Vector2.Zero;
     
     private Random _random = new Random();
 
     public override void _Process(double delta)
     {
+        if (GetNode<MultiplayerSynchronizer>("MultiplayerSynchronizer").GetMultiplayerAuthority() != Multiplayer.GetUniqueId())
+            return;
         var velocity = Vector2.Zero;
         if (Aggro != null)
         {

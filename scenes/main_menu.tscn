@@ -12,36 +12,73 @@ grow_vertical = 2
 script = ExtResource("1_30b2k")
 metadata/_edit_lock_ = true
 
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.286275, 0.517647, 0.588235, 1)
+
 [node name="Join" type="Button" parent="."]
 layout_mode = 0
-offset_left = 178.0
-offset_top = 241.0
-offset_right = 312.0
-offset_bottom = 316.0
+offset_left = 340.0
+offset_top = 70.0
+offset_right = 540.0
+offset_bottom = 150.0
 text = "Join"
 
 [node name="Start" type="Button" parent="."]
 layout_mode = 0
-offset_left = 547.0
-offset_top = 243.0
-offset_right = 681.0
-offset_bottom = 318.0
+offset_left = 560.0
+offset_top = 70.0
+offset_right = 760.0
+offset_bottom = 150.0
 text = "Start"
 
 [node name="Host" type="Button" parent="."]
 layout_mode = 0
-offset_left = 353.0
-offset_top = 244.0
-offset_right = 487.0
-offset_bottom = 319.0
+offset_left = 120.0
+offset_top = 70.0
+offset_right = 320.0
+offset_bottom = 150.0
 text = "Host"
 
 [node name="Name" type="LineEdit" parent="."]
 layout_mode = 0
-offset_left = 211.0
-offset_top = 411.0
-offset_right = 661.0
-offset_bottom = 442.0
+offset_left = 120.0
+offset_top = 160.0
+offset_right = 570.0
+offset_bottom = 191.0
+placeholder_text = "Username"
+
+[node name="Address" type="LineEdit" parent="."]
+layout_mode = 0
+offset_left = 120.0
+offset_top = 200.0
+offset_right = 320.0
+offset_bottom = 231.0
+placeholder_text = "Address"
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.102
+anchor_top = 0.031
+anchor_right = 0.618
+anchor_bottom = 0.111
+offset_left = -0.504005
+offset_top = -0.0880013
+offset_right = 0.0639648
+offset_bottom = 0.071991
+text = "Lands Of Azerith"
+
+[node name="Port" type="LineEdit" parent="."]
+layout_mode = 0
+offset_left = 340.0
+offset_top = 200.0
+offset_right = 410.0
+offset_bottom = 231.0
+placeholder_text = "Port"
 
 [connection signal="button_down" from="Join" to="." method="_on_join_button_down"]
 [connection signal="button_down" from="Start" to="." method="_on_start_button_down"]
