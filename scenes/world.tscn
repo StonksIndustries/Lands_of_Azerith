@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://bxv28151d4vbm"]
 
 [ext_resource type="Script" path="res://scripts/SceneManager.cs" id="1_g5hgp"]
-[ext_resource type="Texture2D" uid="uid://b1jy25cofmj64" path="res://assets/tilesets/Tileset.png" id="2_xmg37"]
+[ext_resource type="Texture2D" uid="uid://dhqjhaon8pbeo" path="res://assets/tilesets/Tileset.png" id="2_xmg37"]
 [ext_resource type="PackedScene" uid="uid://bb56pfvbsm56r" path="res://scenes/aggressive_mob.tscn" id="4_phm20"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_he34f"]
