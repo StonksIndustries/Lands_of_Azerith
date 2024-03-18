@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cdalp2rrcny3"
-path="res://.godot/imported/Rad_Soil_Tiles.png-04ab128f5f4946dc931aef1949a374d3.ctex"
+uid="uid://bqmxob8uv60jw"
+path="res://.godot/imported/Sand_tiles.png-a057464f431e0aef7fba3fecaac7de8b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Texture/Rad_Soil_Tiles.png"
-dest_files=["res://.godot/imported/Rad_Soil_Tiles.png-04ab128f5f4946dc931aef1949a374d3.ctex"]
+source_file="res://assets/Sand_tiles.png"
+dest_files=["res://.godot/imported/Sand_tiles.png-a057464f431e0aef7fba3fecaac7de8b.ctex"]
 
 [params]
 

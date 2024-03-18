@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ni5xlm72q2kq"
-path="res://.godot/imported/Old_Grass_tiles.png-b22a39a5841eb19f8b0a6c2ea7233792.ctex"
+uid="uid://dkj8l2sji7c0m"
+path="res://.godot/imported/slime.png-0532a0198072479b95663de2dbd05f6b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Texture/Old_Grass_tiles.png"
-dest_files=["res://.godot/imported/Old_Grass_tiles.png-b22a39a5841eb19f8b0a6c2ea7233792.ctex"]
+source_file="res://characters/slime.png"
+dest_files=["res://.godot/imported/slime.png-0532a0198072479b95663de2dbd05f6b.ctex"]
 
 [params]
 

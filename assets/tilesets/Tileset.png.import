@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://nbv27vnf7wkv"
-path="res://.godot/imported/Crimson_Soil_tiles.png-626e9b12276cc71c24b90f436faf1e91.ctex"
+uid="uid://dhqjhaon8pbeo"
+path="res://.godot/imported/Tileset.png-3d9805132c26bc97a5744158ea833aae.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Texture/Crimson_Soil_tiles.png"
-dest_files=["res://.godot/imported/Crimson_Soil_tiles.png-626e9b12276cc71c24b90f436faf1e91.ctex"]
+source_file="res://assets/tilesets/Tileset.png"
+dest_files=["res://.godot/imported/Tileset.png-3d9805132c26bc97a5744158ea833aae.ctex"]
 
 [params]
 

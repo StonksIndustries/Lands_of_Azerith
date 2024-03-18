@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://tltvndnchxae"
-path="res://.godot/imported/Path_tiles.png-a87ce5773d3fc99fb60f66ead544de0d.ctex"
+uid="uid://ni5xlm72q2kq"
+path="res://.godot/imported/Old_Grass_tiles.png-53e589ae7f0cd58ccfc706595b701274.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Texture/Path_tiles.png"
-dest_files=["res://.godot/imported/Path_tiles.png-a87ce5773d3fc99fb60f66ead544de0d.ctex"]
+source_file="res://assets/Old_Grass_tiles.png"
+dest_files=["res://.godot/imported/Old_Grass_tiles.png-53e589ae7f0cd58ccfc706595b701274.ctex"]
 
 [params]
 
