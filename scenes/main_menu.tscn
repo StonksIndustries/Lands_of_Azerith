@@ -78,6 +78,7 @@ offset_left = 340.0
 offset_top = 200.0
 offset_right = 410.0
 offset_bottom = 231.0
+text = "1234"
 placeholder_text = "Port"
 
 [connection signal="button_down" from="Join" to="." method="_on_join_button_down"]

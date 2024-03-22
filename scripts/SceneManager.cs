@@ -22,23 +22,32 @@ public partial class SceneManager : Node2D
 	{
 		foreach (PlayerInfo item in GameManager.Players)
 		{
-			Rpc(nameof(InstantiateIndividualPlayer), item.Id);
+			Rpc(nameof(InstantiateIndividualPlayer), item.Id, item.Name);
 		}
 	}
 	
 	[Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true)]
-	private void InstantiateIndividualPlayer(int id)
+	private void InstantiateIndividualPlayer(int id, string name)
 	{
-		if (GetNodeOrNull(id.ToString()) != null)
+		(int Id, string Name) playerInfo = (id, name);
+		if (GetNodeOrNull(playerInfo.Id.ToString()) != null)
 		{
 			return;
 		}
 		Player currentPlayer = _playerScene.Instantiate<Player>();
-		currentPlayer.Name = id.ToString();
+		currentPlayer.Name = playerInfo.Id.ToString();
 		AddChild(currentPlayer);
 		Node2D spawnPoint = GetNode<Node2D>("SpawnPoint");
 		currentPlayer.GlobalPosition = spawnPoint.GlobalPosition;
-		if (id == Multiplayer.GetUniqueId())
+		var nameLabel = currentPlayer.GetNodeOrNull<Label>("Name");
+		if (nameLabel != null)
+		{
+			if (playerInfo.Name == "")
+				nameLabel.Text += playerInfo.Id.ToString();
+			else
+				nameLabel.Text = playerInfo.Name;
+		}
+		if (playerInfo.Id == Multiplayer.GetUniqueId())
 			currentPlayer.AddChild(new Camera2D(){ Zoom = new Vector2(2, 2) });
 	}
 }

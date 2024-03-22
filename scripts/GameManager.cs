@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using Godot;
 
 namespace LandsOfAzerith.scripts;
@@ -11,6 +11,12 @@ public partial class GameManager : Node
     {
         return Players.Exists(i => i.Id == id);
     }
+    
+    public static PlayerInfo? GetPlayer(long id)
+    {
+        return Players.Find(i => i.Id == id);
+    }
+    
     public override void _Ready()
     {
     }

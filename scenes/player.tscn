@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://p34aqil06mwv"]
+[gd_scene load_steps=43 format=3 uid="uid://p34aqil06mwv"]
 
 [ext_resource type="Script" path="res://scripts/character/Player.cs" id="1_5ds04"]
 [ext_resource type="Texture2D" uid="uid://dcda1bigyuyel" path="res://characters/player.png" id="2_pv04o"]
@@ -305,8 +305,12 @@ properties/3/path = NodePath("AnimatedSprite2D:animation")
 properties/3/spawn = true
 properties/3/replication_mode = 1
 
+[sub_resource type="LabelSettings" id="LabelSettings_j00vc"]
+font_size = 64
+
 [node name="Player" type="Area2D" groups=["Player"]]
 script = ExtResource("1_5ds04")
+metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -19)
@@ -319,5 +323,15 @@ shape = SubResource("RectangleShape2D_jajb6")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_fqf7i")
+
+[node name="Name" type="Label" parent="."]
+offset_left = -24.0
+offset_top = -30.0
+offset_right = 456.0
+offset_bottom = 58.0
+scale = Vector2(0.1, 0.1)
+text = "Player "
+label_settings = SubResource("LabelSettings_j00vc")
+horizontal_alignment = 1
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

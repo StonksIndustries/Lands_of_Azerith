@@ -27,9 +27,7 @@ texture = ExtResource("2_xmg37")
 17:0/0 = 0
 0:1/0 = 0
 1:1/0 = 0
-1:1/0/terrain = 0
 2:1/0 = 0
-2:1/0/terrain = 0
 3:1/0 = 0
 4:1/0 = 0
 5:1/0 = 0
@@ -167,6 +165,7 @@ texture = ExtResource("2_xmg37")
 sources/0 = SubResource("TileSetAtlasSource_he34f")
 
 [node name="World" type="Node2D" groups=["World"]]
+position = Vector2(-36, -18)
 script = ExtResource("1_g5hgp")
 metadata/_edit_group_ = true
 
@@ -178,5 +177,11 @@ layer_0/tile_data = PackedInt32Array(0, 65536, 4, 65536, 65536, 4, 65537, 65536,
 [node name="SpawnPoint" type="Node2D" parent="."]
 position = Vector2(500, 300)
 
+[node name="AggressiveMob2" parent="." instance=ExtResource("4_phm20")]
+position = Vector2(236, 282)
+
 [node name="AggressiveMob" parent="." instance=ExtResource("4_phm20")]
 position = Vector2(118, 141)
+
+[node name="AggressiveMob3" parent="." instance=ExtResource("4_phm20")]
+position = Vector2(918, 82)
