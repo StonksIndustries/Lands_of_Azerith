@@ -333,5 +333,6 @@ scale = Vector2(0.1, 0.1)
 text = "Player "
 label_settings = SubResource("LabelSettings_j00vc")
 horizontal_alignment = 1
+text_overrun_behavior = 3
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
