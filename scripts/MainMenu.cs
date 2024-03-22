@@ -45,15 +45,22 @@ public partial class MainMenu : Control
 	/// <param name="id">ID of the player that disconnected</param>
 	private void PeerDisconnected(long id)
 	{
-		GD.Print("Player " + id + " disconnected!");
-		GameManager.Players.Remove(GameManager.Players.Where(i => i.Id == id).First());
-		var players = GetTree().GetNodesInGroup("Player");
-		foreach (var item in players)
+		if (id == 1)
 		{
-			if (item.Name == id.ToString())
-			{
-				item.QueueFree();
-			}
+			GetTree().Quit();
+		}
+		else
+		{
+			GD.Print("Player " + id + " disconnected!");
+            GameManager.Players.Remove(GameManager.Players.Where(i => i.Id == id).First());
+            var players = GetTree().GetNodesInGroup("Player");
+            foreach (var item in players)
+            {
+            	if (item.Name == id.ToString())
+            	{
+            		item.QueueFree();
+            	}
+            }
 		}
 	}
 
@@ -72,6 +79,11 @@ public partial class MainMenu : Control
 	private void ConnectionFailed()
 	{
 		GD.Print("Connection failed!");
+	}
+	
+	public void _on_quit_button_down()
+	{
+		GetTree().Quit();
 	}
 	
 	public void _on_host_button_down()
