@@ -47,6 +47,7 @@ public partial class MainMenu : Control
 	{
 		if (id == 1)
 		{
+			GD.Print("Server disconnected!");
 			GetTree().Quit();
 		}
 		else
