@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://mrilbv6mt0jl"
-path="res://.godot/imported/Stone_path_tiles.png-33dc0e0639799e25bb7f1472bd27cf8b.ctex"
+uid="uid://ghw08ksh6i7r"
+path="res://.godot/imported/sword.png-3ca40b30aaeb4f376be45021d264a77b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Stone_path_tiles.png"
-dest_files=["res://.godot/imported/Stone_path_tiles.png-33dc0e0639799e25bb7f1472bd27cf8b.ctex"]
+source_file="res://assets/items/weapons/sword.png"
+dest_files=["res://.godot/imported/sword.png-3ca40b30aaeb4f376be45021d264a77b.ctex"]
 
 [params]
 

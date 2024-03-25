@@ -1,0 +1,33 @@
+[gd_scene load_steps=2 format=3 uid="uid://b2koe1nbsl0qy"]
+
+[ext_resource type="PackedScene" uid="uid://be47tmx1ruxgm" path="res://scenes/inventory/item_slot.tscn" id="1_wpmtd"]
+
+[node name="InventoryRow" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
+
+[node name="GridContainer" type="GridContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/h_separation = 64
+theme_override_constants/v_separation = 64
+columns = 10
+
+[node name="Slot1" parent="GridContainer" instance=ExtResource("1_wpmtd")]
+layout_mode = 2
+
+[node name="Slot2" parent="GridContainer" instance=ExtResource("1_wpmtd")]
+layout_mode = 2
+
+[node name="Slot3" parent="GridContainer" instance=ExtResource("1_wpmtd")]
+layout_mode = 2
+
+[node name="Slot4" parent="GridContainer" instance=ExtResource("1_wpmtd")]
+layout_mode = 2

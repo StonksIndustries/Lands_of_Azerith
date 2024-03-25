@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cdalp2rrcny3"
-path="res://.godot/imported/Rad_Soil_Tiles.png-d3550d2b83aeb273c115ebd1b17c2fe1.ctex"
+uid="uid://v44j2bf4g1l7"
+path="res://.godot/imported/bow.png-9cb3dddd9e661a605b5553fa7806bc1e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Rad_Soil_Tiles.png"
-dest_files=["res://.godot/imported/Rad_Soil_Tiles.png-d3550d2b83aeb273c115ebd1b17c2fe1.ctex"]
+source_file="res://assets/items/weapons/bow.png"
+dest_files=["res://.godot/imported/bow.png-9cb3dddd9e661a605b5553fa7806bc1e.ctex"]
 
 [params]
 

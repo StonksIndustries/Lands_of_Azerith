@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bqmxob8uv60jw"
-path="res://.godot/imported/Sand_tiles.png-a057464f431e0aef7fba3fecaac7de8b.ctex"
+uid="uid://bejv7pvy7vr7v"
+path="res://.godot/imported/arrow.png-bfc56f8155defe28b6109d32e7beef63.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sand_tiles.png"
-dest_files=["res://.godot/imported/Sand_tiles.png-a057464f431e0aef7fba3fecaac7de8b.ctex"]
+source_file="res://assets/items/weapons/projectiles/arrow.png"
+dest_files=["res://.godot/imported/arrow.png-bfc56f8155defe28b6109d32e7beef63.ctex"]
 
 [params]
 

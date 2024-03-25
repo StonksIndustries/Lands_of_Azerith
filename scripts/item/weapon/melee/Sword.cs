@@ -4,6 +4,7 @@ namespace LandsOfAzerith.scripts.item.weapon.melee;
 
 public class Sword : DurableMeleeWeapon
 {
+    public override string TexturePath => "res://assets/items/weapons/sword.png";
     public override string Name => "Sword";
     public override string Description => "A simple sword.";
 

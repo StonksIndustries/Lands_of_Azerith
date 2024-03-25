@@ -1,13 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://pen2yjckun88"]
+[gd_scene load_steps=2 format=3 uid="uid://pen2yjckun88"]
 
 [ext_resource type="Script" path="res://scripts/MainMenu.cs" id="1_30b2k"]
-
-[sub_resource type="InputEventKey" id="InputEventKey_ksu82"]
-device = -1
-keycode = 4194305
-
-[sub_resource type="Shortcut" id="Shortcut_c6mp4"]
-events = [SubResource("InputEventKey_ksu82")]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -95,7 +88,6 @@ offset_left = 120.0
 offset_top = 500.0
 offset_right = 320.0
 offset_bottom = 580.0
-shortcut = SubResource("Shortcut_c6mp4")
 text = "Exit"
 
 [connection signal="button_down" from="Join" to="." method="_on_join_button_down"]

@@ -1,0 +1,42 @@
+[gd_scene load_steps=2 format=3 uid="uid://be47tmx1ruxgm"]
+
+[ext_resource type="Script" path="res://scripts/inventory/ItemSlot.cs" id="1_yyqin"]
+
+[node name="ItemSlot" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_yyqin")
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
+
+[node name="Color" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 64.0
+color = Color(0.447059, 0.207843, 0, 1)
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 2.5
+offset_top = 56.0
+offset_right = 198.5
+offset_bottom = 79.0
+scale = Vector2(0.3, 0.3)
+horizontal_alignment = 1
+text_overrun_behavior = 3
+
+[node name="Texture" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 56.0
+offset_bottom = 56.0
+
+[node name="ReferenceRect" type="ReferenceRect" parent="."]
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 64.0
