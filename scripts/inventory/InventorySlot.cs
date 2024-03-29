@@ -1,4 +1,5 @@
 using Godot;
+using Godot.Collections;
 using LandsOfAzerith.scripts.item;
 using LandsOfAzerith.scripts.item.weapon.melee;
 using LandsOfAzerith.scripts.item.weapon.ranged;
@@ -6,7 +7,7 @@ using LandsOfAzerith.scripts.item.weapon.ranged.projectile;
 
 namespace LandsOfAzerith.scripts.inventory;
 
-public partial class ItemSlot : Control
+public partial class InventorySlot : Control
 {
 	public Item? Item;
 	
@@ -39,8 +40,17 @@ public partial class ItemSlot : Control
 		}
 		else
 		{
-			texture.Texture = ResourceLoader.Load<Texture2D>(Item.TexturePath);
+			texture.Texture = ResourceLoader.Load<Texture2D>(Item.Icon);
 			label.Text = Item.Name;
 		}
+	}
+	
+	public Dictionary<string, Variant> Save()
+	{
+		return new Dictionary<string, Variant>()
+		{
+			{ nameof(Name), Name},
+			{ nameof(Item), Item?.Save() }
+		};
 	}
 }

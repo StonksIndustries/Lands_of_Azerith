@@ -4,7 +4,7 @@ namespace LandsOfAzerith.scripts.item.weapon.ranged.projectile;
 
 public class Arrow : Projectile
 {
-    public override string TexturePath => "res://assets/items/weapons/projectiles/arrow.png";
+    public override string Icon => "res://assets/items/weapons/projectiles/arrow.png";
     public override string Name => "Arrow";
     public override string Description => "A simple arrow.";
 

@@ -4,7 +4,7 @@ namespace LandsOfAzerith.scripts.item.weapon.ranged;
 
 public class Bow : DurableRangedWeapon
 {
-    public override string TexturePath => "res://assets/items/weapons/bow.png";
+    public override string Icon => "res://assets/items/weapons/bow.png";
     public override string Name => "Bow";
     public override string Description => "A simple bow.";
     public override List<Zones> Zones => new List<Zones>()

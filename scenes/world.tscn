@@ -165,7 +165,6 @@ texture = ExtResource("2_xmg37")
 sources/0 = SubResource("TileSetAtlasSource_he34f")
 
 [node name="World" type="Node2D" groups=["World"]]
-position = Vector2(-36, -18)
 script = ExtResource("1_g5hgp")
 metadata/_edit_group_ = true
 

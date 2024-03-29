@@ -1,5 +1,6 @@
 using Godot;
 using LandsOfAzerith.scripts.character;
+using LandsOfAzerith.scripts.inventory;
 
 namespace LandsOfAzerith.scripts;
 
@@ -7,6 +8,9 @@ public partial class SceneManager : Node2D
 {
 	[Export]
 	private PackedScene _playerScene = GD.Load<PackedScene>("res://scenes/player.tscn");
+	
+	[Export]
+	private PackedScene _inventoryScene = GD.Load<PackedScene>("res://scenes/inventory/inventory.tscn");
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -47,7 +51,24 @@ public partial class SceneManager : Node2D
 			else
 				nameLabel.Text = playerInfo.Name;
 		}
+
+		// Only adds to the controlled player
 		if (playerInfo.Id == Multiplayer.GetUniqueId())
-			currentPlayer.AddChild(new Camera2D(){ Zoom = new Vector2(2, 2) });
+		{
+			// Adds the camera to the player
+			int zoom = 2;
+			var camera = new Camera2D()
+			{
+				Name = "Camera",
+				Zoom = new Vector2(zoom, zoom)
+			};
+			currentPlayer.AddChild(camera);
+			
+			// Adds the inventory to the player
+			var inventory = _inventoryScene.Instantiate<Inventory>();
+			inventory.Position = - GetViewportRect().Size / (2 * zoom);
+			inventory.Visible = false;
+			currentPlayer.AddChild(inventory);
+		}
 	}
 }

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://be47tmx1ruxgm"]
 
-[ext_resource type="Script" path="res://scripts/inventory/ItemSlot.cs" id="1_yyqin"]
+[ext_resource type="Script" path="res://scripts/inventory/InventorySlot.cs" id="1_nk5o3"]
 
 [node name="ItemSlot" type="Control"]
 layout_mode = 3
@@ -9,7 +9,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_yyqin")
+script = ExtResource("1_nk5o3")
 metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
 

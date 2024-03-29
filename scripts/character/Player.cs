@@ -1,4 +1,5 @@
 using Godot;
+using LandsOfAzerith.scripts.inventory;
 
 namespace LandsOfAzerith.scripts.character;
 
@@ -12,6 +13,7 @@ public partial class Player : Character
 	public override ulong HealthPoints { get; protected set; }
 	public override ulong MaxHealthPoints => 100;
 	protected override Player? Aggro { get; set; }
+	private double _inventoryCooldown = 0;
 	private Directions Direction { get; set; }
 	public static Vector2 ScreenSize; // Size of the game window.
 	
@@ -26,8 +28,28 @@ public partial class Player : Character
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		if (GetNode<MultiplayerSynchronizer>("MultiplayerSynchronizer").GetMultiplayerAuthority() == Multiplayer.GetUniqueId())
+        if (GetNode<MultiplayerSynchronizer>("MultiplayerSynchronizer").GetMultiplayerAuthority() ==
+            Multiplayer.GetUniqueId())
+        {
+	        ProcessInventory(delta);
 			Move(delta);
+        }
+	}
+
+	private void ProcessInventory(double delta)
+	{
+		if (_inventoryCooldown <= 0)
+		{
+			if (Input.IsActionPressed("open_inv"))
+			{
+				GetNodeOrNull<Inventory>("Inventory").Visible ^= true;
+				_inventoryCooldown = 0.2;
+			}
+		}
+		else
+		{
+			_inventoryCooldown -= delta;
+		}
 	}
 
 	private void _on_body_entered(Node2D body)
