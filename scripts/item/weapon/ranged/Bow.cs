@@ -12,8 +12,8 @@ public class Bow : DurableRangedWeapon
         scripts.Zones.Everywhere
     };
     public override Rarity Rarity => Rarity.Common;
-    public override ulong Damage => 20;
-    public override ulong Range => 10;
+    public override uint Damage => 20;
+    public override uint Range => 10;
     public override ulong Durability { get; set; }
     public override ulong MaxDurability => 100;
 }

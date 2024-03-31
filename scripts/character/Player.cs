@@ -1,5 +1,7 @@
 using Godot;
 using LandsOfAzerith.scripts.inventory;
+using LandsOfAzerith.scripts.item;
+using LandsOfAzerith.scripts.item.weapon.melee;
 
 namespace LandsOfAzerith.scripts.character;
 
@@ -9,10 +11,14 @@ public partial class Player : Character
 	public delegate void HitEventHandler();
 	
 	[Export]
-	public override ulong Speed { get; set; } = 100; // How fast the player will move (pixels/sec).
-	public override ulong HealthPoints { get; protected set; }
-	public override ulong MaxHealthPoints => 100;
-	protected override Player? Aggro { get; set; }
+	public override uint Speed { get; set; } = 100; // How fast the player will move (pixels/sec).
+
+	public Inventory Inventory => GetNode<Inventory>("Inventory");
+	public override uint Strength { get; set; }
+	public override Weapon Weapon { get; set; } = new Hands();
+	public override uint HealthPoints { get; protected set; }
+	public override uint MaxHealthPoints => 100;
+	protected override Character? Aggro { get; set; }
 	private double _inventoryCooldown = 0;
 	private Directions Direction { get; set; }
 	public static Vector2 ScreenSize; // Size of the game window.

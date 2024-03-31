@@ -14,8 +14,8 @@ public class Sword : DurableMeleeWeapon
     };
 
     public override Rarity Rarity => Rarity.Common;
-    public override ulong Damage => 10;
-    public override ulong Range { get; }
+    public override uint Damage => 10;
+    public override uint Range { get; }
     public override ulong Durability { get; set; }
     public override ulong MaxDurability { get; }
 }

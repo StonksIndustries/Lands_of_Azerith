@@ -17,6 +17,7 @@ public partial class Inventory : Control
 	{
 	}
 
+	// Note: This method is not final, and may be changed in the future.
 	private void InitializeRows()
 	{
 		foreach (Node child in GetChildren())
@@ -34,10 +35,13 @@ public partial class Inventory : Control
 		{
 			{ nameof(Name), Name }
 		};
+		
+		var content = new Godot.Collections.Array();
 		foreach (var row in _rows)
 		{
-			result.Add(row.Name, row.Save());
+			content.Add(row.Save());
 		}
+		result.Add("Content", content);
 		return result;
 	}
 }

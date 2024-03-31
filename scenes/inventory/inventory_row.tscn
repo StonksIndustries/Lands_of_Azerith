@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://be47tmx1ruxgm" path="res://scenes/inventory/inventory_slot.tscn" id="2_jmyfe"]
 
 [node name="InventoryRow" type="GridContainer"]
-offset_right = 40.0
+offset_right = 192.0
 offset_bottom = 40.0
 theme_override_constants/h_separation = 64
 theme_override_constants/v_separation = 64

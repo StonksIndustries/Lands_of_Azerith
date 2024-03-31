@@ -1,15 +1,20 @@
 ﻿using System;
 using Godot;
+using LandsOfAzerith.scripts.item;
+using LandsOfAzerith.scripts.item.weapon.melee;
 
 namespace LandsOfAzerith.scripts.character.mob;
 
 public partial class AggressiveMob : Mob
 {
-    public override ulong HealthPoints { get; protected set; }
-    public override ulong MaxHealthPoints { get; }
-    protected override Player? Aggro { get; set; }
-    public override ulong Speed { get; set; } = 80;
-    
+    public override uint HealthPoints { get; protected set; }
+    public override uint MaxHealthPoints { get; }
+    public override Weapon Weapon { get; set; } = new Hands();
+
+    protected override Character? Aggro { get; set; }
+    public override uint Speed { get; set; } = 80;
+    public override uint Strength { get; set; }
+
     [Export]
     private Vector2 _poi = Vector2.Zero;
     
@@ -52,7 +57,7 @@ public partial class AggressiveMob : Mob
 
     private void _on_aggro_zone_entered(Area2D body)
     {
-        if (body is Player player)
+        if (Aggro is null && body is Player player)
         {
             Aggro = player;
         }

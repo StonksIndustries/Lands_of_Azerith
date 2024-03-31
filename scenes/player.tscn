@@ -1,7 +1,8 @@
-[gd_scene load_steps=43 format=3 uid="uid://p34aqil06mwv"]
+[gd_scene load_steps=44 format=3 uid="uid://p34aqil06mwv"]
 
 [ext_resource type="Script" path="res://scripts/character/Player.cs" id="1_5ds04"]
 [ext_resource type="Texture2D" uid="uid://dcda1bigyuyel" path="res://characters/player.png" id="2_pv04o"]
+[ext_resource type="PackedScene" uid="uid://bk1s4rsxfmluj" path="res://scenes/health_bar.tscn" id="3_mnyhl"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4hqal"]
 atlas = ExtResource("2_pv04o")
@@ -334,5 +335,11 @@ text = "Player "
 label_settings = SubResource("LabelSettings_j00vc")
 horizontal_alignment = 1
 text_overrun_behavior = 3
+
+[node name="ProgressBar" parent="." instance=ExtResource("3_mnyhl")]
+offset_left = -9.0
+offset_top = 1.0
+offset_right = 10.0
+offset_bottom = 2.0
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
