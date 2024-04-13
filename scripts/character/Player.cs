@@ -29,6 +29,7 @@ public partial class Player : Character
 		Direction = Directions.None;
 		ScreenSize = GetViewportRect().Size;
 		GetNode<MultiplayerSynchronizer>("MultiplayerSynchronizer").SetMultiplayerAuthority(Toolbox.ToInt(Name));
+		ChangeHealth(MaxHealthPoints);
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -177,6 +178,13 @@ public partial class Player : Character
 				animation.Play("idle_side");
 				break;
 		}
+	}
+	
+	
+	public override void Die()
+	{
+		Position = new Vector2(0, 0);
+		HealthPoints = MaxHealthPoints;
 	}
 }
 

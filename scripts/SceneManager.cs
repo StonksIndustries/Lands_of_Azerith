@@ -26,14 +26,14 @@ public partial class SceneManager : Node2D
 	{
 		foreach (PlayerInfo item in GameManager.Players)
 		{
-			Rpc(nameof(InstantiateIndividualPlayer), item.Id, item.Name);
+			Rpc(nameof(InstantiateIndividualPlayer), item.Id);
 		}
 	}
 	
 	[Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true)]
-	private void InstantiateIndividualPlayer(int id, string name)
+	private void InstantiateIndividualPlayer(int id)
 	{
-		(int Id, string Name) playerInfo = (id, name);
+		PlayerInfo playerInfo = GameManager.GetPlayer(id)!;
 		if (GetNodeOrNull(playerInfo.Id.ToString()) != null)
 		{
 			return;
@@ -47,7 +47,7 @@ public partial class SceneManager : Node2D
 		if (nameLabel != null)
 		{
 			if (playerInfo.Name == "")
-				nameLabel.Text += playerInfo.Id.ToString();
+				nameLabel.Text += playerInfo.Number.ToString();
 			else
 				nameLabel.Text = playerInfo.Name;
 		}

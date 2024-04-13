@@ -140,9 +140,10 @@ public partial class MainMenu : Control
 	[Rpc(MultiplayerApi.RpcMode.AnyPeer)]
 	private void SendPlayerData(string name, long id)
 	{
-		PlayerInfo playerInfo = new PlayerInfo()
+		PlayerInfo playerInfo = new PlayerInfo
 		{
 			Name = name,
+			Number = GameManager.Players.Count + 1,
 			Id = id
 		};
 		if (!GameManager.ContainId(playerInfo.Id))

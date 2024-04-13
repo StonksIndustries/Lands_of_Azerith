@@ -38,4 +38,10 @@ public abstract partial class Mob : Character
     {
         throw new NotImplementedException();
     }
+    
+    
+    public override void Die()
+    {
+        GetTree().Quit();
+    }
 }

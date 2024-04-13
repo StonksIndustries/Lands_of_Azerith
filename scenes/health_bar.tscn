@@ -4,8 +4,8 @@
 
 [node name="ProgressBar" type="ProgressBar"]
 offset_right = 443.0
-offset_bottom = 27.0
+offset_bottom = 82.0
 scale = Vector2(1, 0.943838)
 theme = ExtResource("1_ey47q")
-value = 30.0
+value = 50.0
 show_percentage = false

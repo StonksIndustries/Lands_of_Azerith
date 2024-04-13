@@ -11,4 +11,5 @@ public class Hands : MeleeWeapon
     public override Rarity Rarity => Rarity.Common;
     public override uint Damage => 10;
     public override uint Range => 10;
+    public override uint CoolDown => 1;
 }

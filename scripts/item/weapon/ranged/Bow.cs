@@ -14,6 +14,7 @@ public class Bow : DurableRangedWeapon
     public override Rarity Rarity => Rarity.Common;
     public override uint Damage => 20;
     public override uint Range => 10;
+    public override uint CoolDown => 100;
     public override ulong Durability { get; set; }
     public override ulong MaxDurability => 100;
 }

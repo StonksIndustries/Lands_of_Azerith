@@ -10,7 +10,6 @@ public partial class AggressiveMob : Mob
     public override uint HealthPoints { get; protected set; }
     public override uint MaxHealthPoints { get; }
     public override Weapon Weapon { get; set; } = new Hands();
-
     protected override Character? Aggro { get; set; }
     public override uint Speed { get; set; } = 80;
     public override uint Strength { get; set; }
@@ -31,8 +30,21 @@ public partial class AggressiveMob : Mob
 
             if (Position.DistanceTo(Aggro.Position) > 15)
             {
+                
                 velocity = Position.DirectionTo(Aggro.Position);
                 animation.Play("slime");
+            }
+            else
+            {
+                if (AttackCooldown <= 0)
+                {
+                    Attack(Aggro);
+                    AttackCooldown = Weapon.CoolDown;
+                }
+                else
+                {
+                    AttackCooldown -= (float)delta;
+                }
             }
         }
         else if (_poi != Vector2.Zero)
@@ -70,4 +82,6 @@ public partial class AggressiveMob : Mob
             Aggro = null;
         }
     }
+    
+    
 }

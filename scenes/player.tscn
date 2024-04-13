@@ -336,10 +336,10 @@ label_settings = SubResource("LabelSettings_j00vc")
 horizontal_alignment = 1
 text_overrun_behavior = 3
 
-[node name="ProgressBar" parent="." instance=ExtResource("3_mnyhl")]
+[node name="HealthBar" parent="." instance=ExtResource("3_mnyhl")]
 offset_left = -9.0
 offset_top = 1.0
-offset_right = 10.0
-offset_bottom = 2.0
+offset_right = 9.0
+offset_bottom = 3.0
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
