@@ -19,7 +19,7 @@ public abstract partial class Character : Area2D
     
     public void TakeDamage(uint damage)
     {
-        if (HealthPoints < damage)
+        if (HealthPoints <= damage)
         {
             HealthPoints = 0;
             Die();

@@ -1,7 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://bb56pfvbsm56r"]
+[gd_scene load_steps=13 format=3 uid="uid://bb56pfvbsm56r"]
 
 [ext_resource type="Texture2D" uid="uid://dkj8l2sji7c0m" path="res://characters/slime.png" id="1_56fb0"]
 [ext_resource type="Script" path="res://scripts/character/mob/AggressiveMob.cs" id="1_fax1t"]
+[ext_resource type="PackedScene" uid="uid://bk1s4rsxfmluj" path="res://scenes/health_bar.tscn" id="3_x1unp"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3e2qe"]
 atlas = ExtResource("1_56fb0")
@@ -63,7 +64,6 @@ properties/3/replication_mode = 1
 
 [node name="AggressiveMob" type="Area2D"]
 script = ExtResource("1_fax1t")
-metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -8)
@@ -75,12 +75,14 @@ position = Vector2(0, -8)
 shape = SubResource("RectangleShape2D_n2h4c")
 
 [node name="AggroZone" type="Area2D" parent="."]
+visible = false
 position = Vector2(0, -8)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AggroZone"]
 shape = SubResource("CircleShape2D_0j4dk")
 
 [node name="DeAggroZone" type="Area2D" parent="."]
+visible = false
 position = Vector2(0, -8)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DeAggroZone"]
@@ -88,6 +90,12 @@ shape = SubResource("CircleShape2D_dkcqc")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_rvuy8")
+
+[node name="HealthBar" parent="." instance=ExtResource("3_x1unp")]
+offset_left = -11.0
+offset_top = 3.0
+offset_right = 11.0
+offset_bottom = 5.0
 
 [connection signal="area_entered" from="AggroZone" to="." method="_on_aggro_zone_entered"]
 [connection signal="area_exited" from="DeAggroZone" to="." method="_on_de_aggro_zone_exited"]

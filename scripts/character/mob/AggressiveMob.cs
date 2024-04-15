@@ -8,7 +8,7 @@ namespace LandsOfAzerith.scripts.character.mob;
 public partial class AggressiveMob : Mob
 {
     public override uint HealthPoints { get; protected set; }
-    public override uint MaxHealthPoints { get; }
+    public override uint MaxHealthPoints => 100;
     public override Weapon Weapon { get; set; } = new Hands();
     protected override Character? Aggro { get; set; }
     public override uint Speed { get; set; } = 80;
@@ -18,6 +18,11 @@ public partial class AggressiveMob : Mob
     private Vector2 _poi = Vector2.Zero;
     
     private Random _random = new Random();
+
+    public override void _Ready()
+    {
+        ChangeHealth(MaxHealthPoints);
+    }
 
     public override void _Process(double delta)
     {

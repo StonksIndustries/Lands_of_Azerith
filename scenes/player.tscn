@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://p34aqil06mwv"]
+[gd_scene load_steps=45 format=3 uid="uid://p34aqil06mwv"]
 
 [ext_resource type="Script" path="res://scripts/character/Player.cs" id="1_5ds04"]
 [ext_resource type="Texture2D" uid="uid://dcda1bigyuyel" path="res://characters/player.png" id="2_pv04o"]
@@ -309,6 +309,9 @@ properties/3/replication_mode = 1
 [sub_resource type="LabelSettings" id="LabelSettings_j00vc"]
 font_size = 64
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_wrxwj"]
+radius = 17.0294
+
 [node name="Player" type="Area2D" groups=["Player"]]
 script = ExtResource("1_5ds04")
 metadata/_edit_group_ = true
@@ -342,4 +345,12 @@ offset_top = 1.0
 offset_right = 9.0
 offset_bottom = 3.0
 
+[node name="Range" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Range"]
+position = Vector2(0, -10)
+shape = SubResource("CircleShape2D_wrxwj")
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="area_entered" from="Range" to="." method="_on_range_entered"]
+[connection signal="area_exited" from="Range" to="." method="_on_range_exited"]

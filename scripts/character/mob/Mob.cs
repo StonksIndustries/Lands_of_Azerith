@@ -42,6 +42,6 @@ public abstract partial class Mob : Character
     
     public override void Die()
     {
-        GetTree().Quit();
+        QueueFree();
     }
 }

@@ -1,4 +1,5 @@
 using Godot;
+using LandsOfAzerith.scripts.character.mob;
 using LandsOfAzerith.scripts.inventory;
 using LandsOfAzerith.scripts.item;
 using LandsOfAzerith.scripts.item.weapon.melee;
@@ -40,6 +41,8 @@ public partial class Player : Character
         {
 	        ProcessInventory(delta);
 			Move(delta);
+			if (Input.IsActionJustPressed("player_attack") && Aggro != null)
+				Attack(Aggro);
         }
 	}
 
@@ -185,6 +188,22 @@ public partial class Player : Character
 	{
 		Position = new Vector2(0, 0);
 		HealthPoints = MaxHealthPoints;
+	}
+	
+	public void _on_range_entered(Area2D body)
+	{
+		if (body is Mob mob)
+		{
+			Aggro = mob;
+		}
+	}
+	
+	public void _on_range_exited(Area2D body)
+	{
+		if (body == Aggro)
+		{
+			Aggro = null;
+		}
 	}
 }
 
