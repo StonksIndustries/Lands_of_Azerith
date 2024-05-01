@@ -3,7 +3,7 @@ namespace LandsOfAzerith.scripts.item.weapon;
 public abstract class DurableRangedWeapon : Weapon, IDurable
 {
     public abstract ulong Durability { get; set; }
-    public abstract ulong MaxDurability { get; }
+    public abstract ulong MaxDurability { get; set; }
 
     public void Repair(ulong amount)
     {

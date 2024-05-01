@@ -3,11 +3,11 @@ using Godot;
 
 namespace LandsOfAzerith.scripts.item;
 
-public abstract class Item
+public abstract class InventoryItem
 {
-    public abstract string Icon { get; }
     public abstract string Name { get; }
     public abstract string Description { get; }
+    public abstract string Icon { get; set; }
     public abstract List<Zones> Zones { get; }
     public abstract Rarity Rarity { get; }
 

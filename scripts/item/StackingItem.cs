@@ -1,15 +1,14 @@
 using System.Collections.Generic;
 
-namespace LandsOfAzerith.scripts.item.weapon;
+namespace LandsOfAzerith.scripts.item;
 
-public class MeleeWeapon : Weapon
+public class StackingItem : InventoryItem
 {
     public override string Name { get; }
     public override string Description { get; }
     public override string Icon { get; set; }
     public override List<Zones> Zones { get; }
     public override Rarity Rarity { get; }
-    public override uint Damage { get; set; }
-    public override uint Range { get; set; }
-    public override uint CoolDown { get; set; }
+    public ulong MaxStack => 100;
+    public ulong Amount { get; protected set; }
 }

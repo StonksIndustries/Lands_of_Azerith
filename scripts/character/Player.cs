@@ -1,8 +1,9 @@
+using System.Collections.Generic;
 using Godot;
 using LandsOfAzerith.scripts.character.mob;
 using LandsOfAzerith.scripts.inventory;
 using LandsOfAzerith.scripts.item;
-using LandsOfAzerith.scripts.item.weapon.melee;
+using LandsOfAzerith.scripts.item.weapon;
 
 namespace LandsOfAzerith.scripts.character;
 
@@ -16,10 +17,12 @@ public partial class Player : Character
 
 	public Inventory Inventory => GetNode<Inventory>("Inventory");
 	public override uint Strength { get; set; }
-	public override Weapon Weapon { get; set; } = new Hands();
+	// Technically doesn't work, here to avoid warnings.
+	public override Weapon Weapon { get; set; } = new MeleeWeapon();
 	public override uint HealthPoints { get; protected set; }
 	public override uint MaxHealthPoints => 100;
 	protected override Character? Aggro { get; set; }
+	private List<Mob> _inRangeMobs = new List<Mob>();
 	private double _inventoryCooldown = 0;
 	private Directions Direction { get; set; }
 	public static Vector2 ScreenSize; // Size of the game window.
@@ -41,8 +44,8 @@ public partial class Player : Character
         {
 	        ProcessInventory(delta);
 			Move(delta);
-			if (Input.IsActionJustPressed("player_attack") && Aggro != null)
-				Attack(Aggro);
+			if (Input.IsActionJustPressed("player_attack"))
+				_inRangeMobs.ForEach(Attack);
         }
 	}
 
@@ -194,15 +197,15 @@ public partial class Player : Character
 	{
 		if (body is Mob mob)
 		{
-			Aggro = mob;
+			_inRangeMobs.Add(mob);
 		}
 	}
 	
 	public void _on_range_exited(Area2D body)
 	{
-		if (body == Aggro)
+		if (body is Mob mob)
 		{
-			Aggro = null;
+			_inRangeMobs.Remove(mob);
 		}
 	}
 }

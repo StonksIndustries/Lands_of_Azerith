@@ -1,7 +1,7 @@
 ﻿using System;
 using Godot;
 using LandsOfAzerith.scripts.item;
-using LandsOfAzerith.scripts.item.weapon.melee;
+using LandsOfAzerith.scripts.item.weapon;
 
 namespace LandsOfAzerith.scripts.character.mob;
 
@@ -9,10 +9,12 @@ public partial class AggressiveMob : Mob
 {
     public override uint HealthPoints { get; protected set; }
     public override uint MaxHealthPoints => 100;
-    public override Weapon Weapon { get; set; } = new Hands();
+    // Technically doesn't work, here to avoid warnings.
+    public override Weapon Weapon { get; set; } = new MeleeWeapon();
     protected override Character? Aggro { get; set; }
     public override uint Speed { get; set; } = 80;
     public override uint Strength { get; set; }
+    protected override string LootTable => "res://loot_tables/slime.json";
 
     [Export]
     private Vector2 _poi = Vector2.Zero;
@@ -87,6 +89,6 @@ public partial class AggressiveMob : Mob
             Aggro = null;
         }
     }
-    
-    
+
+
 }
