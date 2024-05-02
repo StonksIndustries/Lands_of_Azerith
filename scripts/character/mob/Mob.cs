@@ -71,7 +71,7 @@ public abstract partial class Mob : Character
             return;
         }
         
-        item.Icon = (string) lootTable["icon"];
+        //item.Icon = (string) lootTable["icon"];
         
         Node2D loot = GD.Load<PackedScene>("res://scenes/inventory/floor_item.tscn").Instantiate<Area2D>();
         loot.Position = Position;

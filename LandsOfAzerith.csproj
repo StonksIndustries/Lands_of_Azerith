@@ -8,6 +8,26 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="assets\items\weapons\bow.png" />
+    <Content Include="assets\items\weapons\bow.png.import" />
+    <Content Include="assets\items\weapons\hands.png" />
+    <Content Include="assets\items\weapons\hands.png.import" />
+    <Content Include="assets\items\weapons\projectiles\arrow.png" />
+    <Content Include="assets\items\weapons\projectiles\arrow.png.import" />
+    <Content Include="assets\items\weapons\sword.png" />
+    <Content Include="assets\items\weapons\sword.png.import" />
+    <Content Include="assets\mobs\Player_Animation.xcf" />
+    <Content Include="assets\mobs\Player_Texture.xcf" />
+    <Content Include="assets\placeholder.png" />
+    <Content Include="assets\placeholder.png.import" />
+    <Content Include="assets\tilesets\Tileset.png" />
+    <Content Include="assets\tilesets\Tileset.png.import" />
+    <Content Include="items\0_2.json" />
+    <Content Include="items\0_3.json" />
+    <Content Include="items\1_1.json" />
+    <Content Include="items\2_1.json" />
+    <Content Include="items\0_1.json" />
     <Content Include="loot_tables\slime.json" />
+    <Content Include="mobs\slime.json" />
   </ItemGroup>
 </Project>
