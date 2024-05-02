@@ -1,0 +1,10 @@
+﻿{
+  "Type": "MeleeWeapon",
+  "id": "2_1",
+  "Name": "Sword",
+  "Description": "It's a simple sword",
+  "Rarity": 1,
+  "Range": 10,
+  "Damage": 10,
+  "Cooldown": 1
+}
