@@ -22,12 +22,15 @@
     <Content Include="assets\placeholder.png.import" />
     <Content Include="assets\tilesets\Tileset.png" />
     <Content Include="assets\tilesets\Tileset.png.import" />
+    <Content Include="items\0_1.json" />
     <Content Include="items\0_2.json" />
     <Content Include="items\0_3.json" />
-    <Content Include="items\1_1.json" />
-    <Content Include="items\2_1.json" />
-    <Content Include="items\0_1.json" />
+    <Content Include="items\1\1.json" />
+    <Content Include="items\2\1.json" />
     <Content Include="loot_tables\slime.json" />
     <Content Include="mobs\slime.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="items\3\" />
   </ItemGroup>
 </Project>
