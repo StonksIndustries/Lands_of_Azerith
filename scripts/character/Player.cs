@@ -14,7 +14,7 @@ public partial class Player : Character
 	
 	[Export]
 	public override uint Speed { get; set; } = 100; // How fast the player will move (pixels/sec).
-
+	public Statistics Statistics { get; private set; }
 	public Inventory Inventory => GetNode<Inventory>("Inventory");
 	public override uint Strength { get; set; }
 	// Technically doesn't work, here to avoid warnings.
