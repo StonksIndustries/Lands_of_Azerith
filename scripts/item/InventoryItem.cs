@@ -22,6 +22,7 @@ public abstract class InventoryItem
         };
     }
     
+    // Not safe
     public void Load(Godot.Collections.Dictionary<string, Variant> data)
     {
         Name = (string)data[nameof(Name)];
