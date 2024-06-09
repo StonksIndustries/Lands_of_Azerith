@@ -3,6 +3,7 @@ using System;
 using LandsOfAzerith.scripts;
 using System.Linq;
 using LandsOfAzerith.scripts.character;
+using LandsOfAzerith.scripts.main_menu;
 
 namespace LandsOfAzerith.scripts;
 
@@ -102,6 +103,8 @@ public partial class MainMenu : Control
 		GD.Print("Waiting for players...");
 		SendPlayerData(GetNode<LineEdit>("Name").Text, 1);
 		DisableButtons();
+		
+		GetNode<ServerBrowser>("ServerBrowser").SetUpBroadcast(GetNode<LineEdit>("Name").Text + "'s Server");
 	}
 
 	public void _on_join_button_down()
