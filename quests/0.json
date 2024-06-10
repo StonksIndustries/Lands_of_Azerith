@@ -1,0 +1,28 @@
+{
+    "Name" : "Template Quest",
+    "Description" : "This is a template quest.",
+    "Goals" : [
+        {
+            "Type" : "KillMob",
+            "UseStatistics" : true,
+            "Target" : "Goblin",
+            "Amount" : 5
+        },
+        {
+            "Type" : "HaveItem",
+            "UseStatistics" : true,
+            "Target" : "Gold",
+            "Amount" : 100
+        }
+    ],
+    "Rewards" : [
+        {
+            "Type" : "XpReward",
+            "Amount" : 100
+        },
+        {
+            "Type" : "ItemReward",
+            "Amount" : 100
+        }
+    ]
+}

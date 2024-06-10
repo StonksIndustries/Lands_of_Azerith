@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://pen2yjckun88"]
+[gd_scene load_steps=3 format=3 uid="uid://pen2yjckun88"]
 
 [ext_resource type="Script" path="res://scripts/MainMenu.cs" id="1_30b2k"]
+[ext_resource type="Script" path="res://scripts/main_menu/ServerBrowser.cs" id="2_d7qug"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -90,7 +91,69 @@ offset_right = 320.0
 offset_bottom = 580.0
 text = "Exit"
 
+[node name="ServerBrowser" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("2_d7qug")
+
+[node name="Label" type="Label" parent="ServerBrowser"]
+layout_mode = 0
+offset_left = 999.699
+offset_top = 29.2911
+offset_right = 1081.7
+offset_bottom = 52.2911
+text = "Host : true"
+
+[node name="Timer" type="Timer" parent="ServerBrowser"]
+
+[node name="RefreshTimer" type="Timer" parent="ServerBrowser"]
+
+[node name="Panel" type="Panel" parent="ServerBrowser"]
+layout_mode = 0
+offset_left = 444.0
+offset_top = 247.0
+offset_right = 1142.0
+offset_bottom = 625.0
+
+[node name="ServerList" type="VBoxContainer" parent="ServerBrowser/Panel"]
+layout_mode = 0
+offset_top = 54.0
+offset_right = 698.0
+offset_bottom = 377.0
+
+[node name="Header" type="HBoxContainer" parent="ServerBrowser/Panel"]
+layout_mode = 0
+offset_right = 698.0
+offset_bottom = 31.0
+
+[node name="Name" type="Label" parent="ServerBrowser/Panel/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Server Name"
+
+[node name="ServerIP" type="Label" parent="ServerBrowser/Panel/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "IP Adress"
+
+[node name="PlayerCount" type="Label" parent="ServerBrowser/Panel/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Player Count"
+
+[node name="RefreshButton" type="Button" parent="ServerBrowser/Panel/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Refresh"
+
 [connection signal="button_down" from="Join" to="." method="_on_join_button_down"]
 [connection signal="button_down" from="Start" to="." method="_on_start_button_down"]
 [connection signal="button_down" from="Host" to="." method="_on_host_button_down"]
 [connection signal="button_down" from="Button" to="." method="_on_quit_button_down"]
+[connection signal="timeout" from="ServerBrowser/Timer" to="ServerBrowser" method="_on_timer_timeout"]
+[connection signal="timeout" from="ServerBrowser/RefreshTimer" to="ServerBrowser" method="_on_refresh"]
+[connection signal="pressed" from="ServerBrowser/Panel/Header/RefreshButton" to="ServerBrowser" method="_on_refresh"]

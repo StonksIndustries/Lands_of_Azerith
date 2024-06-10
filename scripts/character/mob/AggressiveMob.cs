@@ -1,18 +1,20 @@
 using System;
 using Godot;
 using LandsOfAzerith.scripts.item;
-using LandsOfAzerith.scripts.item.weapon.melee;
+using LandsOfAzerith.scripts.item.weapon;
 
 namespace LandsOfAzerith.scripts.character.mob;
 
 public partial class AggressiveMob : Mob
 {
-	public override uint HealthPoints { get; protected set; }
-	public override uint MaxHealthPoints => 100;
-	public override Weapon Weapon { get; set; } = new Hands();
-	protected override Character? Aggro { get; set; }
-	public override uint Speed { get; set; } = 80;
-	public override uint Strength { get; set; }
+    public override uint HealthPoints { get; protected set; }
+    public override uint MaxHealthPoints => 100;
+    // Technically doesn't work, here to avoid warnings.
+    public override Weapon Weapon { get; set; } = new MeleeWeapon();
+    protected override Character? Aggro { get; set; }
+    public override uint Speed { get; set; } = 80;
+    public override uint Strength { get; set; }
+    protected override string LootTable => "res://loot_tables/slime.json";
 
 	[Export]
 	private Vector2 _poi = Vector2.Zero;
@@ -71,22 +73,21 @@ public partial class AggressiveMob : Mob
 		Position += Speed * velocity * (float)delta;
 	}
 
+    private void _on_aggro_zone_entered(Area2D body)
+    {
+        if (Aggro is null && body is Player player)
+        {
+            Aggro = player;
+        }
+    }
+    
+    private void _on_de_aggro_zone_exited(Area2D body)
+    {
+        if (body == Aggro)
+        {
+            Aggro = null;
+        }
+    }
 
-	private void _on_aggro_zone_entered(Area2D body)
-	{
-		if (Aggro is null && body is Player player)
-		{
-			Aggro = player;
-		}
-	}
-	
-	private void _on_de_aggro_zone_exited(Area2D body)
-	{
-		if (body == Aggro)
-		{
-			Aggro = null;
-		}
-	}
-	
-	
+
 }

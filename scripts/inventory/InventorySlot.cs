@@ -1,25 +1,16 @@
 using Godot;
 using Godot.Collections;
 using LandsOfAzerith.scripts.item;
-using LandsOfAzerith.scripts.item.weapon.melee;
-using LandsOfAzerith.scripts.item.weapon.ranged;
-using LandsOfAzerith.scripts.item.weapon.ranged.projectile;
 
 namespace LandsOfAzerith.scripts.inventory;
 
 public partial class InventorySlot : Control
 {
-	public Item? Item;
+	public InventoryItem? Item;
 	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		if (Name == "Slot1")
-			Item = new Sword();
-		else if (Name == "Slot2")
-			Item = new Bow();
-		else if (Name == "Slot3")
-			Item = new Arrow();
 		Refresh();
 	}
 
