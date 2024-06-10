@@ -1,9 +1,15 @@
 using Godot;
 using System;
+using System.Collections.Generic;
+using System.IO;
 using LandsOfAzerith.scripts;
 using System.Linq;
+using System.Text.Json;
 using LandsOfAzerith.scripts.character;
 using LandsOfAzerith.scripts.main_menu;
+using LandsOfAzerith.scripts.quests;
+using LandsOfAzerith.scripts.quests.goals;
+using LandsOfAzerith.scripts.quests.rewards;
 
 namespace LandsOfAzerith.scripts;
 
@@ -26,6 +32,17 @@ public partial class MainMenu : Control
 		Multiplayer.ConnectionFailed += ConnectionFailed;
 
 		GetNode<ServerBrowser>("ServerBrowser").JoinServer += JoinServer;
+
+		// For testing purposes
+		// var file = File.Create("quests/test.json");
+		// file.WriteAsync(JsonSerializer.Serialize(new Quest
+		// {
+		// 	Description = "Test quest",
+		// 	Name = "Test",
+		// 	Goals = new List<Goal>(),
+		// 	Rewards = new List<Reward>()
+		// }).ToAsciiBuffer());
+		// file.Close();
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

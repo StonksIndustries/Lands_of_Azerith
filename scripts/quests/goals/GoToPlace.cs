@@ -8,6 +8,18 @@ public class GoToPlace : Goal
 {
     private readonly Vector2 _coordinates;
     private readonly double _radius;
+
+    public override int Progression
+    {
+        get
+        {
+            if (Player.Position.DistanceTo(_coordinates) < _radius)
+                return 1;
+            else
+                return 0;
+        }
+    }
+
     public GoToPlace(int targetGoal, Player player, Vector2 coordinates, int radius) : base(false, 1, player)
     {
         _coordinates = coordinates;
@@ -25,13 +37,5 @@ public class GoToPlace : Goal
         }
         _coordinates = (Vector2)coordinates;
         _radius = (int)radius;
-    }
-
-    public override int CheckProgress()
-    {
-        if (Player.Position.DistanceTo(_coordinates) < _radius)
-            return 1;
-        else
-            return 0;
     }
 }

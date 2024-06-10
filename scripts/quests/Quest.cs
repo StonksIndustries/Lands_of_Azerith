@@ -1,12 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 using Godot;
-using Godot.Collections;
 using LandsOfAzerith.scripts.character;
 using LandsOfAzerith.scripts.quests.goals;
 using LandsOfAzerith.scripts.quests.rewards;
-using Array = Godot.Collections.Array;
 
 namespace LandsOfAzerith.scripts.quests;
 
@@ -17,17 +16,18 @@ public class Quest
     public List<Reward> Rewards { get; set; }
     public string Name { get; set; }
     public string Description { get; set; }
+    [JsonIgnore]
     public bool IsCompleted => Goals.All(e => e.IsCompleted);
     public Player Player;
     
-    public Quest(string name, string description, List<Goal> goals, List<Reward> rewards, Player player)
-    {
-        Name = name;
-        Description = description;
-        Goals = goals;
-        Rewards = rewards;
-        Player = player;
-    }
+    // public Quest(string name, string description, List<Goal> goals, List<Reward> rewards, Player player)
+    // {
+    //     Name = name;
+    //     Description = description;
+    //     Goals = goals;
+    //     Rewards = rewards;
+    //     Player = player;
+    // }
     
     public static Quest? Load(string questId, Player player)
     {

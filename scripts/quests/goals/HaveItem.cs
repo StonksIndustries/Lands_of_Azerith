@@ -9,6 +9,8 @@ public class HaveItem : Goal
     private readonly string _itemId;
     private readonly int  _startAmount;
 
+    public override int Progression => AmountCollected;
+
     private int AmountCollected
     {
         get
@@ -48,10 +50,5 @@ public class HaveItem : Goal
             else
                 _startAmount = 0;
         }
-    }
-
-    public override int CheckProgress()
-    {
-        return AmountCollected;
     }
 }

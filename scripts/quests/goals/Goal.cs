@@ -1,15 +1,20 @@
+using System.Text.Json.Serialization;
+using System.Text.Json;
 using LandsOfAzerith.scripts.character;
 using Godot;
 using Godot.Collections;
 
 namespace LandsOfAzerith.scripts.quests.goals;
 
+[JsonDerivedType(typeof(GoToPlace), nameof(GoToPlace))]
+[JsonDerivedType(typeof(HaveItem), nameof(HaveItem))]
+[JsonDerivedType(typeof(KillMob), nameof(KillMob))]
 public abstract class Goal
 {
-    public readonly bool UseStatistics;
-    public readonly int TargetGoal;
+    public bool UseStatistics { get; set; }
+    public int TargetGoal { get; set; }
     public readonly Player Player;
-    public int Progression => CheckProgress();
+    public abstract int Progression { get; }
     public bool IsCompleted => Progression >= TargetGoal;
     public bool IsValid;
 
@@ -37,6 +42,4 @@ public abstract class Goal
             IsValid = true;
         }
     }
-    
-    public abstract int CheckProgress();
 }

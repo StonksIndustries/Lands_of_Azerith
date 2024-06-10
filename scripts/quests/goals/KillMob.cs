@@ -9,6 +9,8 @@ public class KillMob : Goal
     private readonly string _mobId;
     private readonly int  _startAmount;
 
+    public override int Progression => AmountKilled;
+
     private int AmountKilled
     {
         get
@@ -48,10 +50,5 @@ public class KillMob : Goal
             else
                 _startAmount = 0;
         }
-    }
-
-    public override int CheckProgress()
-    {
-        return AmountKilled;
     }
 }
