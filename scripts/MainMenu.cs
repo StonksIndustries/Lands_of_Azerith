@@ -53,15 +53,15 @@ public partial class MainMenu : Control
 		else
 		{
 			GD.Print("Player " + id + " disconnected!");
-            GameManager.Players.Remove(GameManager.Players.Where(i => i.Id == id).First());
-            var players = GetTree().GetNodesInGroup("Player");
-            foreach (var item in players)
-            {
-            	if (item.Name == id.ToString())
-            	{
-            		item.QueueFree();
-            	}
-            }
+			GameManager.Players.Remove(GameManager.Players.Where(i => i.Id == id).First());
+			var players = GetTree().GetNodesInGroup("Player");
+			foreach (var item in players)
+			{
+				if (item.Name == id.ToString())
+				{
+					item.QueueFree();
+				}
+			}
 		}
 	}
 
