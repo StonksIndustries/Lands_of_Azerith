@@ -1,4 +1,5 @@
-﻿using Godot;
+﻿using System.Text.Json;
+using Godot;
 
 namespace LandsOfAzerith.scripts;
 
@@ -25,30 +26,15 @@ public static class Toolbox
     }
     
     /// <summary>
-    /// Takes a file path to a Json file and returns the Json object with the file parsed.
+    /// Return the content of a Json file as an object of type T.
     /// </summary>
     /// <param name="path">The path to the Json file</param>
-    /// <returns>null if path or file content is invalid, else a Json with the file parsed</returns>
-    public static Json? LoadFileInJson(string path)
+    /// <typeparam name="T">Type of object</typeparam>
+    /// <returns></returns>
+    public static T? LoadFileInJson<T>(string path)
     {
-        if (!FileAccess.FileExists(path))
-        {
-            GD.PrintErr($"Error parsing quest: {path} does not exist.");
-            return null;
-        }
-        
         var file = FileAccess.Open(path, FileAccess.ModeFlags.Read);
-        Json jsonParser = new Json();
-        var error = jsonParser.Parse(file.GetAsText());
-        file.Close();
-        
-        if (error != Error.Ok)
-        {
-            GD.PrintErr($"Error parsing loot table: {jsonParser.GetErrorMessage()} at line {jsonParser.GetErrorLine()}.");
-            return null;
-        }
-
-        return jsonParser;
+        return JsonSerializer.Deserialize<T>(file.GetAsText());
     }
 
     /// <summary>
