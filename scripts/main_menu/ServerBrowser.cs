@@ -5,14 +5,16 @@ namespace LandsOfAzerith.scripts.main_menu;
 
 public partial class ServerBrowser : Control
 {
-	[Export] private PacketPeerUdp _broadcaster = new PacketPeerUdp();
+	[Export] private PacketPeerUdp? _broadcaster;
 	[Export] private PacketPeerUdp _listener = new PacketPeerUdp();
 	[Export] private int _listenPort = 8900;
 	[Export] private int _hostPort = 8901;
 	[Export] private string _broadcastAdrress = "192.168.1.255";
 	[Export] private PackedScene _serverInfoScene = GD.Load<PackedScene>("res://scenes/server_info.tscn");
+	[Signal] public delegate void JoinServerEventHandler(string serverIp);
 
 	private Timer _broadcastTimer;
+	private Timer _refreshTimer;
 
 	private ServerInfo _serverInfo;
 	
@@ -20,34 +22,14 @@ public partial class ServerBrowser : Control
 	public override void _Ready()
 	{
 		_broadcastTimer = GetNode<Timer>("Timer");
+		_refreshTimer = GetNode<Timer>("RefreshTimer");
 		SetUpListener();
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		if (_listener.GetAvailablePacketCount() > 0)
-		{
-			string serverIP = _listener.GetPacketIP();
-			int port = _listener.GetPacketPort();
-			byte[] packet = _listener.GetPacket();
-			ServerInfo info = JsonSerializer.Deserialize<ServerInfo>(packet.GetStringFromAscii())!;
-			GD.Print(
-				$"Server IP : {serverIP}, Port : {port}, Server Name : {info.Name}, Player Count : {info.PlayerCount}");
-			
-			if (GetNodeOrNull($"Panel/ServerList/{info.Name}") is not null)
-				return;
-			
-			ServerInfoLine serverInfo = _serverInfoScene.Instantiate<ServerInfoLine>();
-			serverInfo.Name = info.Name;
-			serverInfo.GetNode<Label>("Name").Text = info.Name;
-			serverInfo.GetNode<Label>("PlayerCount").Text = info.PlayerCount.ToString();
-			serverInfo.GetNode<Label>("ServerIP").Text = serverIP;
-			
-			GetNode("Panel/ServerList").AddChild(serverInfo);
-			
-			serverInfo.JoinServer += _on_join_server;
-		}
+		
 	}
 
 	public void SetUpBroadcast(string name)
@@ -58,6 +40,7 @@ public partial class ServerBrowser : Control
 			PlayerCount = GameManager.Players.Count
 		};
 		
+		_broadcaster = new PacketPeerUdp();
 		_broadcaster.SetBroadcastEnabled(true);
 		_broadcaster.SetDestAddress(_broadcastAdrress, _listenPort);
 
@@ -90,6 +73,8 @@ public partial class ServerBrowser : Control
 			// For testing purposes
 			GetNode<Label>("Label").Text = "Listen : false";
 		}
+		
+		_refreshTimer.Start();
 	}
 
 	private void _on_timer_timeout()
@@ -100,11 +85,51 @@ public partial class ServerBrowser : Control
 		string json = JsonSerializer.Serialize(_serverInfo);
 		var packet = json.ToAsciiBuffer();
 
-		_broadcaster.PutPacket(packet);
+		// Timer is on only when the broadcaster is activated
+		_broadcaster!.PutPacket(packet);
 	}
 	
 	private void _on_join_server(string serverIp)
 	{
-		GD.Print("Joining server: " + serverIp);
+		EmitSignal(SignalName.JoinServer, serverIp);
+	}
+	
+	private void _on_refresh()
+	{
+		foreach (Node oldServers in GetNode("Panel/ServerList").GetChildren())
+		{
+			oldServers.Free();
+		}
+			
+		while (_listener.GetAvailablePacketCount() > 0)
+		{
+			string serverIp = _listener.GetPacketIP();
+			int port = _listener.GetPacketPort();
+			byte[] packet = _listener.GetPacket();
+			ServerInfo info = JsonSerializer.Deserialize<ServerInfo>(packet.GetStringFromAscii())!;
+			GD.Print(
+				$"Server IP : {serverIp}, Port : {port}, Server Name : {info.Name}, Player Count : {info.PlayerCount}");
+				
+			if (GetNodeOrNull($"Panel/ServerList/{info.Name}") is not null)
+				return;
+				
+			ServerInfoLine serverInfo = _serverInfoScene.Instantiate<ServerInfoLine>();
+			serverInfo.Name = info.Name;
+			serverInfo.GetNode<Label>("Name").Text = info.Name;
+			serverInfo.GetNode<Label>("PlayerCount").Text = info.PlayerCount.ToString();
+			serverInfo.GetNode<Label>("ServerIP").Text = serverIp;
+				
+			GetNode("Panel/ServerList").AddChild(serverInfo);
+				
+			serverInfo.JoinServer += _on_join_server;
+		}
+	}
+
+	public void Clean()
+	{
+		_listener.Close();
+		_broadcastTimer.Stop();
+		if(_broadcaster is not null)
+			_broadcaster.Close();
 	}
 }

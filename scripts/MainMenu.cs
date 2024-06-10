@@ -10,7 +10,7 @@ namespace LandsOfAzerith.scripts;
 public partial class MainMenu : Control
 {
 	[Export]
-	private int _port = 1234;
+	private int _port = 8901;
 
 	[Export]
 	private string _address = "127.0.0.1";
@@ -24,6 +24,8 @@ public partial class MainMenu : Control
 		Multiplayer.PeerDisconnected += PeerDisconnected;
 		Multiplayer.ConnectedToServer += ConnectedToServer;
 		Multiplayer.ConnectionFailed += ConnectionFailed;
+
+		GetNode<ServerBrowser>("ServerBrowser").JoinServer += JoinServer;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -87,10 +89,9 @@ public partial class MainMenu : Control
 	{
 		GetTree().Quit();
 	}
-	
-	public void _on_host_button_down()
+
+	private void _on_host_button_down()
 	{
-		_port = GetNode<LineEdit>("Port").Text.ToInt();
 		var error = _peer.CreateServer(_port, 8);
 		if (error != Error.Ok)
 		{
@@ -107,18 +108,21 @@ public partial class MainMenu : Control
 		GetNode<ServerBrowser>("ServerBrowser").SetUpBroadcast(GetNode<LineEdit>("Name").Text + "'s Server");
 	}
 
-	public void _on_join_button_down()
+	private void _on_join_button_down()
 	{
-		_address = GetNode<LineEdit>("Address").Text;
-		_port = GetNode<LineEdit>("Port").Text.ToInt();
-		_peer.CreateClient(GetNode<LineEdit>("Address").Text, GetNode<LineEdit>("Port").Text.ToInt());
+		JoinServer(GetNode<LineEdit>("Address").Text);
+	}
+	
+	private void JoinServer(string serverIp)
+	{
+		_peer.CreateClient(serverIp, _port);
 		_peer.Host.Compress(ENetConnection.CompressionMode.Fastlz);
 		Multiplayer.MultiplayerPeer = _peer;
 		GD.Print("Joining Game!");
 		DisableButtons();
 	}
 
-	public void _on_start_button_down()
+	private void _on_start_button_down()
 	{
 		Rpc("StartGame");
 	}
@@ -127,13 +131,14 @@ public partial class MainMenu : Control
 	[Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
 	private void StartGame()
 	{
+		GetNode<ServerBrowser>("ServerBrowser").Clean();
 		if (GetTree().HasGroup("World"))
 		{
 			return;
 		}
 		var scene = ResourceLoader.Load<PackedScene>("res://scenes/world.tscn").Instantiate<Node2D>();
 		GetTree().Root.AddChild(scene);
-		this.Hide();
+		Hide();
 		foreach (var item in GameManager.Players)
 		{
 			GD.Print(item.Id + " is playing!");
