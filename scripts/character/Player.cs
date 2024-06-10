@@ -39,10 +39,10 @@ public partial class Player : Character
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-        if (GetNode<MultiplayerSynchronizer>("MultiplayerSynchronizer").GetMultiplayerAuthority() ==
-            Multiplayer.GetUniqueId())
-        {
-	        ProcessInventory(delta);
+		if (GetNode<MultiplayerSynchronizer>("MultiplayerSynchronizer").GetMultiplayerAuthority() ==
+			Multiplayer.GetUniqueId())
+		{
+			ProcessInventory(delta);
 			Move(delta);
 			if (Input.IsActionJustPressed("player_attack"))
 				_inRangeMobs.ForEach(Attack);
