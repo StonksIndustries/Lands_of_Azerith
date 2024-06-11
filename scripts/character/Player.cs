@@ -46,7 +46,7 @@ public partial class Player : Character
 			Move(delta);
 			if (Input.IsActionJustPressed("player_attack"))
 				_inRangeMobs.ForEach(Attack);
-        }
+		}
 	}
 
 	private void ProcessInventory(double delta)
