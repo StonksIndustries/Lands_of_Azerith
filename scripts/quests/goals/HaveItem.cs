@@ -6,25 +6,23 @@ namespace LandsOfAzerith.scripts.quests.goals;
 
 public class HaveItem : Goal
 {
-    private readonly string _itemId;
-    private readonly int  _startAmount;
 
-    public override int Progression => AmountCollected;
+    public string ItemId { get; set; }
+    public int  StartAmount { get; set; }
 
-    private int AmountCollected
+    public override int Progression(Player player) => AmountCollected(player);
+
+    private int AmountCollected(Player player)
     {
-        get
-        {
-            if (Player.Statistics.ItemsCollected.ContainsKey(_itemId))
-                return 0;
-            else if (UseStatistics)
-                return Player.Statistics.ItemsCollected[_itemId];
-            else
-                return Player.Statistics.ItemsCollected[_itemId] - _startAmount;
-        }
+        if (player.Statistics.ItemsCollected.ContainsKey(ItemId))
+            return 0;
+        else if (UseStatistics)
+            return player.Statistics.ItemsCollected[ItemId];
+        else
+            return player.Statistics.ItemsCollected[ItemId] - StartAmount;
     }
 
-    public HaveItem(bool useStatistics, int targetGoal, Player player, string itemId) : base(useStatistics, targetGoal, player)
+    /*public HaveItem(bool useStatistics, int targetGoal, Player player, string itemId) : base(useStatistics, targetGoal, player)
     {
         _itemId = itemId;
         if (Player.Statistics.ItemsCollected.ContainsKey(_itemId))
@@ -50,5 +48,5 @@ public class HaveItem : Goal
             else
                 _startAmount = 0;
         }
-    }
+    }*/
 }

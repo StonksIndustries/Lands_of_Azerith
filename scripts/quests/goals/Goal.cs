@@ -13,10 +13,15 @@ public abstract class Goal
 {
     public bool UseStatistics { get; set; }
     public int TargetGoal { get; set; }
-    public readonly Player Player;
-    public abstract int Progression { get; }
-    public bool IsCompleted => Progression >= TargetGoal;
-    public bool IsValid;
+
+    public bool IsCompleted(Player player)
+    {
+        return Progression(player) >= TargetGoal;
+    } 
+
+    public abstract int Progression(Player player);
+
+    /*public bool IsValid;
 
     public Goal(bool useStatistics, int targetGoal, Player player)
     {
@@ -24,7 +29,7 @@ public abstract class Goal
         TargetGoal = targetGoal;
         UseStatistics = useStatistics;
     }
-    
+
     public Goal(Dictionary goal, Player player)
     {
         Player = player;
@@ -41,5 +46,5 @@ public abstract class Goal
             TargetGoal = (int)targetGoal;
             IsValid = true;
         }
-    }
+    }*/
 }

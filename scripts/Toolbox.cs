@@ -5,12 +5,20 @@ namespace LandsOfAzerith.scripts;
 
 public static class Toolbox
 {
+    /// <summary>
+    /// The options for the JsonSerializer used in the code.
+    /// </summary>
+    public static JsonSerializerOptions JsonOptions => new JsonSerializerOptions
+    {
+        WriteIndented = true,
+        IncludeFields = true
+    };
     
     /// <summary>
     /// Takes a positive integer in string format and returns it as an integer.
     /// </summary>
     /// <param name="value"></param>
-    /// <returns>-1 if value is not a postive integer, else the string as an integer</returns>
+    /// <returns>-1 if value is not a positive integer, else the string as an integer</returns>
     public static int ToInt(string value)
     {
         int result = 0;

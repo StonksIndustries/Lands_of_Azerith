@@ -6,8 +6,9 @@ namespace LandsOfAzerith.scripts.quests.rewards;
 
 public class ItemReward : Reward
 {
-    public readonly string ItemId;
-    public ItemReward(int amount, string itemId) : base(amount)
+    public string ItemId { get; set; }
+    
+    /*public ItemReward(int amount, string itemId) : base(amount)
     {
         ItemId = itemId;
     }
@@ -25,7 +26,7 @@ public class ItemReward : Reward
         {
             ItemId = (string)itemId;
         }
-    }
+    }*/
 
     public override void GiveReward(Player player)
     {

@@ -16,9 +16,8 @@ public class Quest
     public List<Reward> Rewards { get; set; }
     public string Name { get; set; }
     public string Description { get; set; }
-    [JsonIgnore]
-    public bool IsCompleted => Goals.All(e => e.IsCompleted);
-    public Player Player;
+    [JsonIgnore] public bool IsCompleted => Goals.All(e => e.IsCompleted(Player));
+    [JsonIgnore] public Player Player;
     
     // public Quest(string name, string description, List<Goal> goals, List<Reward> rewards, Player player)
     // {

@@ -6,25 +6,22 @@ namespace LandsOfAzerith.scripts.quests.goals;
 
 public class KillMob : Goal
 {
-    private readonly string _mobId;
-    private readonly int  _startAmount;
+    public string MobId { get; set; }
+    public int  StartAmount { get; set; }
 
-    public override int Progression => AmountKilled;
+    public override int Progression(Player player) => AmountKilled(player);
 
-    private int AmountKilled
+    private int AmountKilled(Player player)
     {
-        get
-        {
-            if (Player.Statistics.MobKilled.ContainsKey(_mobId))
+            if (player.Statistics.MobKilled.ContainsKey(MobId))
                 return 0;
             else if (UseStatistics)
-                return Player.Statistics.MobKilled[_mobId];
+                return player.Statistics.MobKilled[MobId];
             else
-                return Player.Statistics.MobKilled[_mobId] - _startAmount;
-        }
+                return player.Statistics.MobKilled[MobId] - StartAmount;
     }
 
-    public KillMob(bool useStatistics, int targetGoal, Player player, string mobId) : base(useStatistics, targetGoal, player)
+    /*public KillMob(bool useStatistics, int targetGoal, Player player, string mobId) : base(useStatistics, targetGoal, player)
     {
         _mobId = mobId;
         if (Player.Statistics.MobKilled.ContainsKey(_mobId))
@@ -50,5 +47,5 @@ public class KillMob : Goal
             else
                 _startAmount = 0;
         }
-    }
+    }*/
 }

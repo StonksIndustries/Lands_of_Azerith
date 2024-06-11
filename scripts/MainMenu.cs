@@ -34,15 +34,41 @@ public partial class MainMenu : Control
 		GetNode<ServerBrowser>("ServerBrowser").JoinServer += JoinServer;
 
 		// For testing purposes
-		// var file = File.Create("quests/test.json");
-		// file.WriteAsync(JsonSerializer.Serialize(new Quest
-		// {
-		// 	Description = "Test quest",
-		// 	Name = "Test",
-		// 	Goals = new List<Goal>(),
-		// 	Rewards = new List<Reward>()
-		// }).ToAsciiBuffer());
-		// file.Close();
+		/*var file2 = File.Create("quests/test2.json");
+		file2.Write(JsonSerializer.Serialize(JsonSerializer.Deserialize<Quest>(File.ReadAllText("quests/test.json")), new JsonSerializerOptions{WriteIndented = true, IncludeFields = true}).ToAsciiBuffer());
+		file2.Close();
+		var file = File.OpenRead("quests/test.json");
+		file.Write(JsonSerializer.Serialize(new Quest
+		{
+			Description = "Test quest",
+			Name = "Test",
+			Goals = new List<Goal>
+			{
+				new HaveItem
+				{
+					TargetGoal = 3,
+					UseStatistics = false,
+					ItemId = "1",
+					StartAmount = 0
+				},
+				new KillMob
+				{
+					TargetGoal = 5,
+					UseStatistics = true,
+					MobId = "3",
+					StartAmount = 2
+				},
+				new GoToPlace
+				{
+					Coordinates = new Vector2(3,4),
+					Radius = 5,
+					TargetGoal = 1,
+					UseStatistics = false
+				}
+			},
+			Rewards = new List<Reward>()
+		}, new JsonSerializerOptions{WriteIndented = true, IncludeFields = true}).ToAsciiBuffer());
+		file.Close();*/
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -6,13 +6,13 @@ namespace LandsOfAzerith.scripts.quests.rewards;
 
 public class XpReward : Reward
 {
-    public XpReward(int amount) : base(amount)
-    {
-    }
-    
-    public XpReward(Dictionary reward) : base(reward)
-    {
-    }
+    // public XpReward(int amount) : base(amount)
+    // {
+    // }
+    //
+    // public XpReward(Dictionary reward) : base(reward)
+    // {
+    // }
     
     public override void GiveReward(Player player)
     {
