@@ -14,7 +14,7 @@ public class XpReward : Reward
     // {
     // }
     
-    public override void GiveReward(Player player)
+    public override void GiveReward(PlayerNode playerNode)
     {
         throw new NotImplementedException();
     }

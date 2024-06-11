@@ -9,16 +9,16 @@ public class KillMob : Goal
     public string MobId { get; set; }
     public int  StartAmount { get; set; }
 
-    public override int Progression(Player player) => AmountKilled(player);
+    public override int Progression(PlayerNode playerNode) => AmountKilled(playerNode);
 
-    private int AmountKilled(Player player)
+    private int AmountKilled(PlayerNode playerNode)
     {
-            if (player.Statistics.MobKilled.ContainsKey(MobId))
+            if (playerNode.Statistics.MobKilled.ContainsKey(MobId))
                 return 0;
             else if (UseStatistics)
-                return player.Statistics.MobKilled[MobId];
+                return playerNode.Statistics.MobKilled[MobId];
             else
-                return player.Statistics.MobKilled[MobId] - StartAmount;
+                return playerNode.Statistics.MobKilled[MobId] - StartAmount;
     }
 
     /*public KillMob(bool useStatistics, int targetGoal, Player player, string mobId) : base(useStatistics, targetGoal, player)

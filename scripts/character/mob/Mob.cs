@@ -32,8 +32,8 @@ public abstract partial class Mob : Character
         {
             _poi = new Vector2(Position.X + _random.Next(-100, 100), Position.Y + _random.Next(-100, 100));
             _poi = new Vector2(
-                x: Mathf.Clamp(_poi.X, 1, Player.ScreenSize.X),
-                y: Mathf.Clamp(_poi.Y, 1, Player.ScreenSize.Y)
+                x: Mathf.Clamp(_poi.X, 1, PlayerNode.ScreenSize.X),
+                y: Mathf.Clamp(_poi.Y, 1, PlayerNode.ScreenSize.Y)
             );
         }
     }

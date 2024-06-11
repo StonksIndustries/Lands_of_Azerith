@@ -7,22 +7,13 @@ using LandsOfAzerith.scripts.item.weapon;
 
 namespace LandsOfAzerith.scripts.character;
 
-public partial class Player : Character
+public partial class PlayerNode : PlayerBackend
 {
 	[Signal]
 	public delegate void HitEventHandler();
 	
 	[Export]
-	public override uint Speed { get; set; } = 100; // How fast the player will move (pixels/sec).
-	public Statistics Statistics { get; private set; }
-	public Inventory Inventory => GetNode<Inventory>("Inventory");
-	public override uint Strength { get; set; }
-	// Technically doesn't work, here to avoid warnings.
-	public override Weapon Weapon { get; set; } = new MeleeWeapon();
-	public override uint HealthPoints { get; protected set; }
-	public override uint MaxHealthPoints => 100;
-	protected override Character? Aggro { get; set; }
-	private List<Mob> _inRangeMobs = new List<Mob>();
+	public uint WalkingSpeed { get; set; } = 100; // How fast the player will move (pixels/sec).
 	private double _inventoryCooldown = 0;
 	private Directions Direction { get; set; }
 	public static Vector2 ScreenSize; // Size of the game window.
@@ -45,8 +36,8 @@ public partial class Player : Character
 			ProcessInventory(delta);
 			Move(delta);
 			if (Input.IsActionJustPressed("player_attack"))
-				_inRangeMobs.ForEach(Attack);
-		}
+				InRangeMobs.ForEach(Attack);
+        }
 	}
 
 	private void ProcessInventory(double delta)
@@ -94,7 +85,7 @@ public partial class Player : Character
 		}
 		else
 		{
-			velocity = velocity.Normalized() * Speed;
+			velocity = velocity.Normalized() * WalkingSpeed;
 			if (Input.IsActionPressed("sprint"))
 			{
 				animation.SpeedScale = 2;
@@ -197,7 +188,7 @@ public partial class Player : Character
 	{
 		if (body is Mob mob)
 		{
-			_inRangeMobs.Add(mob);
+			InRangeMobs.Add(mob);
 		}
 	}
 	
@@ -205,7 +196,7 @@ public partial class Player : Character
 	{
 		if (body is Mob mob)
 		{
-			_inRangeMobs.Remove(mob);
+			InRangeMobs.Remove(mob);
 		}
 	}
 }

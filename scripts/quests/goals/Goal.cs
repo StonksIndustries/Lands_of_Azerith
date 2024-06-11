@@ -14,12 +14,12 @@ public abstract class Goal
     public bool UseStatistics { get; set; }
     public int TargetGoal { get; set; }
 
-    public bool IsCompleted(Player player)
+    public bool IsCompleted(PlayerNode playerNode)
     {
-        return Progression(player) >= TargetGoal;
+        return Progression(playerNode) >= TargetGoal;
     } 
 
-    public abstract int Progression(Player player);
+    public abstract int Progression(PlayerNode playerNode);
 
     /*public bool IsValid;
 

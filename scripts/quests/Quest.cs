@@ -16,8 +16,8 @@ public class Quest
     public List<Reward> Rewards { get; set; }
     public string Name { get; set; }
     public string Description { get; set; }
-    [JsonIgnore] public bool IsCompleted => Goals.All(e => e.IsCompleted(Player));
-    [JsonIgnore] public Player Player;
+    [JsonIgnore] public bool IsCompleted => Goals.All(e => e.IsCompleted(PlayerNode));
+    [JsonIgnore] public PlayerNode PlayerNode;
     
     // public Quest(string name, string description, List<Goal> goals, List<Reward> rewards, Player player)
     // {
@@ -28,7 +28,7 @@ public class Quest
     //     Player = player;
     // }
     
-    public static Quest? Load(string questId, Player player)
+    public static Quest? Load(string questId, PlayerNode playerNode)
     {
         /*string path = Path + questId + ".json";
         var json = Toolbox.LoadFileInJson(path);
@@ -49,7 +49,7 @@ public class Quest
         // I'm so sad that I could do only this instead of the above code
         var quest = Toolbox.LoadFileInJson<Quest>(Path + questId + ".json");
         if (quest is not null)
-            quest.Player = player;
+            quest.PlayerNode = playerNode;
         return quest;
     }
     
@@ -124,7 +124,7 @@ public class Quest
     {
         if (IsCompleted)
             foreach (var reward in Rewards)
-                reward.GiveReward(Player);
+                reward.GiveReward(PlayerNode);
         return IsCompleted;
     }
 }

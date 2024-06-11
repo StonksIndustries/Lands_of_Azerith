@@ -1,6 +1,6 @@
 [gd_scene load_steps=45 format=3 uid="uid://p34aqil06mwv"]
 
-[ext_resource type="Script" path="res://scripts/character/Player.cs" id="1_5ds04"]
+[ext_resource type="Script" path="res://scripts/character/PlayerNode.cs" id="1_5ds04"]
 [ext_resource type="Texture2D" uid="uid://dcda1bigyuyel" path="res://characters/player.png" id="2_pv04o"]
 [ext_resource type="PackedScene" uid="uid://bk1s4rsxfmluj" path="res://scenes/health_bar.tscn" id="3_mnyhl"]
 

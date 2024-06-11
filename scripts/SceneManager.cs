@@ -38,12 +38,12 @@ public partial class SceneManager : Node2D
 		{
 			return;
 		}
-		Player currentPlayer = _playerScene.Instantiate<Player>();
-		currentPlayer.Name = playerInfo.Id.ToString();
-		AddChild(currentPlayer);
+		PlayerNode currentPlayerNode = _playerScene.Instantiate<PlayerNode>();
+		currentPlayerNode.Name = playerInfo.Id.ToString();
+		AddChild(currentPlayerNode);
 		Node2D spawnPoint = GetNode<Node2D>("SpawnPoint");
-		currentPlayer.GlobalPosition = spawnPoint.GlobalPosition;
-		var nameLabel = currentPlayer.GetNodeOrNull<Label>("Name");
+		currentPlayerNode.GlobalPosition = spawnPoint.GlobalPosition;
+		var nameLabel = currentPlayerNode.GetNodeOrNull<Label>("Name");
 		if (nameLabel != null)
 		{
 			if (playerInfo.Name == "")
@@ -62,13 +62,13 @@ public partial class SceneManager : Node2D
 				Name = "Camera",
 				Zoom = new Vector2(zoom, zoom)
 			};
-			currentPlayer.AddChild(camera);
+			currentPlayerNode.AddChild(camera);
 			
 			// Adds the inventory to the player
 			var inventory = _inventoryScene.Instantiate<Inventory>();
 			inventory.Position = - GetViewportRect().Size / (2 * zoom);
 			inventory.Visible = false;
-			currentPlayer.AddChild(inventory);
+			currentPlayerNode.AddChild(inventory);
 		}
 	}
 }

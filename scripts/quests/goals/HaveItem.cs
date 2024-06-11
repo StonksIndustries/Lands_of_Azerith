@@ -10,16 +10,16 @@ public class HaveItem : Goal
     public string ItemId { get; set; }
     public int  StartAmount { get; set; }
 
-    public override int Progression(Player player) => AmountCollected(player);
+    public override int Progression(PlayerNode playerNode) => AmountCollected(playerNode);
 
-    private int AmountCollected(Player player)
+    private int AmountCollected(PlayerNode playerNode)
     {
-        if (player.Statistics.ItemsCollected.ContainsKey(ItemId))
+        if (playerNode.Statistics.ItemsCollected.ContainsKey(ItemId))
             return 0;
         else if (UseStatistics)
-            return player.Statistics.ItemsCollected[ItemId];
+            return playerNode.Statistics.ItemsCollected[ItemId];
         else
-            return player.Statistics.ItemsCollected[ItemId] - StartAmount;
+            return playerNode.Statistics.ItemsCollected[ItemId] - StartAmount;
     }
 
     /*public HaveItem(bool useStatistics, int targetGoal, Player player, string itemId) : base(useStatistics, targetGoal, player)

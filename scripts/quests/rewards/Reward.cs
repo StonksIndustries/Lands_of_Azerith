@@ -32,5 +32,5 @@ public abstract class Reward
         }
     }*/
     
-    public abstract void GiveReward(Player player);
+    public abstract void GiveReward(PlayerNode playerNode);
 }

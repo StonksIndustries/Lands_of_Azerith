@@ -10,9 +10,9 @@ public class GoToPlace : Goal
     public Vector2 Coordinates { get; set; }
     public double Radius { get; set; }
 
-    public override int Progression(Player player)
+    public override int Progression(PlayerNode playerNode)
     {
-        return player.Position.DistanceTo(Coordinates) <= Radius ? 1 : 0;
+        return playerNode.Position.DistanceTo(Coordinates) <= Radius ? 1 : 0;
     }
 
     /*public GoToPlace(int targetGoal, Player player, Vector2 coordinates, int radius) : base(false, 1, player)
