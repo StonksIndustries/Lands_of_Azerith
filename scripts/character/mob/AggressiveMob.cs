@@ -7,7 +7,7 @@ namespace LandsOfAzerith.scripts.character.mob;
 
 public partial class AggressiveMob : Mob
 {
-    public override uint HealthPoints { get; protected set; }
+    public override uint HealthPoints { get; set; }
     public override uint MaxHealthPoints => 100;
     // Technically doesn't work, here to avoid warnings.
     public override Weapon Weapon { get; set; } = new MeleeWeapon();
@@ -23,6 +23,7 @@ public partial class AggressiveMob : Mob
 
 	public override void _Ready()
 	{
+		base._Ready();
 		ChangeHealth(MaxHealthPoints);
 	}
 
@@ -34,11 +35,12 @@ public partial class AggressiveMob : Mob
 		if (Aggro != null)
 		{
 			var animation = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+			_navAgent.TargetPosition = Aggro.Position;
 
 			if (Position.DistanceTo(Aggro.Position) > 15)
 			{
 				
-				velocity = Position.DirectionTo(Aggro.Position);
+				velocity = Position.DirectionTo(_navAgent.GetNextPathPosition());
 				animation.Play("slime");
 			}
 			else
@@ -78,6 +80,7 @@ public partial class AggressiveMob : Mob
         if (Aggro is null && body is PlayerNode player)
         {
             Aggro = player;
+            _navAgent.TargetPosition = player.Position;
         }
     }
     
@@ -86,6 +89,7 @@ public partial class AggressiveMob : Mob
         if (body == Aggro)
         {
             Aggro = null;
+            _navAgent.TargetPosition = Position;
         }
     }
 

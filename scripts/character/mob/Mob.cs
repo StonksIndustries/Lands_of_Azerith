@@ -11,7 +11,16 @@ public abstract partial class Mob : Character
     private uint _cooldown = 0;
     private Random _random = new Random();
     private Vector2 _poi = Vector2.Zero;
+    protected abstract Character? Aggro { get; set; }
     protected abstract string LootTable { get; }
+    
+    protected NavigationAgent2D _navAgent;
+    
+    public override void _Ready()
+    {
+        _navAgent = GetNode<NavigationAgent2D>("NavigationAgent2D");
+    }
+    
     private void Wander()
     {
         if (_cooldown > 0)
@@ -86,16 +95,12 @@ public abstract partial class Mob : Character
     
     private InventoryItem? FilterType(string type)
     {
-        switch (type)
+        return type switch
         {
-            case "meleeWeapon":
-                return new MeleeWeapon();
-            case "rangedWeapon":
-                return new RangedWeapon();
-            case "stackingItem":
-                return new StackingItem();
-            default:
-                return null;
-        }
+            "meleeWeapon" => new MeleeWeapon(),
+            "rangedWeapon" => new RangedWeapon(),
+            "stackingItem" => new StackingItem(),
+            _ => null
+        };
     }
 }

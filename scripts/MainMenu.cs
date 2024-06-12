@@ -117,7 +117,7 @@ public partial class MainMenu : Control
 	private void ConnectedToServer()
 	{
 		GD.Print("Connected to server!");
-		RpcId(1, "SendPlayerData", GetNode<LineEdit>("Name").Text, Multiplayer.GetUniqueId());
+		RpcId(1, nameof(SendPlayerData), GetNode<LineEdit>("Name").Text, Multiplayer.GetUniqueId());
 	}
 
 	/// <summary>
@@ -167,7 +167,7 @@ public partial class MainMenu : Control
 
 	private void _on_start_button_down()
 	{
-		Rpc("StartGame");
+		Rpc(nameof(StartGame));
 	}
 
 	// Reliable by default
@@ -206,7 +206,7 @@ public partial class MainMenu : Control
 		{
 			foreach (var item in GameManager.Players)
 			{
-				Rpc("SendPlayerData", item.Name, item.Id);
+				Rpc(nameof(SendPlayerData), item.Name, item.Id);
 			}
 		}
 	}

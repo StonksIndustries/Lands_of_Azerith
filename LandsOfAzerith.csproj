@@ -15,10 +15,10 @@
     <Content Include="items\2\1.json" />
     <Content Include="loot_tables\slime.json" />
     <Content Include="mobs\slime.json" />
-    <Content Include="quests\0.json" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="items\3\" />
+    <Folder Include="quests\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="assets\**" />

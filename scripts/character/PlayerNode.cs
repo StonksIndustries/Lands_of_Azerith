@@ -9,8 +9,6 @@ namespace LandsOfAzerith.scripts.character;
 
 public partial class PlayerNode : PlayerBackend
 {
-	[Signal]
-	public delegate void HitEventHandler();
 	
 	[Export]
 	public uint WalkingSpeed { get; set; } = 100; // How fast the player will move (pixels/sec).
@@ -24,6 +22,7 @@ public partial class PlayerNode : PlayerBackend
 		Direction = Directions.None;
 		ScreenSize = GetViewportRect().Size;
 		GetNode<MultiplayerSynchronizer>("MultiplayerSynchronizer").SetMultiplayerAuthority(Toolbox.ToInt(Name));
+		
 		ChangeHealth(MaxHealthPoints);
 	}
 
@@ -54,14 +53,6 @@ public partial class PlayerNode : PlayerBackend
 		{
 			_inventoryCooldown -= delta;
 		}
-	}
-
-	private void _on_body_entered(Node2D body)
-	{
-		Hide(); // Player disappears after being hit.
-		EmitSignal(SignalName.Hit);
-		// Must be deferred as we can't change physics properties on a physics callback.
-		GetNode<CollisionShape2D>("CollisionShape2D").SetDeferred(CollisionShape2D.PropertyName.Disabled, true);
 	}
 	
 	public void Start(Vector2 position)
@@ -97,10 +88,6 @@ public partial class PlayerNode : PlayerBackend
 			}
 
 			Position += velocity * (float)delta;
-			Position = new Vector2(
-				x: Mathf.Clamp(Position.X, 0, ScreenSize.X),
-				y: Mathf.Clamp(Position.Y, 0, ScreenSize.Y)
-			);
 		}
 	}
 

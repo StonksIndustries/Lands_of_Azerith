@@ -69,6 +69,7 @@ public partial class SceneManager : Node2D
 			inventory.Position = - GetViewportRect().Size / (2 * zoom);
 			inventory.Visible = false;
 			currentPlayerNode.AddChild(inventory);
+			currentPlayerNode.Inventory = inventory;
 		}
 	}
 }

@@ -5,13 +5,12 @@ namespace LandsOfAzerith.scripts.character;
 
 public abstract partial class Character : Area2D
 {
-    public abstract uint HealthPoints { get; protected set; }
+    public abstract uint HealthPoints { get; set; }
     public abstract uint MaxHealthPoints { get; }
     public abstract uint Speed { get; set; }
     public abstract uint Strength { get; set; }
     public abstract Weapon Weapon { get; set; }
     public uint Damage => Strength + Weapon.Damage;
-    protected abstract Character? Aggro { get; set; }
     public ProgressBar? HealthBar => GetNodeOrNull<ProgressBar>("HealthBar");
     public float AttackCooldown { get; set; }
 
