@@ -5218,10 +5218,8 @@ sources/2 = SubResource("TileSetAtlasSource_a30gt")
 sources/3 = SubResource("TileSetAtlasSource_nlmh8")
 
 [node name="Emberwood" type="Node2D"]
-y_sort_enabled = true
 
 [node name="TileMap" type="TileMap" parent="."]
-y_sort_enabled = true
 tile_set = SubResource("TileSet_qtccm")
 format = 2
 layer_0/name = "ground"
