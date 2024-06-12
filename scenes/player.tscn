@@ -313,7 +313,6 @@ font_size = 64
 radius = 17.0294
 
 [node name="Player" type="Area2D" groups=["Player"]]
-y_sort_enabled = true
 script = ExtResource("1_5ds04")
 metadata/_edit_group_ = true
 
