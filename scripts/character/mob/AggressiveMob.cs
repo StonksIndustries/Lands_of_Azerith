@@ -66,11 +66,8 @@ public partial class AggressiveMob : Mob
 		}
 		else if (_random.Next(0, 5000) < 1)
 		{
-			_poi = new Vector2( Position.X + _random.Next(-100, 100), Position.Y + _random.Next(-100, 100));
-			_poi = new Vector2(
-				x: Mathf.Clamp(_poi.X, 0, PlayerNode.ScreenSize.X),
-				y: Mathf.Clamp(_poi.Y, 0, PlayerNode.ScreenSize.Y)
-			);
+			// Need to change the random POI to choose.
+			_navAgent.TargetPosition = new Vector2( Position.X + _random.Next(-100, 100), Position.Y + _random.Next(-100, 100));
 		}
 		Position += Speed * velocity * (float)delta;
 	}
