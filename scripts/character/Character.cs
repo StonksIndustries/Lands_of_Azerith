@@ -15,7 +15,12 @@ public abstract partial class Character : CharacterBody2D
     public float AttackCooldown { get; set; }
 
     public abstract void Die();
-    
+
+    public override void _Ready()
+    {
+        ChangeHealth(MaxHealthPoints);
+    }
+
     public void TakeDamage(uint damage)
     {
         if (HealthPoints <= damage)

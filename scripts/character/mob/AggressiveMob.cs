@@ -21,12 +21,6 @@ public partial class AggressiveMob : Mob
 	
 	private Random _random = new Random();
 
-	public override void _Ready()
-	{
-		base._Ready();
-		ChangeHealth(MaxHealthPoints);
-	}
-
 	public override void _PhysicsProcess(double delta)
 	{
 		if (GetNode<MultiplayerSynchronizer>("MultiplayerSynchronizer").GetMultiplayerAuthority() != Multiplayer.GetUniqueId())
@@ -39,7 +33,6 @@ public partial class AggressiveMob : Mob
 
 			if (Position.DistanceTo(Aggro.Position) > 15)
 			{
-				
 				velocity = Position.DirectionTo(_navAgent.GetNextPathPosition());
 				animation.Play("slime");
 			}
@@ -73,24 +66,6 @@ public partial class AggressiveMob : Mob
 		Velocity = Speed * velocity * (float)delta;
 		MoveAndSlide();
 	}
-
-    private void _on_aggro_zone_entered(Node2D body)
-    {
-        if (Aggro is null && body is PlayerNode player)
-        {
-            Aggro = player;
-            _navAgent.TargetPosition = player.Position;
-        }
-    }
-    
-    private void _on_de_aggro_zone_exited(Node2D body)
-    {
-        if (body == Aggro)
-        {
-            Aggro = null;
-            _navAgent.TargetPosition = Position;
-        }
-    }
 
 
 }

@@ -13,7 +13,6 @@ public abstract partial class Mob : Character
 {
     private uint _cooldown = 0;
     private Random _random = new Random();
-    private Vector2 _poi = Vector2.Zero;
     protected abstract Character? Aggro { get; set; }
     protected abstract string LootTable { get; }
     
@@ -22,6 +21,7 @@ public abstract partial class Mob : Character
     
     public override void _Ready()
     {
+        base._Ready();
         _navAgent = GetNode<NavigationAgent2D>("NavigationAgent2D");
         _floorItemScene = GD.Load<PackedScene>("res://scenes/inventory/floor_item.tscn");
     }
@@ -46,5 +46,24 @@ public abstract partial class Mob : Character
     {
         DropLoot();
         QueueFree();
+    }
+    
+    
+
+    private void _on_aggro_zone_entered(Node2D body)
+    {
+        if (Aggro is null && body is PlayerNode player)
+        {
+            Aggro = player;
+        }
+    }
+    
+    private void _on_de_aggro_zone_exited(Node2D body)
+    {
+        if (body == Aggro)
+        {
+            Aggro = null;
+            _navAgent.TargetPosition = Position;
+        }
     }
 }
