@@ -179,7 +179,7 @@ public partial class MainMenu : Control
 		{
 			return;
 		}
-		var scene = ResourceLoader.Load<PackedScene>("res://scenes/world.tscn").Instantiate<Node2D>();
+		var scene = ResourceLoader.Load<PackedScene>("res://scenes/emberwood.tscn").Instantiate<Node2D>();
 		GetTree().Root.AddChild(scene);
 		Hide();
 		foreach (var item in GameManager.Players)
