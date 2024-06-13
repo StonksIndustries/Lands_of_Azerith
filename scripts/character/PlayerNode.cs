@@ -39,13 +39,13 @@ public partial class PlayerNode : PlayerBackend
 			Move(delta);
 			if (Input.IsActionJustPressed("player_attack"))
 				InRangeMobs.ForEach(Attack);
-        }
+		}
 	}
 
 	public override void _PhysicsProcess(double delta)
 	{
 		if (MultiplayerSynchronizer.GetMultiplayerAuthority() ==
-		    Multiplayer.GetUniqueId())
+			Multiplayer.GetUniqueId())
 		{
 			Move(delta);
 		}
