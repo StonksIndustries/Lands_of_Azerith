@@ -66,7 +66,7 @@ public partial class AggressiveMob : Mob
 		}
 		else if (_random.Next(0, 5000) < 1)
 		{
-			// Need to change the random POI to choose.
+			// Need to change random changing of position to pathfinding.
 			_navAgent.TargetPosition = new Vector2( Position.X + _random.Next(-100, 100), Position.Y + _random.Next(-100, 100));
 		}
 		Position += Speed * velocity * (float)delta;
