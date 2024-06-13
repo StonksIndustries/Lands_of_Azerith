@@ -10,9 +10,6 @@ namespace LandsOfAzerith.scripts.character;
 
 public partial class PlayerNode : PlayerBackend
 {
-	
-	[Export]
-	public uint WalkingSpeed { get; set; } = 10000; // How fast the player will move (pixels/sec).
 	private double _inventoryCooldown = 0;
 	private Directions Direction { get; set; }
 	public static Vector2 ScreenSize; // Size of the game window.

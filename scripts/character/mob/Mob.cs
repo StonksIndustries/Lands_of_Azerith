@@ -11,9 +11,13 @@ namespace LandsOfAzerith.scripts.character.mob;
 
 public abstract partial class Mob : Character
 {
+    public string MobId { get; set; }
+    public override uint HealthPoints { get; set; }
+    public override Weapon Weapon { get; set; }
+    public override uint Speed { get; set; }
     private uint _cooldown = 0;
-    private Random _random = new Random();
-    protected abstract Character? Aggro { get; set; }
+    protected readonly Random Random = new Random();
+    protected Character? Aggro { get; set; }
     protected abstract string LootTable { get; }
     
     protected NavigationAgent2D _navAgent;
@@ -23,6 +27,7 @@ public abstract partial class Mob : Character
     {
         base._Ready();
         _navAgent = GetNode<NavigationAgent2D>("NavigationAgent2D");
+        _navAgent.TargetPosition = Position;
         _floorItemScene = GD.Load<PackedScene>("res://scenes/inventory/floor_item.tscn");
     }
     
@@ -47,10 +52,8 @@ public abstract partial class Mob : Character
         DropLoot();
         QueueFree();
     }
-    
-    
 
-    private void _on_aggro_zone_entered(Node2D body)
+    protected virtual void _on_aggro_zone_entered(Node2D body)
     {
         if (Aggro is null && body is PlayerNode player)
         {
@@ -64,6 +67,35 @@ public abstract partial class Mob : Character
         {
             Aggro = null;
             _navAgent.TargetPosition = Position;
+        }
+    }
+    
+    public override bool TakeDamage(Character attacker, uint damage)
+    {
+        Aggro = attacker;
+        
+        if (HealthPoints <= damage)
+        {
+            HealthPoints = 0;
+            Die();
+            UpdateHealthBar();
+
+            return true;
+        }
+        else
+        {
+            HealthPoints -= damage;
+            UpdateHealthBar();
+
+            return false;
+        }
+    }
+    
+    private void _on_wandering_timer_timeout()
+    {
+        if (Aggro is null && Random.Next(0, 3) < 1)
+        {
+            _navAgent.TargetPosition = new Vector2(Position.X + Random.Next(-300, 300), Position.Y + Random.Next(-300, 300));
         }
     }
 }

@@ -40,8 +40,8 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_gqh1f"]
-radius = 5.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b5l3a"]
+size = Vector2(14, 5)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0j4dk"]
 radius = 65.0077
@@ -59,9 +59,6 @@ properties/1/replication_mode = 1
 properties/2/path = NodePath("AnimatedSprite2D:frame")
 properties/2/spawn = true
 properties/2/replication_mode = 1
-properties/3/path = NodePath(".:_poi")
-properties/3/spawn = true
-properties/3/replication_mode = 1
 
 [node name="AggressiveMob" type="CharacterBody2D"]
 y_sort_enabled = true
@@ -76,8 +73,8 @@ animation = &"slime"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 y_sort_enabled = true
-position = Vector2(0, -3)
-shape = SubResource("CircleShape2D_gqh1f")
+position = Vector2(3, -3.5)
+shape = SubResource("RectangleShape2D_b5l3a")
 
 [node name="AggroZone" type="Area2D" parent="."]
 visible = false
@@ -103,9 +100,17 @@ offset_right = 11.0
 offset_bottom = 5.0
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+navigation_layers = 3
 path_postprocessing = 1
 avoidance_enabled = true
+avoidance_layers = 3
+avoidance_mask = 3
 debug_enabled = true
+
+[node name="WanderingTimer" type="Timer" parent="."]
+wait_time = 3.93
+autostart = true
 
 [connection signal="body_entered" from="AggroZone" to="." method="_on_aggro_zone_entered"]
 [connection signal="body_exited" from="DeAggroZone" to="." method="_on_de_aggro_zone_exited"]
+[connection signal="timeout" from="WanderingTimer" to="." method="_on_wandering_timer_timeout"]

@@ -11,43 +11,29 @@ public abstract partial class Character : CharacterBody2D
     public abstract uint Strength { get; set; }
     public abstract Weapon Weapon { get; set; }
     public uint Damage => Strength + Weapon.Damage;
-    public ProgressBar? HealthBar => GetNodeOrNull<ProgressBar>("HealthBar");
+    public ProgressBar? HealthBar;
     public float AttackCooldown { get; set; }
+    public uint WalkingSpeed { get; set; } = 4000; // How fast the player will move (pixels/sec).
 
     public abstract void Die();
 
     public override void _Ready()
     {
+        HealthBar = GetNodeOrNull<ProgressBar>("HealthBar");
         ChangeHealth(MaxHealthPoints);
+        SetPhysicsProcess(true);
     }
 
-    public void TakeDamage(uint damage)
-    {
-        if (HealthPoints <= damage)
-        {
-            HealthPoints = 0;
-            Die();
-        }
-        else
-        {
-            HealthPoints -= damage;
-        }
-        
-        if (HealthBar == null)
-        {
-            return;
-        }
-        HealthBar.Value = (double)(HealthPoints * 100) / MaxHealthPoints;
-    }
+    public abstract bool TakeDamage(Character attacker, uint damage);
     
     public void Attack(Character target, uint damage)
     {
-        target.TakeDamage(damage);
+        target.TakeDamage(this, damage);
     }
     
     public void Attack(Character target)
     {
-        target.TakeDamage(Damage);
+        target.TakeDamage(this, Damage);
     }
     
     public void Heal(uint heal)
@@ -60,6 +46,8 @@ public abstract partial class Character : CharacterBody2D
         {
             HealthPoints += heal;
         }
+        
+        UpdateHealthBar();
     }
     
     public void ChangeHealth(uint amount)
@@ -73,10 +61,12 @@ public abstract partial class Character : CharacterBody2D
             HealthPoints = amount;
         }
         
-        if (HealthBar == null)
-        {
-            return;
-        }
-        HealthBar.Value = (double)(HealthPoints * 100) / MaxHealthPoints;
+        UpdateHealthBar();
+    }
+
+    protected void UpdateHealthBar()
+    {
+        if (HealthBar != null)
+            HealthBar.Value = (double)(HealthPoints * 100) / MaxHealthPoints;
     }
 }
