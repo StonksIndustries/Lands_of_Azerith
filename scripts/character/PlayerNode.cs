@@ -11,17 +11,20 @@ public partial class PlayerNode : PlayerBackend
 {
 	
 	[Export]
-	public uint WalkingSpeed { get; set; } = 100; // How fast the player will move (pixels/sec).
+	public uint WalkingSpeed { get; set; } = 10000; // How fast the player will move (pixels/sec).
 	private double _inventoryCooldown = 0;
 	private Directions Direction { get; set; }
 	public static Vector2 ScreenSize; // Size of the game window.
+
+	public MultiplayerSynchronizer MultiplayerSynchronizer;
 	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		Direction = Directions.None;
-		ScreenSize = GetViewportRect().Size;
-		GetNode<MultiplayerSynchronizer>("MultiplayerSynchronizer").SetMultiplayerAuthority(Toolbox.ToInt(Name));
+		ScreenSize = GetViewportRect().Size; 
+		MultiplayerSynchronizer = GetNode<MultiplayerSynchronizer>("MultiplayerSynchronizer");
+		MultiplayerSynchronizer.SetMultiplayerAuthority(Toolbox.ToInt(Name));
 		
 		ChangeHealth(MaxHealthPoints);
 	}
@@ -29,7 +32,7 @@ public partial class PlayerNode : PlayerBackend
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		if (GetNode<MultiplayerSynchronizer>("MultiplayerSynchronizer").GetMultiplayerAuthority() ==
+		if (MultiplayerSynchronizer.GetMultiplayerAuthority() ==
 			Multiplayer.GetUniqueId())
 		{
 			ProcessInventory(delta);
@@ -37,6 +40,15 @@ public partial class PlayerNode : PlayerBackend
 			if (Input.IsActionJustPressed("player_attack"))
 				InRangeMobs.ForEach(Attack);
         }
+	}
+
+	public override void _PhysicsProcess(double delta)
+	{
+		if (MultiplayerSynchronizer.GetMultiplayerAuthority() ==
+		    Multiplayer.GetUniqueId())
+		{
+			Move(delta);
+		}
 	}
 
 	private void ProcessInventory(double delta)
@@ -87,7 +99,8 @@ public partial class PlayerNode : PlayerBackend
 				animation.SpeedScale = 1;
 			}
 
-			Position += velocity * (float)delta;
+			Velocity = velocity * (float)delta;
+			MoveAndSlide();
 		}
 	}
 
@@ -106,7 +119,7 @@ public partial class PlayerNode : PlayerBackend
 				animation.FlipH = true;
 				animation.Play("walk_side");
 			}
-			velocity.X -= 1;
+			velocity += Vector2.Left;
 			Direction = Directions.Left;
 		}
 		if (Input.IsActionPressed("move_right") && !Input.IsActionPressed("move_left"))
@@ -116,7 +129,7 @@ public partial class PlayerNode : PlayerBackend
 				animation.FlipH = false;
 				animation.Play("walk_side");
 			}
-			velocity.X += 1;
+			velocity += Vector2.Right;
 			Direction = Directions.Right;
 		}
 		if (Input.IsActionPressed("move_up")  && !Input.IsActionPressed("move_down"))
@@ -126,7 +139,7 @@ public partial class PlayerNode : PlayerBackend
 				animation.FlipH = false;
 				animation.Play("walk_up");
 			}
-			velocity.Y -= 1;
+			velocity += Vector2.Up;
 			Direction = Directions.Up;
 		}
 		if (Input.IsActionPressed("move_down")  && !Input.IsActionPressed("move_up"))
@@ -136,7 +149,7 @@ public partial class PlayerNode : PlayerBackend
 				animation.FlipH = false;
 				animation.Play("walk_down");
 			}
-			velocity.Y += 1;
+			velocity += Vector2.Down;
 			Direction = Directions.Down;
 		}
 
@@ -167,11 +180,11 @@ public partial class PlayerNode : PlayerBackend
 	
 	public override void Die()
 	{
-		Position = new Vector2(0, 0);
+		Position = Vector2.Zero;
 		HealthPoints = MaxHealthPoints;
 	}
 	
-	public void _on_range_entered(Area2D body)
+	public void _on_range_entered(Node2D body)
 	{
 		if (body is Mob mob)
 		{
@@ -179,7 +192,7 @@ public partial class PlayerNode : PlayerBackend
 		}
 	}
 	
-	public void _on_range_exited(Area2D body)
+	public void _on_range_exited(Node2D body)
 	{
 		if (body is Mob mob)
 		{

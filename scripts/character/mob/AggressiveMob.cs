@@ -72,7 +72,7 @@ public partial class AggressiveMob : Mob
 		Position += Speed * velocity * (float)delta;
 	}
 
-    private void _on_aggro_zone_entered(Area2D body)
+    private void _on_aggro_zone_entered(Node2D body)
     {
         if (Aggro is null && body is PlayerNode player)
         {
@@ -81,7 +81,7 @@ public partial class AggressiveMob : Mob
         }
     }
     
-    private void _on_de_aggro_zone_exited(Area2D body)
+    private void _on_de_aggro_zone_exited(Node2D body)
     {
         if (body == Aggro)
         {

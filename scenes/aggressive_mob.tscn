@@ -40,7 +40,8 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_n2h4c"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_gqh1f"]
+radius = 5.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0j4dk"]
 radius = 65.0077
@@ -62,7 +63,9 @@ properties/3/path = NodePath(".:_poi")
 properties/3/spawn = true
 properties/3/replication_mode = 1
 
-[node name="AggressiveMob" type="Area2D"]
+[node name="AggressiveMob" type="CharacterBody2D"]
+motion_mode = 1
+wall_min_slide_angle = 0.0
 script = ExtResource("1_fax1t")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -71,8 +74,9 @@ sprite_frames = SubResource("SpriteFrames_xasyp")
 animation = &"slime"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -8)
-shape = SubResource("RectangleShape2D_n2h4c")
+y_sort_enabled = true
+position = Vector2(0, -3)
+shape = SubResource("CircleShape2D_gqh1f")
 
 [node name="AggroZone" type="Area2D" parent="."]
 visible = false
@@ -102,5 +106,5 @@ path_postprocessing = 1
 avoidance_enabled = true
 debug_enabled = true
 
-[connection signal="area_entered" from="AggroZone" to="." method="_on_aggro_zone_entered"]
-[connection signal="area_exited" from="DeAggroZone" to="." method="_on_de_aggro_zone_exited"]
+[connection signal="body_entered" from="AggroZone" to="." method="_on_aggro_zone_entered"]
+[connection signal="body_exited" from="DeAggroZone" to="." method="_on_de_aggro_zone_exited"]
