@@ -12,7 +12,7 @@ public partial class AggressiveMob : Mob
     // Technically doesn't work, here to avoid warnings.
     public override Weapon Weapon { get; set; } = new MeleeWeapon();
     protected override Character? Aggro { get; set; }
-    public override uint Speed { get; set; } = 80;
+    public override uint Speed { get; set; } = 4000;
     public override uint Strength { get; set; }
     protected override string LootTable => "res://loot_tables/slime.json";
 
@@ -27,7 +27,7 @@ public partial class AggressiveMob : Mob
 		ChangeHealth(MaxHealthPoints);
 	}
 
-	public override void _Process(double delta)
+	public override void _PhysicsProcess(double delta)
 	{
 		if (GetNode<MultiplayerSynchronizer>("MultiplayerSynchronizer").GetMultiplayerAuthority() != Multiplayer.GetUniqueId())
 			return;
@@ -69,7 +69,9 @@ public partial class AggressiveMob : Mob
 			// Need to change random changing of position to pathfinding.
 			_navAgent.TargetPosition = new Vector2( Position.X + _random.Next(-100, 100), Position.Y + _random.Next(-100, 100));
 		}
-		Position += Speed * velocity * (float)delta;
+
+		Velocity = Speed * velocity * (float)delta;
+		MoveAndSlide();
 	}
 
     private void _on_aggro_zone_entered(Node2D body)

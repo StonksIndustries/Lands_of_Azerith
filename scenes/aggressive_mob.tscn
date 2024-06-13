@@ -64,6 +64,7 @@ properties/3/spawn = true
 properties/3/replication_mode = 1
 
 [node name="AggressiveMob" type="CharacterBody2D"]
+y_sort_enabled = true
 motion_mode = 1
 wall_min_slide_angle = 0.0
 script = ExtResource("1_fax1t")
