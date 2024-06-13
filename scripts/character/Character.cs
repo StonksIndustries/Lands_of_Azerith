@@ -3,7 +3,7 @@ using LandsOfAzerith.scripts.item;
 
 namespace LandsOfAzerith.scripts.character;
 
-public abstract partial class Character : Area2D
+public abstract partial class Character : CharacterBody2D
 {
     public abstract uint HealthPoints { get; set; }
     public abstract uint MaxHealthPoints { get; }
