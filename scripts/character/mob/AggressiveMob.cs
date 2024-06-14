@@ -1,7 +1,6 @@
 using System;
 using Godot;
 using LandsOfAzerith.scripts.item;
-using LandsOfAzerith.scripts.item.weapon;
 
 namespace LandsOfAzerith.scripts.character.mob;
 

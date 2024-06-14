@@ -1,8 +1,9 @@
+using System.Text.Json.Serialization;
 using Godot;
 
 namespace LandsOfAzerith.scripts.item;
 
-public abstract class Weapon : InventoryItem
+public class Weapon : InventoryItem
 {
     public uint Damage { get; set; }
     public uint Range { get; set; }

@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://d1f5rs3ys2rt6"]
+[gd_scene load_steps=7 format=3 uid="uid://d1f5rs3ys2rt6"]
 
 [ext_resource type="Script" path="res://scripts/SceneManager.cs" id="1_yq6s1"]
 [ext_resource type="TileSet" uid="uid://d3f1qcgvxame4" path="res://scenes/tres/emberwood.tres" id="2_rm64w"]
 [ext_resource type="PackedScene" uid="uid://0g2lqxgoi0d2" path="res://scenes/spawn_zone.tscn" id="4_kuw2l"]
-[ext_resource type="PackedScene" uid="uid://bb56pfvbsm56r" path="res://scenes/aggressive_mob.tscn" id="5_mxdia"]
+[ext_resource type="PackedScene" uid="uid://bb56pfvbsm56r" path="res://scenes/mob/aggressive_mob.tscn" id="5_mxdia"]
 [ext_resource type="PackedScene" uid="uid://cw0ak84nt2d4v" path="res://scenes/poi/check_point.tscn" id="6_8x47y"]
+[ext_resource type="PackedScene" uid="uid://cwq6lh1xbwva2" path="res://scenes/mob/passive_mob.tscn" id="6_y6o6s"]
 
 [node name="Emberwood" type="Node2D"]
 y_sort_enabled = true
@@ -33,11 +34,13 @@ position = Vector2(365.829, 245.624)
 [node name="ToPrairieParadise" parent="." instance=ExtResource("6_8x47y")]
 position = Vector2(553.773, -2252.73)
 
-[node name="SpawnZone" parent="." instance=ExtResource("4_kuw2l")]
-position = Vector2(2497, -1724)
+[node name="Aggressive 1" parent="." instance=ExtResource("4_kuw2l")]
+position = Vector2(-814, -1754)
 MobScene = ExtResource("5_mxdia")
+MobId = "slime"
 
-[node name="SpawnZone2" parent="." node_paths=PackedStringArray("CollisionShape2D") instance=ExtResource("4_kuw2l")]
-position = Vector2(-913, -199)
-MobScene = ExtResource("5_mxdia")
-CollisionShape2D = NodePath("../SpawnZone/CollisionShape2D")
+[node name="Passive 1" parent="." node_paths=PackedStringArray("CollisionShape2D") instance=ExtResource("4_kuw2l")]
+position = Vector2(283, -1536)
+MobScene = ExtResource("6_y6o6s")
+MobId = "slime"
+CollisionShape2D = NodePath("../Aggressive 1/CollisionShape2D")

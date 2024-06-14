@@ -4,17 +4,18 @@ using System.IO;
 using System.Text.Json;
 using Godot;
 using LandsOfAzerith.scripts.item;
-using LandsOfAzerith.scripts.item.weapon;
 using FileAccess = Godot.FileAccess;
 
 namespace LandsOfAzerith.scripts.character.mob;
 
 public abstract partial class Mob : Character
 {
-    public string MobId { get; set; }
-    public override uint HealthPoints { get; set; }
-    public override Weapon Weapon { get; set; }
-    public override uint Speed { get; set; }
+    public static string MobPath = "res://mobs/";
+    public MobStats Stats { get; set; }
+    public string MobId { get; set;}
+    public override uint HealthPoints { get => Stats.HealthPoints; set => Stats.HealthPoints = value; }
+    public override Weapon Weapon { get => Stats.Weapon; set => Stats.Weapon = value; }
+    public override uint Speed { get => Stats.Speed; set => Stats.Speed = value; }
     private uint _cooldown = 0;
     protected readonly Random Random = new Random();
     protected Character? Aggro { get; set; }
@@ -33,18 +34,17 @@ public abstract partial class Mob : Character
     
     private void DropLoot()
     {
-        var lootTable = JsonSerializer.Deserialize<List<string>>(File.ReadAllBytes("res://loot_tables/slime.json"));
-        if (lootTable != null)
-            foreach (var item in lootTable)
+        var lootTable = Stats.LootTable;
+        foreach (var item in lootTable)
+        {
+            var floorItem = _floorItemScene.Instantiate<FloorItem>();
+            if (floorItem != null) 
             {
-                var floorItem = _floorItemScene.Instantiate<FloorItem>();
-                if (floorItem != null) 
-                {
-                    floorItem.Item = InventoryItem.Load(item);
-                    floorItem.Position = Position;
-                    GetParent().AddChild(floorItem);
-                }
+                floorItem.Item = InventoryItem.Load(item);
+                floorItem.Position = Position;
+                GetParent().AddChild(floorItem);
             }
+        }
     }
     
     public override void Die()
@@ -97,5 +97,17 @@ public abstract partial class Mob : Character
         {
             _navAgent.TargetPosition = new Vector2(Position.X + Random.Next(-300, 300), Position.Y + Random.Next(-300, 300));
         }
+    }
+
+    public void LoadStats()
+    {
+        Stats = Toolbox.LoadFileInJson<MobStats>(MobPath + MobId + ".json") ?? new MobStats
+        {
+            HealthPoints = MaxHealthPoints,
+            LootTable = new List<string>(),
+            MobId = "",
+            Speed = 0,
+            Weapon = (Weapon) InventoryItem.Load("default_weapon")!
+        };
     }
 }

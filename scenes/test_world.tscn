@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/SceneManager.cs" id="1_yptjn"]
 [ext_resource type="Texture2D" uid="uid://dhqjhaon8pbeo" path="res://assets/tilesets/Tileset.png" id="2_a1855"]
-[ext_resource type="PackedScene" uid="uid://bb56pfvbsm56r" path="res://scenes/aggressive_mob.tscn" id="3_qi8rm"]
+[ext_resource type="PackedScene" uid="uid://bb56pfvbsm56r" path="res://scenes/mob/aggressive_mob.tscn" id="3_qi8rm"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_8gwhd"]
 vertices = PackedVector2Array(8, 8, -8, 8, -8, -8, 8, -8)

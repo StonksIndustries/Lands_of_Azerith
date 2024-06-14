@@ -9,6 +9,7 @@ public partial class SpawnZone : Area2D
 	private Random _random = new Random();
 	public List<Mob> Mobs = new List<Mob>();
 	[Export] public PackedScene MobScene;
+	[Export] public string MobId;
 	[Export] public int MaxMobs = 5;
 	[Export] public CollisionShape2D CollisionShape2D;
 	
@@ -17,9 +18,11 @@ public partial class SpawnZone : Area2D
 		if (Mobs.Count < MaxMobs)
 		{
 			var mob = MobScene.Instantiate<Mob>();
+			mob.MobId = MobId;
 			Rect2 rect = CollisionShape2D.Shape.GetRect();
 			Vector2 spawnPosition = new Vector2(_random.Next((int)rect.Size.X), _random.Next((int)rect.Size.Y));
-			mob.Position = GlobalPosition + spawnPosition;
+			mob.Position = GlobalPosition + rect.Position + spawnPosition;
+			mob.LoadStats();
 			GetParent().AddChild(mob);
 			Mobs.Add(mob);
 		}

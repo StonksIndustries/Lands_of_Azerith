@@ -3,7 +3,6 @@ using Godot;
 using LandsOfAzerith.scripts.character.mob;
 using LandsOfAzerith.scripts.inventory;
 using LandsOfAzerith.scripts.item;
-using LandsOfAzerith.scripts.item.weapon;
 using LandsOfAzerith.scripts.poi;
 
 namespace LandsOfAzerith.scripts.character;
