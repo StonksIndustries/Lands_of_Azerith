@@ -9,6 +9,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="items\default_weapon.json" />
+    <Content Include="items\slimeball.json" />
     <Content Include="loot_tables\slime.json" />
     <Content Include="mobs\slime.json" />
   </ItemGroup>

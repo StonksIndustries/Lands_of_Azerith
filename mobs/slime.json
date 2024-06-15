@@ -11,5 +11,7 @@
 		"Range": 10,
 		"Durability": 100
 	},
-	"LootTable": []
+	"LootTable": [
+		"slimeball"
+	]
 }

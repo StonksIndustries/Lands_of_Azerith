@@ -1,11 +1,15 @@
 using System.Collections.Generic;
+using System.Linq;
 using Godot;
+using LandsOfAzerith.scripts.item;
 
 namespace LandsOfAzerith.scripts.inventory;
 
 public partial class Inventory : Control
 {
-	private List<InventoryRow> _rows = new List<InventoryRow>();
+	public bool IsEmpty => Rows.All(row => row.IsEmpty);
+	
+	public List<InventoryRow> Rows = new List<InventoryRow>();
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -24,8 +28,14 @@ public partial class Inventory : Control
 		{
 			if (child is InventoryRow row)
 			{
-				_rows.Add(row);
+				Rows.Add(row);
 			}
 		}
+	}
+	
+	public void AddItem(InventoryItem item)
+	{
+		if (IsEmpty)
+			Rows.First(e => e.IsEmpty).Slots.First(e => e.IsEmpty).Item = item;
 	}
 }
