@@ -1,17 +1,9 @@
 using Godot;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using LandsOfAzerith.scripts;
 using System.Linq;
-using System.Text.Json;
 using LandsOfAzerith.scripts.character;
 using LandsOfAzerith.scripts.inventory;
 using LandsOfAzerith.scripts.main_menu;
 using LandsOfAzerith.scripts.poi;
-using LandsOfAzerith.scripts.quests;
-using LandsOfAzerith.scripts.quests.goals;
-using LandsOfAzerith.scripts.quests.rewards;
 
 namespace LandsOfAzerith.scripts;
 public partial class MainMenu : Control
@@ -44,7 +36,7 @@ public partial class MainMenu : Control
 	/// Called when a player connects, on all peers.
 	/// </summary>
 	/// <param name="id">ID of the player that connected</param>
-	public void PeerConnected(long id)
+	private void PeerConnected(long id)
 	{
 		GD.Print("Player " + id + " connected");
 	}
@@ -63,7 +55,7 @@ public partial class MainMenu : Control
 		else
 		{
 			GD.Print("Player " + id + " disconnected!");
-			GameManager.Players.Remove(GameManager.Players.Where(i => i.Id == id).First());
+			GameManager.Players.Remove(GameManager.Players.First(i => i.Id == id));
 			var players = GetTree().GetNodesInGroup("Player");
 			foreach (var item in players)
 			{
@@ -91,8 +83,8 @@ public partial class MainMenu : Control
 	{
 		GD.Print("Connection failed!");
 	}
-	
-	public void _on_quit_button_down()
+
+	private void _on_quit_button_down()
 	{
 		GetTree().Quit();
 	}
@@ -139,7 +131,7 @@ public partial class MainMenu : Control
 	private void StartGame()
 	{
 		GetNode<ServerBrowser>("ServerBrowser").Clean();
-		GetTree().Root.AddChild(new Node2D()
+		GetTree().Root.AddChild(new Node2D
 		{
 			YSortEnabled = true,
 			Name = "Base"
