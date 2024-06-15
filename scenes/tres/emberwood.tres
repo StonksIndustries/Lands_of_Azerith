@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=139 format=3 uid="uid://d3f1qcgvxame4"]
+[gd_resource type="TileSet" load_steps=139 format=3 uid="uid://bgm5yhuyxgqed"]
 
 [ext_resource type="Texture2D" uid="uid://dhqjhaon8pbeo" path="res://assets/tilesets/Tileset.png" id="1_2m3pk"]
 [ext_resource type="Texture2D" uid="uid://dr5gk8xcevdlr" path="res://assets/tilesets/lpc-ship.png" id="2_h3dhl"]
@@ -2324,6 +2324,19 @@ texture = ExtResource("1_2m3pk")
 15:18/0/terrains_peering_bit/bottom_right_corner = 5
 15:18/0/terrains_peering_bit/top_left_corner = 5
 15:18/0/terrains_peering_bit/top_right_corner = 5
+0:19/0 = 0
+0:19/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:19/0/physics_layer_0/angular_velocity = 0.0
+1:19/0 = 0
+1:19/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:19/0/physics_layer_0/angular_velocity = 0.0
+1:20/0 = 0
+1:20/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:20/0/physics_layer_0/angular_velocity = 0.0
+12:24/size_in_atlas = Vector2i(2, 3)
+12:24/0 = 0
+12:24/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+12:24/0/physics_layer_0/angular_velocity = 0.0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3xvsv"]
 texture = ExtResource("2_h3dhl")

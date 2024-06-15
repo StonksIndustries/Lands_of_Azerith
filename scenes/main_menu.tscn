@@ -11,9 +11,9 @@
 [ext_resource type="Texture2D" uid="uid://c1wksw4xbcyil" path="res://assets/Parallax_Backgrounds_Plains/3.png" id="7_7le0d"]
 [ext_resource type="Texture2D" uid="uid://bsbkc8mom5xv7" path="res://assets/Parallax_Backgrounds_Plains/2.png" id="8_olua8"]
 [ext_resource type="Texture2D" uid="uid://dj8ct0lbwf4l5" path="res://assets/Parallax_Backgrounds_Plains/1.png" id="9_sek85"]
-[ext_resource type="Theme" uid="uid://bg8aoju3bewig" path="res://scenes/tres/menu_button.tres" id="11_cx6tj"]
+[ext_resource type="Theme" path="res://scenes/tres/menu_button.tres" id="11_cx6tj"]
 [ext_resource type="FontFile" uid="uid://tgo75c5h1cix" path="res://assets/fonts/Enchanted Land.otf" id="12_n5ufp"]
-[ext_resource type="Theme" uid="uid://cctgkdwur36q4" path="res://scenes/tres/menu_server_browser.tres" id="14_655uk"]
+[ext_resource type="Theme" path="res://scenes/tres/menu_server_browser.tres" id="14_655uk"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_4rrlm"]
 font = ExtResource("12_n5ufp")
