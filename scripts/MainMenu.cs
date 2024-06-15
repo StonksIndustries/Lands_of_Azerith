@@ -13,7 +13,6 @@ using LandsOfAzerith.scripts.quests.goals;
 using LandsOfAzerith.scripts.quests.rewards;
 
 namespace LandsOfAzerith.scripts;
-
 public partial class MainMenu : Control
 {
 	[Export] private int _port = 8901;
