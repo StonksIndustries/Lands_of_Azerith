@@ -1,33 +1,25 @@
 using System.Collections.Generic;
+using System.IO;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using Godot;
+using LandsOfAzerith.scripts.character;
 
 namespace LandsOfAzerith.scripts.item;
 
+[JsonDerivedType(typeof(Weapon),nameof(Weapon))]
+[JsonDerivedType(typeof(StackingItem),nameof(StackingItem))]
 public abstract class InventoryItem
 {
-    private string _id;
-    public string Name { get; protected set; }
-    public string Description { get; protected set; }
-    public string Icon => "res://assets/items/" + _id + ".png";
-    public Rarity Rarity { get; protected set; }
-
-    public Godot.Collections.Dictionary<string, Variant> Save()
-    {
-        return new Godot.Collections.Dictionary<string, Variant>()
-        {
-            { "id", _id },
-            { nameof(Name), Name },
-            { nameof(Description), Description },
-            { nameof(Rarity), Rarity.ToString() }
-        };
-    }
+    private static string Path => "res://items/";
+    [JsonIgnore] public string Icon => "res://assets/items/" + WeaponId + ".png";
     
-    // Not safe
-    public void Load(Godot.Collections.Dictionary<string, Variant> data)
+    [JsonIgnore] public string WeaponId;
+    public string Name { get; set; }
+    public string Description { get; set; }
+    public Rarity Rarity { get; set; }
+    public static InventoryItem? Load(string itemId)
     {
-        Name = (string)data[nameof(Name)];
-        Description = (string)data[nameof(Description)];
-        Rarity = (Rarity)(int)data[nameof(Rarity)];
-        _id = (string)data["id"];
+        return Toolbox.LoadFileInJson<InventoryItem>(Path + itemId + ".json");
     }
 }

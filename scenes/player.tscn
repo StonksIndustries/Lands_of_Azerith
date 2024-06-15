@@ -4,8 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://dcda1bigyuyel" path="res://characters/player.png" id="2_pv04o"]
 [ext_resource type="PackedScene" uid="uid://bk1s4rsxfmluj" path="res://scenes/health_bar.tscn" id="3_mnyhl"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_iluo6"]
-radius = 4.5
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_og8f5"]
+size = Vector2(13, 6)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4hqal"]
 atlas = ExtResource("2_pv04o")
@@ -317,8 +317,8 @@ y_sort_enabled = true
 script = ExtResource("1_5ds04")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0.5, -5)
-shape = SubResource("CircleShape2D_iluo6")
+position = Vector2(0.5, -4)
+shape = SubResource("RectangleShape2D_og8f5")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -19)
@@ -329,6 +329,7 @@ animation = &"idle_down"
 replication_config = SubResource("SceneReplicationConfig_fqf7i")
 
 [node name="Name" type="Label" parent="."]
+z_index = 1
 offset_left = -24.0
 offset_top = -30.0
 offset_right = 456.0
@@ -340,6 +341,7 @@ horizontal_alignment = 1
 text_overrun_behavior = 3
 
 [node name="HealthBar" parent="." instance=ExtResource("3_mnyhl")]
+z_index = 1
 offset_left = -9.0
 offset_top = 1.0
 offset_right = 9.0
@@ -351,5 +353,6 @@ offset_bottom = 3.0
 position = Vector2(0, -10)
 shape = SubResource("CircleShape2D_wrxwj")
 
+[connection signal="area_entered" from="Range" to="." method="_on_area_entered"]
 [connection signal="body_entered" from="Range" to="." method="_on_range_entered"]
 [connection signal="body_exited" from="Range" to="." method="_on_range_exited"]

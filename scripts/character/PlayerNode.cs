@@ -3,24 +3,23 @@ using Godot;
 using LandsOfAzerith.scripts.character.mob;
 using LandsOfAzerith.scripts.inventory;
 using LandsOfAzerith.scripts.item;
-using LandsOfAzerith.scripts.item.weapon;
+using LandsOfAzerith.scripts.poi;
 
 namespace LandsOfAzerith.scripts.character;
 
 public partial class PlayerNode : PlayerBackend
 {
-	
-	[Export]
-	public uint WalkingSpeed { get; set; } = 10000; // How fast the player will move (pixels/sec).
 	private double _inventoryCooldown = 0;
 	private Directions Direction { get; set; }
 	public static Vector2 ScreenSize; // Size of the game window.
+	public Node2D CurrentWorld { get; set; }
 
 	public MultiplayerSynchronizer MultiplayerSynchronizer;
 	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		base._Ready();
 		Direction = Directions.None;
 		ScreenSize = GetViewportRect().Size; 
 		MultiplayerSynchronizer = GetNode<MultiplayerSynchronizer>("MultiplayerSynchronizer");
@@ -180,23 +179,35 @@ public partial class PlayerNode : PlayerBackend
 	
 	public override void Die()
 	{
-		Position = Vector2.Zero;
+		Position = Statistics.Checkpoint;
 		HealthPoints = MaxHealthPoints;
 	}
 	
-	public void _on_range_entered(Node2D body)
+	private void _on_range_entered(Node2D body)
 	{
 		if (body is Mob mob)
 		{
 			InRangeMobs.Add(mob);
 		}
+		else if (body is Checkpoint)
+		{
+			Statistics.Checkpoint = body.Position;
+		}
 	}
 	
-	public void _on_range_exited(Node2D body)
+	private void _on_range_exited(Node2D body)
 	{
 		if (body is Mob mob)
 		{
 			InRangeMobs.Remove(mob);
+		}
+	}
+	
+	private void _on_area_entered(Area2D area)
+	{
+		if (area is Checkpoint)
+		{
+			Statistics.Checkpoint = area.Position;
 		}
 	}
 }

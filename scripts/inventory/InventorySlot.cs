@@ -35,13 +35,4 @@ public partial class InventorySlot : Control
 			label.Text = Item.Name;
 		}
 	}
-	
-	public Dictionary<string, Variant> Save()
-	{
-		return new Dictionary<string, Variant>()
-		{
-			{ nameof(Name), Name},
-			{ nameof(Item), Item?.Save() }
-		};
-	}
 }

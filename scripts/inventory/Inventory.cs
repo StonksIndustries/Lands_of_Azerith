@@ -28,20 +28,4 @@ public partial class Inventory : Control
 			}
 		}
 	}
-
-	public Godot.Collections.Dictionary<string, Variant> Save()
-	{
-		var result = new Godot.Collections.Dictionary<string, Variant>()
-		{
-			{ nameof(Name), Name }
-		};
-		
-		var content = new Godot.Collections.Array();
-		foreach (var row in _rows)
-		{
-			content.Add(row.Save());
-		}
-		result.Add("Content", content);
-		return result;
-	}
 }

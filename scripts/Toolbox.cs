@@ -44,20 +44,4 @@ public static class Toolbox
         var file = FileAccess.Open(path, FileAccess.ModeFlags.Read);
         return JsonSerializer.Deserialize<T>(file.GetAsText());
     }
-
-    /// <summary>
-    /// Loads a property from a dictionary and returns it.
-    /// </summary>
-    /// <param name="dict">The dictionary</param>
-    /// <param name="key">The key to the item requested</param>
-    /// <returns>null if the key is not in the dictionary, else the Variant associated</returns>
-    public static Variant? LoadProperty(Godot.Collections.Dictionary dict, string key) 
-    {
-        if (!dict.ContainsKey(key))
-        {
-            GD.PrintErr($"Error parsing Json: {key} does not exist.");
-            return null;
-        }
-        return dict[key];
-    }
 }
