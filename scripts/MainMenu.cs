@@ -225,7 +225,8 @@ public partial class MainMenu : Control
 			var camera = new Camera2D
 			{
 				Name = "Camera",
-				Zoom = new Vector2(zoom, zoom)
+				Zoom = new Vector2(zoom, zoom),
+				LimitBottom = 
 			};
 			currentPlayerNode.AddChild(camera);
 
