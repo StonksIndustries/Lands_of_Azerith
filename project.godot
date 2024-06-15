@@ -36,6 +36,10 @@ project/assembly_name="LandsOfAzerith"
 
 import/blender/enabled=false
 
+[gui]
+
+theme/custom_font="res://assets/fonts/Enchanted Land.otf"
+
 [input]
 
 move_down={
