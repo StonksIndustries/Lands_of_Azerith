@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://d1f5rs3ys2rt6"]
 
 [ext_resource type="Script" path="res://scripts/poi/Map.cs" id="1_8j1j7"]
-[ext_resource type="TileSet" uid="uid://bgm5yhuyxgqed" path="res://scenes/tres/emberwood.tres" id="2_1lhv2"]
+[ext_resource type="TileSet" uid="uid://d3f1qcgvxame4" path="res://scenes/tres/emberwood.tres" id="2_1lhv2"]
 [ext_resource type="PackedScene" uid="uid://cw0ak84nt2d4v" path="res://scenes/poi/check_point.tscn" id="2_8rdqn"]
 [ext_resource type="PackedScene" uid="uid://dwaqec5ivvtyr" path="res://scenes/poi/transition.tscn" id="3_gg8nc"]
 [ext_resource type="PackedScene" uid="uid://lc8wngonqid1" path="res://scenes/prairie_paradise.tscn" id="4_ti1wr"]

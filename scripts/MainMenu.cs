@@ -8,6 +8,7 @@ using System.Text.Json;
 using LandsOfAzerith.scripts.character;
 using LandsOfAzerith.scripts.inventory;
 using LandsOfAzerith.scripts.main_menu;
+using LandsOfAzerith.scripts.poi;
 using LandsOfAzerith.scripts.quests;
 using LandsOfAzerith.scripts.quests.goals;
 using LandsOfAzerith.scripts.quests.rewards;
@@ -209,7 +210,7 @@ public partial class MainMenu : Control
 		// Need to load existing statistics or default
 		currentPlayerNode.Statistics = new Statistics();
 		currentPlayerNode.Position = new Vector2(527, 406);
-		currentPlayerNode.CurrentWorld = (Node2D) GetTree().Root.GetNode("/root/Base").GetChildren().First(e => e is not PlayerNode);
+		currentPlayerNode.CurrentWorld = (Map) GetTree().Root.GetNode("/root/Base").GetChildren().First(e => e is Map);
 
 		var nameLabel = currentPlayerNode.GetNode<Label>("Name");
 		if (playerInfo.Name == "")
@@ -226,12 +227,9 @@ public partial class MainMenu : Control
 			{
 				Name = "Camera",
 				Zoom = new Vector2(zoom, zoom),
-				LimitBottom = 6688,
-				LimitRight = 4160,
-				LimitLeft = 0,
-				LimitTop = 0,
 				LimitSmoothed = true
 			};
+			currentPlayerNode.CurrentWorld.SetCameraLimits(camera);
 			currentPlayerNode.AddChild(camera);
 
 			// Adds the inventory to the player
