@@ -1,6 +1,26 @@
-[gd_scene load_steps=2 format=3 uid="uid://pen2yjckun88"]
+[gd_scene load_steps=16 format=3 uid="uid://pen2yjckun88"]
 
 [ext_resource type="Script" path="res://scripts/MainMenu.cs" id="1_30b2k"]
+[ext_resource type="Script" path="res://scripts/main_menu/MenuBackground.cs" id="2_0r6tj"]
+[ext_resource type="Script" path="res://scripts/main_menu/ServerBrowser.cs" id="2_d7qug"]
+[ext_resource type="Texture2D" uid="uid://c8mulfdp5oag4" path="res://assets/Parallax_Backgrounds_Plains/8.png" id="2_ln8en"]
+[ext_resource type="Texture2D" uid="uid://boigcr04rflks" path="res://assets/Parallax_Backgrounds_Plains/7.png" id="3_28j1p"]
+[ext_resource type="Texture2D" uid="uid://v4frtfv7s5ng" path="res://assets/Parallax_Backgrounds_Plains/6.png" id="4_pnwwb"]
+[ext_resource type="Texture2D" uid="uid://0ehg3vu2qa1k" path="res://assets/Parallax_Backgrounds_Plains/5.png" id="5_c6b1i"]
+[ext_resource type="Texture2D" uid="uid://skoeldx0klha" path="res://assets/Parallax_Backgrounds_Plains/4.png" id="6_etg03"]
+[ext_resource type="Texture2D" uid="uid://c1wksw4xbcyil" path="res://assets/Parallax_Backgrounds_Plains/3.png" id="7_7le0d"]
+[ext_resource type="Texture2D" uid="uid://bsbkc8mom5xv7" path="res://assets/Parallax_Backgrounds_Plains/2.png" id="8_olua8"]
+[ext_resource type="Texture2D" uid="uid://dj8ct0lbwf4l5" path="res://assets/Parallax_Backgrounds_Plains/1.png" id="9_sek85"]
+[ext_resource type="Theme" path="res://scenes/tres/menu_button.tres" id="11_cx6tj"]
+[ext_resource type="FontFile" uid="uid://tgo75c5h1cix" path="res://assets/fonts/Enchanted Land.otf" id="12_n5ufp"]
+[ext_resource type="Theme" path="res://scenes/tres/menu_server_browser.tres" id="14_655uk"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_4rrlm"]
+font = ExtResource("12_n5ufp")
+font_size = 200
+font_color = Color(1, 1, 0.521569, 1)
+shadow_size = 40
+shadow_color = Color(0, 0, 0, 1)
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -12,52 +32,88 @@ grow_vertical = 2
 script = ExtResource("1_30b2k")
 metadata/_edit_lock_ = true
 
-[node name="ColorRect" type="ColorRect" parent="."]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 1.0
-color = Color(0.286275, 0.517647, 0.588235, 1)
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+scroll_ignore_camera_zoom = true
+script = ExtResource("2_0r6tj")
+ScrollSpeed = 50
 
-[node name="Join" type="Button" parent="."]
-layout_mode = 0
-offset_left = 340.0
-offset_top = 70.0
-offset_right = 540.0
-offset_bottom = 150.0
-text = "Join"
+[node name="Sky" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.1, 0.1)
+motion_mirroring = Vector2(1920, 0)
 
-[node name="Start" type="Button" parent="."]
-layout_mode = 0
-offset_left = 560.0
-offset_top = 70.0
-offset_right = 760.0
-offset_bottom = 150.0
-text = "Start"
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Sky"]
+texture_filter = 1
+scale = Vector2(5, 5)
+texture = ExtResource("2_ln8en")
+centered = false
 
-[node name="Host" type="Button" parent="."]
-layout_mode = 0
-offset_left = 120.0
-offset_top = 70.0
-offset_right = 320.0
-offset_bottom = 150.0
-text = "Host"
+[node name="Far Mountains" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.2, 0.2)
+motion_mirroring = Vector2(1920, 0)
 
-[node name="Name" type="LineEdit" parent="."]
-layout_mode = 0
-offset_left = 120.0
-offset_top = 160.0
-offset_right = 570.0
-offset_bottom = 191.0
-placeholder_text = "Username"
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Far Mountains"]
+scale = Vector2(5, 5)
+texture = ExtResource("3_28j1p")
+centered = false
 
-[node name="Address" type="LineEdit" parent="."]
-layout_mode = 0
-offset_left = 120.0
-offset_top = 200.0
-offset_right = 320.0
-offset_bottom = 231.0
-placeholder_text = "Address"
+[node name="Near Mountains" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.3, 0.3)
+motion_mirroring = Vector2(1920, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Near Mountains"]
+scale = Vector2(5, 5)
+texture = ExtResource("4_pnwwb")
+centered = false
+
+[node name="Far Forest" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.4, 0.4)
+motion_mirroring = Vector2(1920, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Far Forest"]
+texture_filter = 1
+scale = Vector2(5, 5)
+texture = ExtResource("5_c6b1i")
+centered = false
+
+[node name="Middle Forest" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.5, 0.5)
+motion_mirroring = Vector2(1920, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Middle Forest"]
+texture_filter = 1
+scale = Vector2(5, 5)
+texture = ExtResource("6_etg03")
+centered = false
+
+[node name="Near Forest" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.6, 0.6)
+motion_mirroring = Vector2(1920, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Near Forest"]
+texture_filter = 1
+scale = Vector2(5, 5)
+texture = ExtResource("7_7le0d")
+centered = false
+
+[node name="Far Hills" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.7, 0.7)
+motion_mirroring = Vector2(1920, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Far Hills"]
+texture_filter = 1
+scale = Vector2(5, 5)
+texture = ExtResource("8_olua8")
+centered = false
+
+[node name="Near Hills" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.8, 0.8)
+motion_mirroring = Vector2(1920, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Near Hills"]
+texture_filter = 1
+scale = Vector2(5, 5)
+texture = ExtResource("9_sek85")
+centered = false
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 1
@@ -66,20 +122,126 @@ anchor_left = 0.102
 anchor_top = 0.031
 anchor_right = 0.618
 anchor_bottom = 0.111
-offset_left = -0.504005
-offset_top = -0.0880013
-offset_right = 0.0639648
-offset_bottom = 0.071991
+offset_left = 345.16
+offset_top = 170.52
+offset_right = 317.44
+offset_bottom = 318.12
 text = "Lands Of Azerith"
+label_settings = SubResource("LabelSettings_4rrlm")
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="Port" type="LineEdit" parent="."]
+[node name="Buttons" type="VBoxContainer" parent="."]
 layout_mode = 0
-offset_left = 340.0
-offset_top = 200.0
-offset_right = 410.0
-offset_bottom = 231.0
-placeholder_text = "Port"
+offset_left = 126.0
+offset_top = 493.0
+offset_right = 614.0
+offset_bottom = 993.0
+metadata/_edit_group_ = true
 
-[connection signal="button_down" from="Join" to="." method="_on_join_button_down"]
-[connection signal="button_down" from="Start" to="." method="_on_start_button_down"]
-[connection signal="button_down" from="Host" to="." method="_on_host_button_down"]
+[node name="Start" type="Button" parent="Buttons"]
+layout_mode = 2
+size_flags_vertical = 2
+theme = ExtResource("11_cx6tj")
+disabled = true
+text = "Start"
+flat = true
+icon_alignment = 1
+vertical_icon_alignment = 0
+
+[node name="Join" type="Button" parent="Buttons"]
+layout_mode = 2
+size_flags_vertical = 2
+theme = ExtResource("11_cx6tj")
+text = "Join"
+flat = true
+icon_alignment = 1
+vertical_icon_alignment = 0
+
+[node name="Host" type="Button" parent="Buttons"]
+layout_mode = 2
+size_flags_vertical = 2
+theme = ExtResource("11_cx6tj")
+text = "Host"
+flat = true
+icon_alignment = 1
+vertical_icon_alignment = 0
+
+[node name="Exit" type="Button" parent="Buttons"]
+layout_mode = 2
+size_flags_vertical = 2
+theme = ExtResource("11_cx6tj")
+text = "Exit"
+flat = true
+icon_alignment = 1
+vertical_icon_alignment = 0
+
+[node name="Browser" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 886.0
+offset_top = 488.0
+offset_right = 1656.0
+offset_bottom = 1029.0
+metadata/_edit_group_ = true
+
+[node name="Infos" type="HBoxContainer" parent="Browser"]
+layout_mode = 2
+
+[node name="Name" type="LineEdit" parent="Browser/Infos"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Username"
+
+[node name="Address" type="LineEdit" parent="Browser/Infos"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "127.0.0.1"
+placeholder_text = "Address"
+
+[node name="ServerBrowser" type="VBoxContainer" parent="Browser"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("2_d7qug")
+
+[node name="RefreshTimer" type="Timer" parent="Browser/ServerBrowser"]
+
+[node name="Timer" type="Timer" parent="Browser/ServerBrowser"]
+
+[node name="ServerList" type="VBoxContainer" parent="Browser/ServerBrowser"]
+layout_mode = 2
+
+[node name="Header" type="HBoxContainer" parent="Browser/ServerBrowser"]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="Browser/ServerBrowser/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme = ExtResource("14_655uk")
+text = "Server Name"
+
+[node name="ServerIP" type="Label" parent="Browser/ServerBrowser/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme = ExtResource("14_655uk")
+text = "IP Adress"
+
+[node name="PlayerCount" type="Label" parent="Browser/ServerBrowser/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme = ExtResource("14_655uk")
+text = "Player Count"
+
+[node name="RefreshButton" type="Button" parent="Browser/ServerBrowser/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("14_655uk")
+text = "Refresh"
+
+[connection signal="button_down" from="Buttons/Start" to="." method="_on_start_button_down"]
+[connection signal="button_down" from="Buttons/Join" to="." method="_on_join_button_down"]
+[connection signal="button_down" from="Buttons/Host" to="." method="_on_host_button_down"]
+[connection signal="button_down" from="Buttons/Exit" to="." method="_on_quit_button_down"]

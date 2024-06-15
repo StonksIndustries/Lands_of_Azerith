@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://dwaqec5ivvtyr"]
+
+[ext_resource type="Script" path="res://scripts/poi/Transition.cs" id="1_bwtdo"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_eltq4"]
+radius = 52.0
+
+[node name="Transition" type="Area2D" node_paths=PackedStringArray("CollisionShape2D")]
+script = ExtResource("1_bwtdo")
+CollisionShape2D = NodePath("CollisionShape2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_eltq4")
+
+[connection signal="body_entered" from="." to="." method="_on_transition_body_entered"]

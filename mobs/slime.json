@@ -1,0 +1,17 @@
+{
+	"Speed": 1,
+	"HealthPoints": 100,
+	"MobId": "slime",
+	"Weapon": {
+		"$type": "Weapon",
+		"Name": "Jelly",
+		"Description": "A part of the slime body",
+		"Rarity": 1,
+		"Damage": 5,
+		"Range": 10,
+		"Durability": 100
+	},
+	"LootTable": [
+		"slimeball"
+	]
+}

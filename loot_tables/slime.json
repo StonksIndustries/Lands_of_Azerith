@@ -1,0 +1,7 @@
+{
+  "name": "sword",
+  "icon": "res://assets/items/weapons/sword.png",
+  "range": 10,
+  "damage": 10,
+  "maxDurability": 100
+}

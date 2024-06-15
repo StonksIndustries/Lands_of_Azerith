@@ -1,7 +1,11 @@
-[gd_scene load_steps=42 format=3 uid="uid://p34aqil06mwv"]
+[gd_scene load_steps=45 format=3 uid="uid://p34aqil06mwv"]
 
-[ext_resource type="Script" path="res://scripts/character/Player.cs" id="1_5ds04"]
+[ext_resource type="Script" path="res://scripts/character/PlayerNode.cs" id="1_5ds04"]
 [ext_resource type="Texture2D" uid="uid://dcda1bigyuyel" path="res://characters/player.png" id="2_pv04o"]
+[ext_resource type="PackedScene" uid="uid://bk1s4rsxfmluj" path="res://scenes/health_bar.tscn" id="3_mnyhl"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_iluo6"]
+radius = 4.5
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4hqal"]
 atlas = ExtResource("2_pv04o")
@@ -288,36 +292,65 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_jajb6"]
-size = Vector2(13, 21)
-
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_fqf7i"]
-properties/0/path = NodePath(".:position")
+properties/0/path = NodePath("AnimatedSprite2D:frame")
 properties/0/spawn = true
 properties/0/replication_mode = 1
-properties/1/path = NodePath("AnimatedSprite2D:frame")
+properties/1/path = NodePath("AnimatedSprite2D:flip_h")
 properties/1/spawn = true
 properties/1/replication_mode = 1
-properties/2/path = NodePath("AnimatedSprite2D:flip_h")
+properties/2/path = NodePath("AnimatedSprite2D:animation")
 properties/2/spawn = true
 properties/2/replication_mode = 1
-properties/3/path = NodePath("AnimatedSprite2D:animation")
+properties/3/path = NodePath(".:position")
 properties/3/spawn = true
 properties/3/replication_mode = 1
 
-[node name="Player" type="Area2D" groups=["Player"]]
+[sub_resource type="LabelSettings" id="LabelSettings_j00vc"]
+font_size = 64
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wrxwj"]
+radius = 17.0294
+
+[node name="Player" type="CharacterBody2D"]
+y_sort_enabled = true
 script = ExtResource("1_5ds04")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, -5)
+shape = SubResource("CircleShape2D_iluo6")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -19)
 sprite_frames = SubResource("SpriteFrames_6pmdw")
 animation = &"idle_down"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0.5, -10.5)
-shape = SubResource("RectangleShape2D_jajb6")
-
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_fqf7i")
 
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[node name="Name" type="Label" parent="."]
+offset_left = -24.0
+offset_top = -30.0
+offset_right = 456.0
+offset_bottom = 58.0
+scale = Vector2(0.1, 0.1)
+text = "Player "
+label_settings = SubResource("LabelSettings_j00vc")
+horizontal_alignment = 1
+text_overrun_behavior = 3
+
+[node name="HealthBar" parent="." instance=ExtResource("3_mnyhl")]
+offset_left = -9.0
+offset_top = 1.0
+offset_right = 9.0
+offset_bottom = 3.0
+
+[node name="Range" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Range"]
+position = Vector2(0, -10)
+shape = SubResource("CircleShape2D_wrxwj")
+
+[connection signal="area_entered" from="Range" to="." method="_on_area_entered"]
+[connection signal="body_entered" from="Range" to="." method="_on_range_entered"]
+[connection signal="body_exited" from="Range" to="." method="_on_range_exited"]

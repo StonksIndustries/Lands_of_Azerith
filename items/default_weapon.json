@@ -1,0 +1,9 @@
+﻿{
+    "$type": "Weapon",
+    "Name": "Default",
+    "Description": "When a mob doesn't have stats",
+    "Rarity": 0,
+    "Damage": 10,
+    "Range": 10,
+    "Durability": 100
+}
