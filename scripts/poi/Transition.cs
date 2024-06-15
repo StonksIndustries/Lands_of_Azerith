@@ -14,9 +14,12 @@ public partial class Transition : Checkpoint
         if (body is PlayerNode player)
         {
             player.Position = NextScenePosition;
-            var newScene = NextScene.Instantiate<Node2D>();
+            var newScene = NextScene.Instantiate<Map>();
             player.CurrentWorld.QueueFree();
             player.CurrentWorld = newScene;
+            var camera = player.GetNodeOrNull<Camera2D>("Camera");
+            if (camera != null)
+                newScene.SetCameraLimits(camera);
             GetTree().Root.GetNode("/root/Base").AddChild(newScene);
         }
     }

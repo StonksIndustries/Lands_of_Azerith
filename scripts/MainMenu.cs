@@ -209,6 +209,7 @@ public partial class MainMenu : Control
 		
 		// Need to load existing statistics or default
 		currentPlayerNode.Statistics = new Statistics();
+		currentPlayerNode.Position = new Vector2(527, 406);
 		currentPlayerNode.CurrentWorld = (Node2D) GetTree().Root.GetNode("/root/Base").GetChildren().First(e => e is not PlayerNode);
 
 		var nameLabel = currentPlayerNode.GetNode<Label>("Name");
@@ -221,12 +222,16 @@ public partial class MainMenu : Control
 		if (playerInfo.Id == Multiplayer.GetUniqueId())
 		{
 			// Adds the camera to the player
-			int zoom = 2;
+			int zoom = 3;
 			var camera = new Camera2D
 			{
 				Name = "Camera",
 				Zoom = new Vector2(zoom, zoom),
-				LimitBottom = 
+				LimitBottom = 6688,
+				LimitRight = 4160,
+				LimitLeft = 0,
+				LimitTop = 0,
+				LimitSmoothed = true
 			};
 			currentPlayerNode.AddChild(camera);
 
