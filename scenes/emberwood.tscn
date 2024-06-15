@@ -4,7 +4,7 @@
 [ext_resource type="TileSet" uid="uid://bgm5yhuyxgqed" path="res://scenes/tres/emberwood.tres" id="2_1lhv2"]
 [ext_resource type="PackedScene" uid="uid://cw0ak84nt2d4v" path="res://scenes/poi/check_point.tscn" id="2_8rdqn"]
 [ext_resource type="PackedScene" uid="uid://dwaqec5ivvtyr" path="res://scenes/poi/transition.tscn" id="3_gg8nc"]
-[ext_resource type="PackedScene" path="res://scenes/spawn_zone.tscn" id="5_ai3i5"]
+[ext_resource type="PackedScene" uid="uid://m2xwptxqfr3r" path="res://scenes/spawn_zone.tscn" id="5_ai3i5"]
 [ext_resource type="PackedScene" uid="uid://bb56pfvbsm56r" path="res://scenes/mob/aggressive_mob.tscn" id="6_0tx23"]
 
 [node name="Emberwood" type="Node2D"]
@@ -34,40 +34,44 @@ position = Vector2(526, 406)
 position = Vector2(3896, 803)
 MobScene = ExtResource("6_0tx23")
 MobId = "slime"
+MaxMobs = 1
 
 [node name="Transition" parent="." instance=ExtResource("3_gg8nc")]
 position = Vector2(2633, 2)
+NextSceneId = "prairie_paradise"
 NextScenePosition = Vector2(4400, 5700)
 
 [node name="SpawnZone2" parent="." instance=ExtResource("5_ai3i5")]
 position = Vector2(1859, 1401)
 MobScene = ExtResource("6_0tx23")
 MobId = "slime"
+MaxMobs = 2
 ZoneSize = Vector2(200, 200)
 
 [node name="SpawnZone3" parent="." instance=ExtResource("5_ai3i5")]
 position = Vector2(4106, 1867)
 MobScene = ExtResource("6_0tx23")
 MobId = "slime"
+MaxMobs = 2
 ZoneSize = Vector2(100, 100)
 
-[node name="SpawnZone5" parent="." node_paths=PackedStringArray("CollisionShape2D") instance=ExtResource("5_ai3i5")]
+[node name="SpawnZone5" parent="." instance=ExtResource("5_ai3i5")]
 position = Vector2(3068, 3577)
 MobScene = ExtResource("6_0tx23")
 MobId = "slime"
-CollisionShape2D = NodePath("../SpawnZone3/CollisionShape2D")
+MaxMobs = 1
 ZoneSize = Vector2(300, 300)
 
-[node name="SpawnZone6" parent="." node_paths=PackedStringArray("CollisionShape2D") instance=ExtResource("5_ai3i5")]
+[node name="SpawnZone6" parent="." instance=ExtResource("5_ai3i5")]
 position = Vector2(4158, 2951)
 MobScene = ExtResource("6_0tx23")
 MobId = "slime"
-CollisionShape2D = NodePath("../SpawnZone3/CollisionShape2D")
+MaxMobs = 1
 ZoneSize = Vector2(300, 300)
 
-[node name="SpawnZone7" parent="." node_paths=PackedStringArray("CollisionShape2D") instance=ExtResource("5_ai3i5")]
+[node name="SpawnZone7" parent="." instance=ExtResource("5_ai3i5")]
 position = Vector2(506, 3266)
 MobScene = ExtResource("6_0tx23")
 MobId = "slime"
-CollisionShape2D = NodePath("../SpawnZone2/CollisionShape2D")
+MaxMobs = 2
 ZoneSize = Vector2(10, 10)
