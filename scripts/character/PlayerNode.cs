@@ -12,6 +12,7 @@ public partial class PlayerNode : PlayerBackend
 	private double _inventoryCooldown = 0;
 	private Directions Direction { get; set; }
 	public static Vector2 ScreenSize; // Size of the game window.
+	public Node2D CurrentWorld { get; set; }
 
 	public MultiplayerSynchronizer MultiplayerSynchronizer;
 	
