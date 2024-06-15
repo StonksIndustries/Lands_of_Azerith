@@ -49,7 +49,7 @@ ZoneSize = Vector2(200, 200)
 position = Vector2(4106, 1867)
 MobScene = ExtResource("6_0tx23")
 MobId = "slime"
-ZoneSize = Vector2(1100, 1100)
+ZoneSize = Vector2(100, 1100)
 
 [node name="SpawnZone5" parent="." node_paths=PackedStringArray("CollisionShape2D") instance=ExtResource("5_ai3i5")]
 position = Vector2(3068, 3577)
