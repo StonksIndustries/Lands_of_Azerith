@@ -14,6 +14,7 @@ public partial class Transition : Checkpoint
         if (body is PlayerNode player)
         {
             player.Position = NextScenePosition;
+            player.Statistics.Checkpoint = NextScenePosition;
             var newScene = NextScene.Instantiate<Map>();
             player.CurrentWorld.QueueFree();
             player.CurrentWorld = newScene;
