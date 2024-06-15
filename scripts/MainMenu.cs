@@ -24,7 +24,7 @@ public partial class MainMenu : Control
 		Multiplayer.ConnectedToServer += ConnectedToServer;
 		Multiplayer.ConnectionFailed += ConnectionFailed;
 
-		GetNode<ServerBrowser>("ServerBrowser").JoinServer += JoinServer;
+		GetNode<ServerBrowser>("Browser/ServerBrowser").JoinServer += JoinServer;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -73,7 +73,7 @@ public partial class MainMenu : Control
 	private void ConnectedToServer()
 	{
 		GD.Print("Connected to server!");
-		RpcId(1, nameof(SendPlayerData), GetNode<LineEdit>("Name").Text, Multiplayer.GetUniqueId());
+		RpcId(1, nameof(SendPlayerData), GetNode<LineEdit>("Browser/Infos/Name").Text, Multiplayer.GetUniqueId());
 	}
 
 	/// <summary>
@@ -101,15 +101,15 @@ public partial class MainMenu : Control
 		
 		Multiplayer.MultiplayerPeer = _peer;
 		GD.Print("Waiting for players...");
-		SendPlayerData(GetNode<LineEdit>("Name").Text, 1);
+		SendPlayerData(GetNode<LineEdit>("Browser/Infos/Name").Text, 1);
 		DisableButtons();
 		
-		GetNode<ServerBrowser>("ServerBrowser").SetUpBroadcast(GetNode<LineEdit>("Name").Text + "'s Server");
+		GetNode<ServerBrowser>("Browser/ServerBrowser").SetUpBroadcast(GetNode<LineEdit>("Browser/Infos/Name").Text + "'s Server");
 	}
 
 	private void _on_join_button_down()
 	{
-		JoinServer(GetNode<LineEdit>("Address").Text);
+		JoinServer(GetNode<LineEdit>("Browser/Infos/Address").Text);
 	}
 	
 	private void JoinServer(string serverIp)
@@ -130,7 +130,7 @@ public partial class MainMenu : Control
 	[Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
 	private void StartGame()
 	{
-		GetNode<ServerBrowser>("ServerBrowser").Clean();
+		GetNode<ServerBrowser>("Browser/ServerBrowser").Clean();
 		GetTree().Root.AddChild(new Node2D
 		{
 			YSortEnabled = true,
@@ -176,8 +176,9 @@ public partial class MainMenu : Control
 	
 	private void DisableButtons()
 	{
-		GetNode<Button>("Host").Disabled = true;
-		GetNode<Button>("Join").Disabled = true;
+		GetNode<Button>("Buttons/Host").Disabled = true;
+		GetNode<Button>("Buttons/Join").Disabled = true;
+		GetNode<Button>("Buttons/Start").Disabled = false;
 	}
 	
 	private void InstantiatePlayers()

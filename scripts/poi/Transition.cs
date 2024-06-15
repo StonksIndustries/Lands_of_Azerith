@@ -5,7 +5,7 @@ namespace LandsOfAzerith.scripts.poi;
 
 public partial class Transition : Checkpoint
 {
-    [Export] public PackedScene NextScene;
+    [Export] public string NextSceneId;
     [Export] public Vector2 NextScenePosition;
     [Export] public CollisionShape2D CollisionShape2D;
     
@@ -15,13 +15,27 @@ public partial class Transition : Checkpoint
         {
             player.Position = NextScenePosition;
             player.Statistics.Checkpoint = NextScenePosition;
-            var newScene = NextScene.Instantiate<Map>();
+            var newScene = GD.Load<PackedScene>("res://scenes/" + NextSceneId + ".tscn").Instantiate<Map>();
             player.CurrentWorld.QueueFree();
             player.CurrentWorld = newScene;
             var camera = player.GetNodeOrNull<Camera2D>("Camera");
             if (camera != null)
                 newScene.SetCameraLimits(camera);
-            GetTree().Root.GetNode("/root/Base").AddChild(newScene);
+            GetTree().Root.GetNode("/root/Base").CallDeferred(Node.MethodName.AddChild,newScene);
         }
+    }
+
+    private void TeleportToZone()
+    {
+        var player = (PlayerNode) GetTree().Root.FindChild(GetMultiplayerAuthority().ToString());
+        player.Position = NextScenePosition;
+        player.Statistics.Checkpoint = NextScenePosition;
+        var newScene = GD.Load<PackedScene>("res://scenes/" + NextSceneId + ".tscn").Instantiate<Map>();
+        player.CurrentWorld.QueueFree();
+        player.CurrentWorld = newScene;
+        var camera = player.GetNodeOrNull<Camera2D>("Camera");
+        if (camera != null)
+            newScene.SetCameraLimits(camera);
+        GetTree().Root.GetNode("/root/Base").CallDeferred(Node.MethodName.AddChild,newScene);
     }
 }

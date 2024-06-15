@@ -3,6 +3,8 @@ using Godot;
 
 namespace LandsOfAzerith.scripts.main_menu;
 
+
+// Used to work, doesn't work anymore, don't have time to fix
 public partial class ServerBrowser : Control
 {
 	[Export] private PacketPeerUdp? _broadcaster;
@@ -15,7 +17,6 @@ public partial class ServerBrowser : Control
 
 	private Timer _broadcastTimer;
 	private Timer _refreshTimer;
-
 	private ServerInfo _serverInfo;
 	
 	// Called when the node enters the scene tree for the first time.
@@ -46,13 +47,7 @@ public partial class ServerBrowser : Control
 
 		var error = _broadcaster.Bind(_hostPort);
 		if (error == Error.Ok)
-		{
 			GD.Print("Broadcaster bound to port: " + _hostPort);
-		}
-		else
-		{
-			GD.PrintErr("Error binding broadcaster: " + error);
-		}
 			
 		
 		_broadcastTimer.Start();
@@ -62,17 +57,7 @@ public partial class ServerBrowser : Control
 	{
 		var error = _listener.Bind(_listenPort);
 		if (error == Error.Ok)
-		{
 			GD.Print("Listener bound to port: " + _listenPort);
-			// For testing purposes
-			GetNode<Label>("Label").Text = "Listen : true";
-		}
-		else
-		{
-			GD.PrintErr("Error binding listener: " + error);
-			// For testing purposes
-			GetNode<Label>("Label").Text = "Listen : false";
-		}
 		
 		_refreshTimer.Start();
 	}
@@ -96,7 +81,7 @@ public partial class ServerBrowser : Control
 	
 	private void _on_refresh()
 	{
-		foreach (Node oldServers in GetNode("Panel/ServerList").GetChildren())
+		foreach (Node oldServers in GetNode("ServerList").GetChildren())
 		{
 			oldServers.Free();
 		}
@@ -110,7 +95,7 @@ public partial class ServerBrowser : Control
 			GD.Print(
 				$"Server IP : {serverIp}, Port : {port}, Server Name : {info.Name}, Player Count : {info.PlayerCount}");
 				
-			if (GetNodeOrNull($"Panel/ServerList/{info.Name}") is not null)
+			if (GetNodeOrNull($"ServerList/{info.Name}") is not null)
 				return;
 				
 			ServerInfoLine serverInfo = _serverInfoScene.Instantiate<ServerInfoLine>();
@@ -119,7 +104,7 @@ public partial class ServerBrowser : Control
 			serverInfo.GetNode<Label>("PlayerCount").Text = info.PlayerCount.ToString();
 			serverInfo.GetNode<Label>("ServerIP").Text = serverIp;
 				
-			GetNode("Panel/ServerList").AddChild(serverInfo);
+			GetNode("ServerList").AddChild(serverInfo);
 				
 			serverInfo.JoinServer += _on_join_server;
 		}

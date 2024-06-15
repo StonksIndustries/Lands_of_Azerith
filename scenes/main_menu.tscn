@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://pen2yjckun88"]
+[gd_scene load_steps=16 format=3 uid="uid://pen2yjckun88"]
 
 [ext_resource type="Script" path="res://scripts/MainMenu.cs" id="1_30b2k"]
 [ext_resource type="Script" path="res://scripts/main_menu/MenuBackground.cs" id="2_0r6tj"]
@@ -12,6 +12,15 @@
 [ext_resource type="Texture2D" uid="uid://bsbkc8mom5xv7" path="res://assets/Parallax_Backgrounds_Plains/2.png" id="8_olua8"]
 [ext_resource type="Texture2D" uid="uid://dj8ct0lbwf4l5" path="res://assets/Parallax_Backgrounds_Plains/1.png" id="9_sek85"]
 [ext_resource type="Theme" uid="uid://bg8aoju3bewig" path="res://scenes/tres/menu_button.tres" id="11_cx6tj"]
+[ext_resource type="FontFile" uid="uid://tgo75c5h1cix" path="res://assets/fonts/Enchanted Land.otf" id="12_n5ufp"]
+[ext_resource type="Theme" uid="uid://cctgkdwur36q4" path="res://scenes/tres/menu_server_browser.tres" id="14_655uk"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_4rrlm"]
+font = ExtResource("12_n5ufp")
+font_size = 200
+font_color = Color(1, 1, 0.521569, 1)
+shadow_size = 40
+shadow_color = Color(0, 0, 0, 1)
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -106,48 +115,6 @@ scale = Vector2(5, 5)
 texture = ExtResource("9_sek85")
 centered = false
 
-[node name="Join" type="Button" parent="."]
-layout_mode = 0
-offset_left = 35.0
-offset_top = 864.0
-offset_right = 235.0
-offset_bottom = 944.0
-theme = ExtResource("11_cx6tj")
-text = "Join"
-
-[node name="Start" type="Button" parent="."]
-layout_mode = 0
-offset_left = 38.0
-offset_top = 664.0
-offset_right = 238.0
-offset_bottom = 744.0
-text = "Start"
-
-[node name="Host" type="Button" parent="."]
-layout_mode = 0
-offset_left = 38.0
-offset_top = 761.0
-offset_right = 238.0
-offset_bottom = 841.0
-text = "Host"
-
-[node name="Name" type="LineEdit" parent="."]
-layout_mode = 0
-offset_left = 1192.0
-offset_top = 641.0
-offset_right = 1642.0
-offset_bottom = 672.0
-placeholder_text = "Username"
-
-[node name="Address" type="LineEdit" parent="."]
-layout_mode = 0
-offset_left = 1191.0
-offset_top = 597.0
-offset_right = 1391.0
-offset_bottom = 628.0
-text = "127.0.0.1"
-placeholder_text = "Address"
-
 [node name="Label" type="Label" parent="."]
 layout_mode = 1
 anchors_preset = -1
@@ -155,92 +122,126 @@ anchor_left = 0.102
 anchor_top = 0.031
 anchor_right = 0.618
 anchor_bottom = 0.111
-offset_left = -53.84
-offset_top = 7.52
-offset_right = -53.2721
-offset_bottom = 7.67999
+offset_left = 345.16
+offset_top = 170.52
+offset_right = 317.44
+offset_bottom = 318.12
 text = "Lands Of Azerith"
+label_settings = SubResource("LabelSettings_4rrlm")
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="Port" type="LineEdit" parent="."]
+[node name="Buttons" type="VBoxContainer" parent="."]
 layout_mode = 0
-offset_left = 1418.0
-offset_top = 598.0
-offset_right = 1488.0
-offset_bottom = 629.0
-text = "1234"
-placeholder_text = "Port"
+offset_left = 126.0
+offset_top = 493.0
+offset_right = 614.0
+offset_bottom = 993.0
+metadata/_edit_group_ = true
 
-[node name="Button" type="Button" parent="."]
-layout_mode = 0
-offset_left = 34.0
-offset_top = 960.0
-offset_right = 234.0
-offset_bottom = 1040.0
+[node name="Start" type="Button" parent="Buttons"]
+layout_mode = 2
+size_flags_vertical = 2
+theme = ExtResource("11_cx6tj")
+disabled = true
+text = "Start"
+flat = true
+icon_alignment = 1
+vertical_icon_alignment = 0
+
+[node name="Join" type="Button" parent="Buttons"]
+layout_mode = 2
+size_flags_vertical = 2
+theme = ExtResource("11_cx6tj")
+text = "Join"
+flat = true
+icon_alignment = 1
+vertical_icon_alignment = 0
+
+[node name="Host" type="Button" parent="Buttons"]
+layout_mode = 2
+size_flags_vertical = 2
+theme = ExtResource("11_cx6tj")
+text = "Host"
+flat = true
+icon_alignment = 1
+vertical_icon_alignment = 0
+
+[node name="Exit" type="Button" parent="Buttons"]
+layout_mode = 2
+size_flags_vertical = 2
+theme = ExtResource("11_cx6tj")
 text = "Exit"
+flat = true
+icon_alignment = 1
+vertical_icon_alignment = 0
 
-[node name="ServerBrowser" type="Control" parent="."]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="Browser" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 886.0
+offset_top = 488.0
+offset_right = 1656.0
+offset_bottom = 1029.0
+metadata/_edit_group_ = true
+
+[node name="Infos" type="HBoxContainer" parent="Browser"]
+layout_mode = 2
+
+[node name="Name" type="LineEdit" parent="Browser/Infos"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Username"
+
+[node name="Address" type="LineEdit" parent="Browser/Infos"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "127.0.0.1"
+placeholder_text = "Address"
+
+[node name="ServerBrowser" type="VBoxContainer" parent="Browser"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 script = ExtResource("2_d7qug")
 
-[node name="Label" type="Label" parent="ServerBrowser"]
-layout_mode = 0
-offset_left = 999.699
-offset_top = 29.2911
-offset_right = 1081.7
-offset_bottom = 52.2911
-text = "Host : true"
+[node name="RefreshTimer" type="Timer" parent="Browser/ServerBrowser"]
 
-[node name="Timer" type="Timer" parent="ServerBrowser"]
+[node name="Timer" type="Timer" parent="Browser/ServerBrowser"]
 
-[node name="RefreshTimer" type="Timer" parent="ServerBrowser"]
+[node name="ServerList" type="VBoxContainer" parent="Browser/ServerBrowser"]
+layout_mode = 2
 
-[node name="Panel" type="Panel" parent="ServerBrowser"]
-layout_mode = 0
-offset_left = 1192.0
-offset_top = 688.0
-offset_right = 1890.0
-offset_bottom = 1066.0
+[node name="Header" type="HBoxContainer" parent="Browser/ServerBrowser"]
+layout_mode = 2
 
-[node name="ServerList" type="VBoxContainer" parent="ServerBrowser/Panel"]
-layout_mode = 0
-offset_top = 54.0
-offset_right = 698.0
-offset_bottom = 377.0
-
-[node name="Header" type="HBoxContainer" parent="ServerBrowser/Panel"]
-layout_mode = 0
-offset_right = 698.0
-offset_bottom = 31.0
-
-[node name="Name" type="Label" parent="ServerBrowser/Panel/Header"]
+[node name="Name" type="Label" parent="Browser/ServerBrowser/Header"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
+theme = ExtResource("14_655uk")
 text = "Server Name"
 
-[node name="ServerIP" type="Label" parent="ServerBrowser/Panel/Header"]
+[node name="ServerIP" type="Label" parent="Browser/ServerBrowser/Header"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
+theme = ExtResource("14_655uk")
 text = "IP Adress"
 
-[node name="PlayerCount" type="Label" parent="ServerBrowser/Panel/Header"]
+[node name="PlayerCount" type="Label" parent="Browser/ServerBrowser/Header"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
+theme = ExtResource("14_655uk")
 text = "Player Count"
 
-[node name="RefreshButton" type="Button" parent="ServerBrowser/Panel/Header"]
+[node name="RefreshButton" type="Button" parent="Browser/ServerBrowser/Header"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme = ExtResource("14_655uk")
 text = "Refresh"
 
-[connection signal="button_down" from="Join" to="." method="_on_join_button_down"]
-[connection signal="button_down" from="Start" to="." method="_on_start_button_down"]
-[connection signal="button_down" from="Host" to="." method="_on_host_button_down"]
-[connection signal="button_down" from="Button" to="." method="_on_quit_button_down"]
-[connection signal="timeout" from="ServerBrowser/Timer" to="ServerBrowser" method="_on_timer_timeout"]
-[connection signal="timeout" from="ServerBrowser/RefreshTimer" to="ServerBrowser" method="_on_refresh"]
-[connection signal="pressed" from="ServerBrowser/Panel/Header/RefreshButton" to="ServerBrowser" method="_on_refresh"]
+[connection signal="button_down" from="Buttons/Start" to="." method="_on_start_button_down"]
+[connection signal="button_down" from="Buttons/Join" to="." method="_on_join_button_down"]
+[connection signal="button_down" from="Buttons/Host" to="." method="_on_host_button_down"]
+[connection signal="button_down" from="Buttons/Exit" to="." method="_on_quit_button_down"]

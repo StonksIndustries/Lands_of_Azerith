@@ -12,6 +12,12 @@ public partial class SpawnZone : Area2D
 	[Export] public string MobId;
 	[Export] public int MaxMobs = 5;
 	[Export] public CollisionShape2D CollisionShape2D;
+	[Export] public Vector2 ZoneSize;
+
+	public override void _Ready()
+	{
+		CollisionShape2D.Shape = new RectangleShape2D { Size = ZoneSize };
+	}
 	
 	private void _on_respawn_timeout()
 	{

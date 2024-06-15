@@ -105,7 +105,6 @@ path_postprocessing = 1
 avoidance_enabled = true
 avoidance_layers = 3
 avoidance_mask = 3
-debug_enabled = true
 
 [node name="WanderingTimer" type="Timer" parent="."]
 wait_time = 3.93
