@@ -6,7 +6,6 @@ using Godot;
 using LandsOfAzerith.scripts.character.mob;
 using LandsOfAzerith.scripts.inventory;
 using LandsOfAzerith.scripts.item;
-using LandsOfAzerith.scripts.item.weapon;
 
 namespace LandsOfAzerith.scripts.character;
 
@@ -27,4 +26,23 @@ public abstract partial class PlayerBackend : Character
     public override uint Speed { get => Statistics.Speed; set => Statistics.Speed = value; }
     public override uint MaxHealthPoints => 100;
     protected readonly List<Mob> InRangeMobs = new List<Mob>();
+    
+    public override bool TakeDamage(Character attacker, uint damage)
+    {
+        if (HealthPoints <= damage)
+        {
+            HealthPoints = 0;
+            Die();
+            UpdateHealthBar();
+
+            return true;
+        }
+        else
+        {
+            HealthPoints -= damage;
+            UpdateHealthBar();
+
+            return false;
+        }
+    }
 }

@@ -21,6 +21,9 @@ GameManager="*res://scripts/GameManager.cs"
 
 [display]
 
+window/size/mode=3
+window/size/resizable=false
+window/size/borderless=true
 window/vsync/vsync_mode=0
 
 [dotnet]

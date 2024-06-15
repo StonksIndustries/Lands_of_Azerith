@@ -1,12 +1,9 @@
-using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using Godot;
-using Godot.Collections;
-using LandsOfAzerith.scripts.character;
 using LandsOfAzerith.scripts.quests;
 
-namespace LandsOfAzerith.scripts;
+namespace LandsOfAzerith.scripts.character;
 
 public class Statistics
 {
@@ -31,4 +28,5 @@ public class Statistics
     public uint HealthPoints { get; set; }
     public uint Speed { get; set; }
     public Vector2 Position { get => Player.Position; set => Player.Position = value; }
+    public Vector2 Checkpoint { get; set; }
 }

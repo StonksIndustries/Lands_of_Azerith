@@ -1,90 +1,50 @@
 using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Text.Json;
 using Godot;
 using LandsOfAzerith.scripts.item;
-using LandsOfAzerith.scripts.item.weapon;
 using FileAccess = Godot.FileAccess;
 
 namespace LandsOfAzerith.scripts.character.mob;
 
 public abstract partial class Mob : Character
 {
+    public static string MobPath = "res://mobs/";
+    public MobStats Stats { get; set; }
+    public string MobId { get; set;}
+    public override uint HealthPoints { get => Stats.HealthPoints; set => Stats.HealthPoints = value; }
+    public override Weapon Weapon { get => Stats.Weapon; set => Stats.Weapon = value; }
+    public override uint Speed { get => Stats.Speed; set => Stats.Speed = value; }
     private uint _cooldown = 0;
-    private Random _random = new Random();
-    private Vector2 _poi = Vector2.Zero;
-    protected abstract Character? Aggro { get; set; }
+    protected readonly Random Random = new Random();
+    protected Character? Aggro { get; set; }
     protected abstract string LootTable { get; }
     
     protected NavigationAgent2D _navAgent;
+    private PackedScene _floorItemScene;
     
     public override void _Ready()
     {
+        base._Ready();
         _navAgent = GetNode<NavigationAgent2D>("NavigationAgent2D");
-    }
-    
-    private void Wander()
-    {
-        if (_cooldown > 0)
-        {
-            _cooldown--;
-        }
-        else if (_poi == Position)
-        {
-            _cooldown = 100;
-            _poi = Vector2.Zero;
-        }
-        else if (_poi != Vector2.Zero)
-        {
-            // Pathfinding to the point of interest.
-            WalkTo(_poi);
-        }
-        else if (_random.Next(0, 5000) < 1)
-        {
-            _poi = new Vector2(Position.X + _random.Next(-100, 100), Position.Y + _random.Next(-100, 100));
-            _poi = new Vector2(
-                x: Mathf.Clamp(_poi.X, 1, PlayerNode.ScreenSize.X),
-                y: Mathf.Clamp(_poi.Y, 1, PlayerNode.ScreenSize.Y)
-            );
-        }
-    }
-
-    private void WalkTo(Vector2 poi)
-    {
-        throw new NotImplementedException();
+        _navAgent.TargetPosition = Position;
+        _floorItemScene = GD.Load<PackedScene>("res://scenes/inventory/floor_item.tscn");
     }
     
     private void DropLoot()
     {
-        if (!FileAccess.FileExists(LootTable))
+        var lootTable = Stats.LootTable;
+        foreach (var item in lootTable)
         {
-            GD.PrintErr($"Error parsing loot table: {LootTable} does not exist.");
-            return;
+            var floorItem = _floorItemScene.Instantiate<FloorItem>();
+            if (floorItem != null) 
+            {
+                floorItem.Item = InventoryItem.Load(item);
+                floorItem.Position = Position;
+                GetParent().AddChild(floorItem);
+            }
         }
-        
-        var file = FileAccess.Open(LootTable, FileAccess.ModeFlags.Read);
-        Json json = new Json();
-        var error = json.Parse(file.GetAsText());
-        file.Close();
-        
-        if (error != Error.Ok)
-        {
-            GD.PrintErr($"Error parsing loot table: {json.GetErrorMessage()} at line {json.GetErrorLine()}.");
-            return;
-        }
-        
-        var lootTable = (Godot.Collections.Dictionary) json.Data;
-        InventoryItem? item = FilterType((string) lootTable["type"]);
-        
-        if (item == null)
-        {
-            GD.PrintErr($"Error parsing loot table: {lootTable["type"]} is not a valid item type.");
-            return;
-        }
-        
-        //item.Icon = (string) lootTable["icon"];
-        
-        Node2D loot = GD.Load<PackedScene>("res://scenes/inventory/floor_item.tscn").Instantiate<Area2D>();
-        loot.Position = Position;
-        GetParent().AddChild(loot);
     }
     
     public override void Die()
@@ -92,15 +52,62 @@ public abstract partial class Mob : Character
         DropLoot();
         QueueFree();
     }
-    
-    private InventoryItem? FilterType(string type)
+
+    protected virtual void _on_aggro_zone_entered(Node2D body)
     {
-        return type switch
+        if (Aggro is null && body is PlayerNode player)
         {
-            "meleeWeapon" => new MeleeWeapon(),
-            "rangedWeapon" => new RangedWeapon(),
-            "stackingItem" => new StackingItem(),
-            _ => null
+            Aggro = player;
+        }
+    }
+    
+    private void _on_de_aggro_zone_exited(Node2D body)
+    {
+        if (body == Aggro)
+        {
+            Aggro = null;
+            _navAgent.TargetPosition = Position;
+        }
+    }
+    
+    public override bool TakeDamage(Character attacker, uint damage)
+    {
+        Aggro = attacker;
+        
+        if (HealthPoints <= damage)
+        {
+            HealthPoints = 0;
+            Die();
+            UpdateHealthBar();
+
+            return true;
+        }
+        else
+        {
+            HealthPoints -= damage;
+            UpdateHealthBar();
+
+            return false;
+        }
+    }
+    
+    private void _on_wandering_timer_timeout()
+    {
+        if (Aggro is null && Random.Next(0, 3) < 1)
+        {
+            _navAgent.TargetPosition = new Vector2(Position.X + Random.Next(-300, 300), Position.Y + Random.Next(-300, 300));
+        }
+    }
+
+    public void LoadStats()
+    {
+        Stats = Toolbox.LoadFileInJson<MobStats>(MobPath + MobId + ".json") ?? new MobStats
+        {
+            HealthPoints = MaxHealthPoints,
+            LootTable = new List<string>(),
+            MobId = "",
+            Speed = 0,
+            Weapon = (Weapon) InventoryItem.Load("default_weapon")!
         };
     }
 }

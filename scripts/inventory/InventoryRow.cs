@@ -27,17 +27,4 @@ public partial class InventoryRow : Control
 			}
 		}
 	}
-	
-	public Godot.Collections.Dictionary<string, Variant> Save()
-	{
-		var result = new Godot.Collections.Dictionary<string, Variant>()
-		{
-			{ nameof(Name), Name }
-		};
-		foreach (var slot in _slots)
-		{
-			result.Add(slot.Name, slot.Save());
-		}
-		return result;
-	}
 }

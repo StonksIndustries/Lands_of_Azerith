@@ -6,6 +6,7 @@ using LandsOfAzerith.scripts;
 using System.Linq;
 using System.Text.Json;
 using LandsOfAzerith.scripts.character;
+using LandsOfAzerith.scripts.inventory;
 using LandsOfAzerith.scripts.main_menu;
 using LandsOfAzerith.scripts.quests;
 using LandsOfAzerith.scripts.quests.goals;
@@ -15,11 +16,11 @@ namespace LandsOfAzerith.scripts;
 
 public partial class MainMenu : Control
 {
-	[Export]
-	private int _port = 8901;
-
-	[Export]
-	private string _address = "127.0.0.1";
+	[Export] private int _port = 8901;
+	[Export] private string _address = "127.0.0.1";
+	
+	private PackedScene _playerScene = GD.Load<PackedScene>("res://scenes/player.tscn");
+	private PackedScene _inventoryScene = GD.Load<PackedScene>("res://scenes/inventory/inventory.tscn");
 
 	private ENetMultiplayerPeer _peer = new ENetMultiplayerPeer();
 	
@@ -32,43 +33,6 @@ public partial class MainMenu : Control
 		Multiplayer.ConnectionFailed += ConnectionFailed;
 
 		GetNode<ServerBrowser>("ServerBrowser").JoinServer += JoinServer;
-
-		// For testing purposes
-		/*var file2 = File.Create("quests/test2.json");
-		file2.Write(JsonSerializer.Serialize(JsonSerializer.Deserialize<Quest>(File.ReadAllText("quests/test.json")), new JsonSerializerOptions{WriteIndented = true, IncludeFields = true}).ToAsciiBuffer());
-		file2.Close();
-		var file = File.OpenRead("quests/test.json");
-		file.Write(JsonSerializer.Serialize(new Quest
-		{
-			Description = "Test quest",
-			Name = "Test",
-			Goals = new List<Goal>
-			{
-				new HaveItem
-				{
-					TargetGoal = 3,
-					UseStatistics = false,
-					ItemId = "1",
-					StartAmount = 0
-				},
-				new KillMob
-				{
-					TargetGoal = 5,
-					UseStatistics = true,
-					MobId = "3",
-					StartAmount = 2
-				},
-				new GoToPlace
-				{
-					Coordinates = new Vector2(3,4),
-					Radius = 5,
-					TargetGoal = 1,
-					UseStatistics = false
-				}
-			},
-			Rewards = new List<Reward>()
-		}, new JsonSerializerOptions{WriteIndented = true, IncludeFields = true}).ToAsciiBuffer());
-		file.Close();*/
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -175,12 +139,19 @@ public partial class MainMenu : Control
 	private void StartGame()
 	{
 		GetNode<ServerBrowser>("ServerBrowser").Clean();
+		GetTree().Root.AddChild(new Node2D()
+		{
+			YSortEnabled = true,
+			Name = "Base"
+		});
+		
 		if (GetTree().HasGroup("World"))
 		{
 			return;
 		}
-		var scene = ResourceLoader.Load<PackedScene>("res://scenes/world.tscn").Instantiate<Node2D>();
-		GetTree().Root.AddChild(scene);
+		var scene = ResourceLoader.Load<PackedScene>("res://scenes/emberwood.tscn").Instantiate<Node2D>();
+		GetTree().Root.GetNode("/root/Base").AddChild(scene);
+		InstantiatePlayers();
 		Hide();
 		foreach (var item in GameManager.Players)
 		{
@@ -215,5 +186,55 @@ public partial class MainMenu : Control
 	{
 		GetNode<Button>("Host").Disabled = true;
 		GetNode<Button>("Join").Disabled = true;
+	}
+	
+	private void InstantiatePlayers()
+	{
+		foreach (PlayerInfo item in GameManager.Players)
+		{
+			Rpc(nameof(InstantiateIndividualPlayer), item.Id);
+		}
+	}
+
+	[Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true)]
+	private void InstantiateIndividualPlayer(int id)
+	{
+		PlayerInfo playerInfo = GameManager.GetPlayer(id)!;
+		if (GetNodeOrNull(playerInfo.Id.ToString()) != null)
+			return;
+
+		PlayerNode currentPlayerNode = _playerScene.Instantiate<PlayerNode>();
+		currentPlayerNode.Name = playerInfo.Id.ToString();
+		GetTree().Root.GetNode("/root/Base").AddChild(currentPlayerNode);
+		
+		// Need to load existing statistics or default
+		currentPlayerNode.Statistics = new Statistics();
+		currentPlayerNode.CurrentWorld = (Node2D) GetTree().Root.GetNode("/root/Base").GetChildren().First(e => e is not PlayerNode);
+
+		var nameLabel = currentPlayerNode.GetNode<Label>("Name");
+		if (playerInfo.Name == "")
+			nameLabel.Text += playerInfo.Number.ToString();
+		else
+			nameLabel.Text = playerInfo.Name;
+
+		// Only adds to the controlled player
+		if (playerInfo.Id == Multiplayer.GetUniqueId())
+		{
+			// Adds the camera to the player
+			int zoom = 2;
+			var camera = new Camera2D
+			{
+				Name = "Camera",
+				Zoom = new Vector2(zoom, zoom)
+			};
+			currentPlayerNode.AddChild(camera);
+
+			// Adds the inventory to the player
+			var inventory = _inventoryScene.Instantiate<Inventory>();
+			inventory.Position = -GetViewportRect().Size / (2 * zoom);
+			inventory.Visible = false;
+			currentPlayerNode.AddChild(inventory);
+			currentPlayerNode.Inventory = inventory;
+		}
 	}
 }

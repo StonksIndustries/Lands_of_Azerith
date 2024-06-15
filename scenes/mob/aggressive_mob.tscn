@@ -1,0 +1,116 @@
+[gd_scene load_steps=13 format=3 uid="uid://bb56pfvbsm56r"]
+
+[ext_resource type="Texture2D" uid="uid://dkj8l2sji7c0m" path="res://characters/slime.png" id="1_56fb0"]
+[ext_resource type="Script" path="res://scripts/character/mob/AggressiveMob.cs" id="1_fax1t"]
+[ext_resource type="PackedScene" uid="uid://bk1s4rsxfmluj" path="res://scenes/health_bar.tscn" id="3_x1unp"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3e2qe"]
+atlas = ExtResource("1_56fb0")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mlmdj"]
+atlas = ExtResource("1_56fb0")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2bxif"]
+atlas = ExtResource("1_56fb0")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t2efi"]
+atlas = ExtResource("1_56fb0")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xasyp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3e2qe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mlmdj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2bxif")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t2efi")
+}],
+"loop": true,
+"name": &"slime",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b5l3a"]
+size = Vector2(14, 5)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0j4dk"]
+radius = 65.0077
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dkcqc"]
+radius = 125.0
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_rvuy8"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("AnimatedSprite2D:animation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("AnimatedSprite2D:frame")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+
+[node name="AggressiveMob" type="CharacterBody2D"]
+y_sort_enabled = true
+motion_mode = 1
+wall_min_slide_angle = 0.0
+script = ExtResource("1_fax1t")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -8)
+sprite_frames = SubResource("SpriteFrames_xasyp")
+animation = &"slime"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+y_sort_enabled = true
+position = Vector2(3, -3.5)
+shape = SubResource("RectangleShape2D_b5l3a")
+
+[node name="AggroZone" type="Area2D" parent="."]
+visible = false
+position = Vector2(0, -8)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AggroZone"]
+shape = SubResource("CircleShape2D_0j4dk")
+
+[node name="DeAggroZone" type="Area2D" parent="."]
+visible = false
+position = Vector2(0, -8)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DeAggroZone"]
+shape = SubResource("CircleShape2D_dkcqc")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_rvuy8")
+
+[node name="HealthBar" parent="." instance=ExtResource("3_x1unp")]
+offset_left = -11.0
+offset_top = 3.0
+offset_right = 11.0
+offset_bottom = 5.0
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+navigation_layers = 3
+path_postprocessing = 1
+avoidance_enabled = true
+avoidance_layers = 3
+avoidance_mask = 3
+debug_enabled = true
+
+[node name="WanderingTimer" type="Timer" parent="."]
+wait_time = 3.93
+autostart = true
+
+[connection signal="body_entered" from="AggroZone" to="." method="_on_aggro_zone_entered"]
+[connection signal="body_exited" from="DeAggroZone" to="." method="_on_de_aggro_zone_exited"]
+[connection signal="timeout" from="WanderingTimer" to="." method="_on_wandering_timer_timeout"]
