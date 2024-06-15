@@ -10,7 +10,8 @@ namespace LandsOfAzerith.scripts.character.mob;
 
 public abstract partial class Mob : Character
 {
-    public static string MobPath = "res://mobs/";
+    public static string LootPath => "res://loot_tables/";
+    public static string MobPath => "res://mobs/";
     public MobStats Stats { get; set; }
     public string MobId { get; set;}
     public override uint HealthPoints { get => Stats.HealthPoints; set => Stats.HealthPoints = value; }

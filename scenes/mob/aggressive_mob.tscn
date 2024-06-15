@@ -59,6 +59,9 @@ properties/1/replication_mode = 1
 properties/2/path = NodePath("AnimatedSprite2D:frame")
 properties/2/spawn = true
 properties/2/replication_mode = 1
+properties/3/path = NodePath("HealthBar:value")
+properties/3/spawn = true
+properties/3/replication_mode = 1
 
 [node name="AggressiveMob" type="CharacterBody2D"]
 y_sort_enabled = true
@@ -91,6 +94,8 @@ position = Vector2(0, -8)
 shape = SubResource("CircleShape2D_dkcqc")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_interval = 0.05
+delta_interval = 0.05
 replication_config = SubResource("SceneReplicationConfig_rvuy8")
 
 [node name="HealthBar" parent="." instance=ExtResource("3_x1unp")]
