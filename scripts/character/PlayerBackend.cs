@@ -21,10 +21,10 @@ public abstract partial class PlayerBackend : Character
     public Statistics Statistics { get; set; }
     public Inventory Inventory { get; set; }
     public override uint Strength { get => Statistics.Strength; set => Statistics.Strength = value; }
-    public override Weapon Weapon { get; set; }
+    public override Weapon Weapon { get; set; } = Toolbox.LoadFileInJson<Weapon>("res://items/default_weapon.json")!;
     public override uint HealthPoints { get => Statistics.HealthPoints; set => Statistics.HealthPoints = value; }
     public override uint Speed { get => Statistics.Speed; set => Statistics.Speed = value; }
-    public override uint MaxHealthPoints => 100;
+    public override uint MaxHealthPoints => 10000;
     protected readonly List<Mob> InRangeMobs = new List<Mob>();
     
     public override bool TakeDamage(Character attacker, uint damage)

@@ -5,6 +5,6 @@ namespace LandsOfAzerith.scripts.item;
 
 public class StackingItem : InventoryItem
 { 
-    public static ulong MaxStack => 100;
+    [JsonIgnore] public static ulong MaxStack => 100;
     public ulong Quantity { get; set; }
 }

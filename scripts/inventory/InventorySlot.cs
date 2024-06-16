@@ -7,6 +7,7 @@ namespace LandsOfAzerith.scripts.inventory;
 public partial class InventorySlot : Control
 {
 	public InventoryItem? Item;
+	public bool IsEmpty => Item == null;
 	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -19,7 +20,7 @@ public partial class InventorySlot : Control
 	{
 	}
 	
-	private void Refresh()
+	public void Refresh()
 	{
 		var texture = GetNodeOrNull<TextureRect>("Texture");
 		var label = GetNodeOrNull<Label>("Label");

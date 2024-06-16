@@ -78,8 +78,8 @@ public abstract partial class Mob : Character
         if (HealthPoints <= damage)
         {
             HealthPoints = 0;
-            Die();
             UpdateHealthBar();
+            Die();
 
             return true;
         }

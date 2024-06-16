@@ -1,0 +1,7 @@
+﻿{
+    "$type": "StackingItem",
+    "Name": "Slimeball",
+    "Description": "A slimeball. It's sticky.",
+    "Rarity": 1,
+    "Quantity": 1
+}

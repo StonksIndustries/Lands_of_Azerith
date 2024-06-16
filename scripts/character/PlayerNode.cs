@@ -209,6 +209,11 @@ public partial class PlayerNode : PlayerBackend
 		{
 			Statistics.Checkpoint = area.Position;
 		}
+		else if (area is FloorItem floorItem)
+		{
+			Inventory.AddItem(floorItem.Item!);
+			floorItem.QueueFree();
+		}
 	}
 }
 
