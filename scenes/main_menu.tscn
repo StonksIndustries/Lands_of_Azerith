@@ -11,9 +11,9 @@
 [ext_resource type="Texture2D" uid="uid://c1wksw4xbcyil" path="res://assets/Parallax_Backgrounds_Plains/3.png" id="7_7le0d"]
 [ext_resource type="Texture2D" uid="uid://bsbkc8mom5xv7" path="res://assets/Parallax_Backgrounds_Plains/2.png" id="8_olua8"]
 [ext_resource type="Texture2D" uid="uid://dj8ct0lbwf4l5" path="res://assets/Parallax_Backgrounds_Plains/1.png" id="9_sek85"]
-[ext_resource type="Theme" path="res://scenes/tres/menu_button.tres" id="11_cx6tj"]
+[ext_resource type="Theme" uid="uid://bg8aoju3bewig" path="res://scenes/tres/menu_button.tres" id="11_cx6tj"]
 [ext_resource type="FontFile" uid="uid://tgo75c5h1cix" path="res://assets/fonts/Enchanted Land.otf" id="12_n5ufp"]
-[ext_resource type="Theme" path="res://scenes/tres/menu_server_browser.tres" id="14_655uk"]
+[ext_resource type="Theme" uid="uid://cctgkdwur36q4" path="res://scenes/tres/menu_server_browser.tres" id="14_655uk"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_4rrlm"]
 font = ExtResource("12_n5ufp")
@@ -208,9 +208,6 @@ script = ExtResource("2_d7qug")
 
 [node name="Timer" type="Timer" parent="Browser/ServerBrowser"]
 
-[node name="ServerList" type="VBoxContainer" parent="Browser/ServerBrowser"]
-layout_mode = 2
-
 [node name="Header" type="HBoxContainer" parent="Browser/ServerBrowser"]
 layout_mode = 2
 
@@ -241,7 +238,13 @@ size_flags_horizontal = 3
 theme = ExtResource("14_655uk")
 text = "Refresh"
 
+[node name="ServerList" type="VBoxContainer" parent="Browser/ServerBrowser"]
+layout_mode = 2
+
 [connection signal="button_down" from="Buttons/Start" to="." method="_on_start_button_down"]
 [connection signal="button_down" from="Buttons/Join" to="." method="_on_join_button_down"]
 [connection signal="button_down" from="Buttons/Host" to="." method="_on_host_button_down"]
 [connection signal="button_down" from="Buttons/Exit" to="." method="_on_quit_button_down"]
+[connection signal="timeout" from="Browser/ServerBrowser/RefreshTimer" to="Browser/ServerBrowser" method="_on_refresh"]
+[connection signal="timeout" from="Browser/ServerBrowser/Timer" to="Browser/ServerBrowser" method="_on_timer_timeout"]
+[connection signal="pressed" from="Browser/ServerBrowser/Header/RefreshButton" to="Browser/ServerBrowser" method="_on_refresh"]

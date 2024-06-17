@@ -10,7 +10,7 @@ public partial class ServerBrowser : Control
 	[Export] private PacketPeerUdp? _broadcaster;
 	[Export] private PacketPeerUdp _listener = new PacketPeerUdp();
 	[Export] private int _listenPort = 8900;
-	[Export] private int _hostPort = 8901;
+	[Export] private int _hostPort = 8902;
 	[Export] private string _broadcastAdrress = "192.168.1.255";
 	[Export] private PackedScene _serverInfoScene = GD.Load<PackedScene>("res://scenes/server_info.tscn");
 	[Signal] public delegate void JoinServerEventHandler(string serverIp);
@@ -48,6 +48,8 @@ public partial class ServerBrowser : Control
 		var error = _broadcaster.Bind(_hostPort);
 		if (error == Error.Ok)
 			GD.Print("Broadcaster bound to port: " + _hostPort);
+		else 
+			GD.Print(error);
 			
 		
 		_broadcastTimer.Start();
