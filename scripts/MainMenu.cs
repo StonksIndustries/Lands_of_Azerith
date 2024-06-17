@@ -202,6 +202,7 @@ public partial class MainMenu : Control
 		
 		// Need to load existing statistics or default
 		currentPlayerNode.Statistics = new Statistics();
+		currentPlayerNode.ChangeHealth(currentPlayerNode.MaxHealthPoints);
 		currentPlayerNode.Position = new Vector2(527, 406);
 		currentPlayerNode.CurrentWorld = (Map) GetTree().Root.GetNode("/root/Base").GetChildren().First(e => e is Map);
 
