@@ -30,4 +30,9 @@ public partial class InventoryRow : Control
 			}
 		}
 	}
+	
+	public void Refresh()
+	{
+		Slots.ForEach(e => e.Refresh());
+	}
 }
