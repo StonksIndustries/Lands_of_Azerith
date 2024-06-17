@@ -20,6 +20,10 @@ public abstract class InventoryItem
     public Rarity Rarity { get; set; }
     public static InventoryItem? Load(string itemId)
     {
-        return Toolbox.LoadFileInJson<InventoryItem>(Path + itemId + ".json");
+        var item = Toolbox.LoadFileInJson<InventoryItem>(Path + itemId + ".json");
+        if (item != null)
+            item.WeaponId = itemId;
+        
+        return item;
     }
 }
