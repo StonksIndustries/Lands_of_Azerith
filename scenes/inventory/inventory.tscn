@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://b2koe1nbsl0qy" path="res://scenes/inventory/inventory_row.tscn" id="1_dfu6k"]
 
 [node name="Inventory" type="GridContainer"]
+z_index = 1
 offset_right = 40.0
 offset_bottom = 40.0
 theme_override_constants/h_separation = 64

@@ -25,7 +25,6 @@ public partial class PlayerNode : PlayerBackend
 		MultiplayerSynchronizer = GetNode<MultiplayerSynchronizer>("MultiplayerSynchronizer");
 		MultiplayerSynchronizer.SetMultiplayerAuthority(Toolbox.ToInt(Name));
 		
-		ChangeHealth(MaxHealthPoints);
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

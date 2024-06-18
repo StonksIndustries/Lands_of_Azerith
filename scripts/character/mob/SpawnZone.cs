@@ -17,20 +17,28 @@ public partial class SpawnZone : Area2D
 	public override void _Ready()
 	{
 		CollisionShape2D.Shape = new RectangleShape2D { Size = ZoneSize };
+		if (GetMultiplayerAuthority() != 1)
+			GetNode<Timer>("Timer").Stop();
 	}
 	
 	private void _on_respawn_timeout()
 	{
 		if (Mobs.Count < MaxMobs)
 		{
-			var mob = MobScene.Instantiate<Mob>();
-			mob.MobId = MobId;
 			Rect2 rect = CollisionShape2D.Shape.GetRect();
-			Vector2 spawnPosition = new Vector2(_random.Next((int)rect.Size.X), _random.Next((int)rect.Size.Y));
-			mob.Position = GlobalPosition + rect.Position + spawnPosition;
-			mob.LoadStats();
-			GetParent().AddChild(mob);
-			Mobs.Add(mob);
+			Vector2 spawnPosition = GlobalPosition + rect.Position + new Vector2(_random.Next((int)rect.Size.X), _random.Next((int)rect.Size.Y));
+			Rpc("SpawnMob", spawnPosition);
 		}
+	}
+	
+	[Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true)]
+	private void SpawnMob(Vector2 position)
+	{
+		var mob = MobScene.Instantiate<Mob>();
+		mob.MobId = MobId;
+		mob.Position = position;
+		mob.LoadStats();
+		GetParent().AddChild(mob);
+		Mobs.Add(mob);
 	}
 }

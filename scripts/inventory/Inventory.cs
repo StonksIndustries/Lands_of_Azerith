@@ -36,6 +36,14 @@ public partial class Inventory : Control
 	public void AddItem(InventoryItem item)
 	{
 		if (IsEmpty)
+		{
 			Rows.First(e => e.IsEmpty).Slots.First(e => e.IsEmpty).Item = item;
+			Refresh();
+		}
+	}
+	
+	public void Refresh()
+	{
+		Rows.ForEach(e => e.Refresh());
 	}
 }

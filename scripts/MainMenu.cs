@@ -8,7 +8,7 @@ using LandsOfAzerith.scripts.poi;
 namespace LandsOfAzerith.scripts;
 public partial class MainMenu : Control
 {
-	[Export] private int _port = 8901;
+	[Export] private int _port = 8902;
 	[Export] private string _address = "127.0.0.1";
 	
 	private PackedScene _playerScene = GD.Load<PackedScene>("res://scenes/player.tscn");
@@ -56,14 +56,7 @@ public partial class MainMenu : Control
 		{
 			GD.Print("Player " + id + " disconnected!");
 			GameManager.Players.Remove(GameManager.Players.First(i => i.Id == id));
-			var players = GetTree().GetNodesInGroup("Player");
-			foreach (var item in players)
-			{
-				if (item.Name == id.ToString())
-				{
-					item.QueueFree();
-				}
-			}
+			GetTree().Root.GetNode("/root/Base/" + id).QueueFree();
 		}
 	}
 
@@ -185,7 +178,7 @@ public partial class MainMenu : Control
 	{
 		foreach (PlayerInfo item in GameManager.Players)
 		{
-			Rpc(nameof(InstantiateIndividualPlayer), item.Id);
+			InstantiateIndividualPlayer((int)item.Id);
 		}
 	}
 
@@ -200,8 +193,9 @@ public partial class MainMenu : Control
 		currentPlayerNode.Name = playerInfo.Id.ToString();
 		GetTree().Root.GetNode("/root/Base").AddChild(currentPlayerNode);
 		
-		// Need to load existing statistics or default
+		// To do : Need to load existing statistics or default
 		currentPlayerNode.Statistics = new Statistics();
+		currentPlayerNode.ChangeHealth(currentPlayerNode.MaxHealthPoints);
 		currentPlayerNode.Position = new Vector2(527, 406);
 		currentPlayerNode.CurrentWorld = (Map) GetTree().Root.GetNode("/root/Base").GetChildren().First(e => e is Map);
 

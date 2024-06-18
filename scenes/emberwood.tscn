@@ -1,11 +1,12 @@
-[gd_scene load_steps=7 format=3 uid="uid://d1f5rs3ys2rt6"]
+[gd_scene load_steps=8 format=3 uid="uid://d1f5rs3ys2rt6"]
 
 [ext_resource type="Script" path="res://scripts/poi/Map.cs" id="1_8j1j7"]
 [ext_resource type="TileSet" uid="uid://bgm5yhuyxgqed" path="res://scenes/tres/emberwood.tres" id="2_1lhv2"]
 [ext_resource type="PackedScene" uid="uid://cw0ak84nt2d4v" path="res://scenes/poi/check_point.tscn" id="2_8rdqn"]
 [ext_resource type="PackedScene" uid="uid://dwaqec5ivvtyr" path="res://scenes/poi/transition.tscn" id="3_gg8nc"]
 [ext_resource type="PackedScene" uid="uid://m2xwptxqfr3r" path="res://scenes/spawn_zone.tscn" id="5_ai3i5"]
-[ext_resource type="PackedScene" uid="uid://bb56pfvbsm56r" path="res://scenes/mob/aggressive_mob.tscn" id="6_0tx23"]
+[ext_resource type="PackedScene" uid="uid://bpi6m7n8ps2fp" path="res://scenes/mob/fleeing_mob.tscn" id="5_rlji6"]
+[ext_resource type="PackedScene" uid="uid://cwq6lh1xbwva2" path="res://scenes/mob/passive_mob.tscn" id="7_fvyfn"]
 
 [node name="Emberwood" type="Node2D"]
 y_sort_enabled = true
@@ -30,48 +31,24 @@ layer_2/tile_data = PackedInt32Array(2752567, 524288, 18, 2818104, 524288, 18, 2
 [node name="CheckPoint" parent="." instance=ExtResource("2_8rdqn")]
 position = Vector2(526, 406)
 
-[node name="SpawnZone" parent="." instance=ExtResource("5_ai3i5")]
-position = Vector2(3896, 803)
-MobScene = ExtResource("6_0tx23")
-MobId = "slime"
-MaxMobs = 1
+[node name="CheckPoint2" parent="." instance=ExtResource("2_8rdqn")]
+position = Vector2(2493, 2570)
 
 [node name="Transition" parent="." instance=ExtResource("3_gg8nc")]
 position = Vector2(2633, 2)
 NextSceneId = "prairie_paradise"
 NextScenePosition = Vector2(4400, 5700)
 
-[node name="SpawnZone2" parent="." instance=ExtResource("5_ai3i5")]
-position = Vector2(1859, 1401)
-MobScene = ExtResource("6_0tx23")
-MobId = "slime"
-MaxMobs = 2
-ZoneSize = Vector2(200, 200)
-
-[node name="SpawnZone3" parent="." instance=ExtResource("5_ai3i5")]
-position = Vector2(4106, 1867)
-MobScene = ExtResource("6_0tx23")
+[node name="Fleeing" parent="." instance=ExtResource("5_ai3i5")]
+position = Vector2(3896, 803)
+MobScene = ExtResource("5_rlji6")
 MobId = "slime"
 MaxMobs = 2
 ZoneSize = Vector2(100, 100)
 
-[node name="SpawnZone5" parent="." instance=ExtResource("5_ai3i5")]
-position = Vector2(3068, 3577)
-MobScene = ExtResource("6_0tx23")
-MobId = "slime"
-MaxMobs = 1
-ZoneSize = Vector2(300, 300)
-
-[node name="SpawnZone6" parent="." instance=ExtResource("5_ai3i5")]
-position = Vector2(4158, 2951)
-MobScene = ExtResource("6_0tx23")
-MobId = "slime"
-MaxMobs = 1
-ZoneSize = Vector2(300, 300)
-
-[node name="SpawnZone7" parent="." instance=ExtResource("5_ai3i5")]
-position = Vector2(506, 3266)
-MobScene = ExtResource("6_0tx23")
+[node name="Passive" parent="." instance=ExtResource("5_ai3i5")]
+position = Vector2(1859, 1401)
+MobScene = ExtResource("7_fvyfn")
 MobId = "slime"
 MaxMobs = 2
-ZoneSize = Vector2(10, 10)
+ZoneSize = Vector2(200, 200)

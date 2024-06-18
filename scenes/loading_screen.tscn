@@ -2,7 +2,8 @@
 
 [ext_resource type="Texture2D" uid="uid://bilid54bjnvbv" path="res://assets/loading_screen.png" id="1_hexbh"]
 
-[node name="TextureRect" type="TextureRect"]
+[node name="LoadingScreen" type="TextureRect"]
+z_index = 1
 offset_right = 1920.0
 offset_bottom = 1080.0
 texture = ExtResource("1_hexbh")
