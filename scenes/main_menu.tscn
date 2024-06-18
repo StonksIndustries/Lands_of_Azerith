@@ -39,10 +39,9 @@ ScrollSpeed = 50
 
 [node name="Sky" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2(0.1, 0.1)
-motion_mirroring = Vector2(1920, 0)
+motion_mirroring = Vector2(1920, 1)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Sky"]
-texture_filter = 1
 scale = Vector2(5, 5)
 texture = ExtResource("2_ln8en")
 centered = false
@@ -137,7 +136,6 @@ offset_left = 126.0
 offset_top = 493.0
 offset_right = 614.0
 offset_bottom = 993.0
-metadata/_edit_group_ = true
 
 [node name="Start" type="Button" parent="Buttons"]
 layout_mode = 2
@@ -182,7 +180,6 @@ offset_left = 886.0
 offset_top = 488.0
 offset_right = 1656.0
 offset_bottom = 1029.0
-metadata/_edit_group_ = true
 
 [node name="Infos" type="HBoxContainer" parent="Browser"]
 layout_mode = 2
